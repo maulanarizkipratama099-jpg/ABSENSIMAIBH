@@ -1,0 +1,3554 @@
+<!doctype html>
+<html lang="id" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>✨ Absensi Digital | MAS IBNU HUSAIN</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/_sdk/data_sdk.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      position: relative;
+    }
+
+    /* Animated background elements */
+    .bg-animated {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      overflow: hidden;
+    }
+
+    .bg-circle {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.05);
+      animation: float 20s infinite;
+    }
+
+    .bg-circle:nth-child(1) {
+      width: 300px;
+      height: 300px;
+      top: -150px;
+      right: -150px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+    }
+
+    .bg-circle:nth-child(2) {
+      width: 400px;
+      height: 400px;
+      bottom: -200px;
+      left: -200px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.03) 100%);
+      animation-delay: -5s;
+    }
+
+    .bg-circle:nth-child(3) {
+      width: 200px;
+      height: 200px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: linear-gradient(135deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%);
+      animation: pulse 10s infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(5deg); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.3; }
+      50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.5; }
+    }
+
+    /* Glass morphism effects */
+    .glass {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+      transition: all 0.3s ease;
+    }
+
+    .glass-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 48px rgba(31, 38, 135, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+    }
+
+    /* Modern button styles */
+    .btn-modern {
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      z-index: 1;
+    }
+
+    .btn-modern::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+      z-index: -1;
+    }
+
+    .btn-modern:hover::before {
+      width: 300px;
+      height: 300px;
+    }
+
+    /* Gradient text */
+    .gradient-text {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Status badges */
+    .status-badge {
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.3s ease;
+    }
+
+    .status-badge.hadir {
+      background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+      color: white;
+      box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);
+    }
+
+    .status-badge.izin {
+      background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+      color: white;
+      box-shadow: 0 4px 10px rgba(245, 158, 11, 0.3);
+    }
+
+    .status-badge.sakit {
+      background: linear-gradient(135deg, #ef4444 0%, #f87171 100%);
+      color: white;
+      box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3);
+    }
+
+    .status-badge.absen {
+      background: linear-gradient(135deg, #6b7280 0%, #9ca3af 100%);
+      color: white;
+      box-shadow: 0 4px 10px rgba(107, 114, 128, 0.3);
+    }
+
+    /* Modern input styles */
+    .modern-input {
+      background: rgba(255, 255, 255, 0.9);
+      border: 2px solid transparent;
+      border-radius: 12px;
+      padding: 10px 16px;
+      transition: all 0.3s ease;
+      font-size: 14px;
+    }
+
+    .modern-input:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+      background: white;
+    }
+
+    /* Navigation buttons */
+    .nav-btn {
+      position: relative;
+      padding: 12px 24px;
+      border-radius: 12px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .nav-btn.active {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+    }
+
+    /* Stat cards */
+    .stat-card {
+      background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.9) 100%);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 20px;
+      padding: 24px;
+      transition: all 0.3s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Loading animation */
+    .loader {
+      width: 48px;
+      height: 48px;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: #667eea;
+      animation: spin 1s ease-in-out infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Fade in animations */
+    .fade-in {
+      animation: fadeIn 0.5s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Modal styles */
+    .modal-content {
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 24px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      animation: modalSlideIn 0.3s ease-out;
+    }
+
+    @keyframes modalSlideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-50px) scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    /* Print styles */
+    @media print {
+      .no-print { display: none !important; }
+      body { background: white !important; }
+      .glass-card { box-shadow: none !important; border: 1px solid #ddd !important; }
+    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.05);
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+    }
+
+    /* Print styles for rekap */
+    @media print {
+      .print-header {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .print-school-name {
+        font-size: 18px;
+        font-weight: bold;
+        color: #000;
+      }
+      .print-title {
+        font-size: 16px;
+        font-weight: bold;
+        margin: 10px 0;
+      }
+      .print-period {
+        font-size: 12px;
+        color: #666;
+        margin-bottom: 20px;
+      }
+      .print-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+      }
+      .print-table th {
+        background: #f0f0f0 !important;
+        color: #000 !important;
+        font-weight: bold;
+        padding: 8px;
+        border: 1px solid #000;
+      }
+      .print-table td {
+        padding: 6px;
+        border: 1px solid #000;
+      }
+      .print-signature {
+        margin-top: 50px;
+        text-align: right;
+      }
+      .print-signature-line {
+        margin-top: 60px;
+        padding-right: 50px;
+      }
+      .print-footer {
+        margin-top: 30px;
+        font-size: 10px;
+        color: #666;
+        text-align: center;
+      }
+      .status-hadir-print { background-color: #10b981; color: white; }
+      .status-izin-print { background-color: #f59e0b; color: white; }
+      .status-sakit-print { background-color: #ef4444; color: white; }
+      .status-absen-print { background-color: #6b7280; color: white; }
+    }
+  </style>
+</head>
+<body class="font-sans antialiased">
+  <!-- Animated Background -->
+  <div class="bg-animated">
+    <div class="bg-circle"></div>
+    <div class="bg-circle"></div>
+    <div class="bg-circle"></div>
+  </div>
+
+  <div id="app" class="min-h-full relative">
+    <!-- Loading State -->
+    <div id="loading" class="fixed inset-0 flex items-center justify-center z-50 bg-opacity-90" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+      <div class="text-center">
+        <div class="loader mx-auto mb-4"></div>
+        <p class="text-white text-lg font-semibold">Memuat Aplikasi...</p>
+        <p class="text-white text-opacity-80 text-sm mt-2" id="loadingStatus">Inisialisasi data...</p>
+      </div>
+    </div>
+
+    <!-- Main App -->
+    <div id="mainApp" class="hidden">
+      <!-- Navigation -->
+      <nav class="glass sticky top-0 z-40 no-print">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="flex justify-between items-center h-20">
+            <!-- Logo and School Name -->
+            <div class="flex items-center space-x-4">
+              <div id="logoNav" 
+                   class="w-12 h-12 bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl flex items-center justify-center cursor-pointer hover:from-blue-700 hover:to-purple-700 transition-all duration-300 relative group shadow-lg"
+                   onclick="document.getElementById('logoUpload').click()">
+                <span class="text-white font-bold text-xl">🏫</span>
+                <div class="absolute inset-0 bg-black bg-opacity-40 rounded-xl flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                  <i class="fas fa-camera text-white text-sm"></i>
+                </div>
+              </div>
+              <input type="file" id="logoUpload" accept="image/*" class="hidden">
+              <div>
+                <h1 id="namaSekolahNav" class="text-xl font-bold gradient-text">MAS IBNU HUSAIN</h1>
+                <p class="text-sm text-gray-600">Sistem Absensi Digital</p>
+              </div>
+            </div>
+
+            <!-- Navigation Buttons -->
+            <div class="flex space-x-2">
+              <button id="btnAbsensi" class="nav-btn flex items-center space-x-2 px-6 py-3 rounded-xl font-semibold transition-all duration-300 bg-white text-gray-700 hover:bg-gray-50">
+                <i class="fas fa-clipboard-list"></i>
+                <span>Absensi</span>
+              </button>
+              <button id="btnJadwal" class="nav-btn flex items-center space-x-2 px-6 py-3 rounded-xl font-semibold transition-all duration-300 bg-white text-gray-700 hover:bg-gray-50">
+                <i class="fas fa-calendar-alt"></i>
+                <span>Jadwal</span>
+              </button>
+              <button id="btnRekap" class="nav-btn flex items-center space-x-2 px-6 py-3 rounded-xl font-semibold transition-all duration-300 bg-white text-gray-700 hover:bg-gray-50">
+                <i class="fas fa-chart-bar"></i>
+                <span>Rekap</span>
+              </button>
+              <button id="btnGuru" class="nav-btn flex items-center space-x-2 px-6 py-3 rounded-xl font-semibold transition-all duration-300 bg-white text-gray-700 hover:bg-gray-50">
+                <i class="fas fa-chalkboard-teacher"></i>
+                <span>Data Guru</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Page 1: Absensi -->
+      <div id="pageAbsensi" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- School Identity Card -->
+        <div class="glass-card rounded-2xl p-8 mb-8 fade-in">
+          <div class="text-center mb-8">
+            <div class="flex justify-center mb-6">
+              <div id="logoMain" 
+                   class="w-24 h-24 bg-gradient-to-br from-blue-600 to-purple-600 rounded-2xl flex items-center justify-center cursor-pointer hover:from-blue-700 hover:to-purple-700 transition-all duration-300 relative group shadow-xl"
+                   onclick="document.getElementById('logoUpload').click()">
+                <span class="text-white text-4xl">🏫</span>
+                <div class="absolute inset-0 bg-black bg-opacity-40 rounded-2xl flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                  <i class="fas fa-camera text-white"></i>
+                </div>
+              </div>
+            </div>
+            
+            <h1 id="namaSekolah" class="text-4xl font-bold gradient-text mb-4">MAS IBNU HUSAIN</h1>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+              <div class="space-y-3 text-left">
+                <div class="flex items-center space-x-2">
+                  <i class="fas fa-id-card text-blue-600 w-6"></i>
+                  <p><span class="font-semibold text-gray-700">NPSN:</span> <span id="npsn" class="text-gray-900">60728117</span></p>
+                </div>
+                <div class="flex items-center space-x-2">
+                  <i class="fas fa-map-marker-alt text-blue-600 w-6"></i>
+                  <p><span class="font-semibold text-gray-700">Desa/Kelurahan:</span> <span id="kelurahan" class="text-gray-900">SIDOTOPO</span></p>
+                </div>
+                <div class="flex items-center space-x-2">
+                  <i class="fas fa-city text-blue-600 w-6"></i>
+                  <p><span class="font-semibold text-gray-700">Kecamatan:</span> <span id="kecamatan" class="text-gray-900">KEC. SEMAMPIR</span></p>
+                </div>
+              </div>
+              <div class="space-y-3 text-left">
+                <div class="flex items-center space-x-2">
+                  <i class="fas fa-building text-blue-600 w-6"></i>
+                  <p><span class="font-semibold text-gray-700">Kab/Kota:</span> <span id="kota" class="text-gray-900">KOTA SURABAYA</span></p>
+                </div>
+                <div class="flex items-center space-x-2">
+                  <i class="fas fa-road text-blue-600 w-6"></i>
+                  <p><span class="font-semibold text-gray-700">Alamat:</span> <span id="alamat" class="text-gray-900">JL. Irawati 1 No. 15-17</span></p>
+                </div>
+                <div class="flex items-center space-x-2">
+                  <i class="fas fa-calendar-day text-blue-600 w-6"></i>
+                  <p><span class="font-semibold text-gray-700">Tanggal:</span> <span id="tanggalHari" class="text-gray-900"></span></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Date Settings -->
+        <div class="glass-card rounded-2xl p-8 mb-8 no-print fade-in">
+          <h3 class="text-xl font-bold gradient-text mb-6 flex items-center">
+            <i class="fas fa-calendar-alt mr-3 text-2xl"></i>
+            Pengaturan Tanggal Absensi
+          </h3>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Date Input Controls -->
+            <div class="space-y-4">
+              <div class="flex items-center gap-4">
+                <label class="text-sm font-semibold text-gray-700 w-20">Tanggal:</label>
+                <div class="flex-1 flex items-center">
+                  <button id="btnTanggalSebelum" class="px-4 py-3 bg-gradient-to-r from-gray-600 to-gray-700 text-white rounded-l-xl hover:from-gray-700 hover:to-gray-800 transition-all duration-300 shadow-md">
+                    <i class="fas fa-chevron-left"></i>
+                  </button>
+                  <input type="date" id="inputTanggal" class="flex-1 px-4 py-3 border-y border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm">
+                  <button id="btnTanggalSesudah" class="px-4 py-3 bg-gradient-to-r from-gray-600 to-gray-700 text-white rounded-r-xl hover:from-gray-700 hover:to-gray-800 transition-all duration-300 shadow-md">
+                    <i class="fas fa-chevron-right"></i>
+                  </button>
+                </div>
+              </div>
+
+              <div class="flex flex-wrap gap-3">
+                <button id="btnSetTanggal" class="flex-1 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 font-semibold shadow-lg btn-modern">
+                  <i class="fas fa-calendar-check mr-2"></i>
+                  Set Tanggal
+                </button>
+                <button id="btnHariIni" class="flex-1 px-6 py-3 bg-gradient-to-r from-gray-600 to-gray-700 text-white rounded-xl hover:from-gray-700 hover:to-gray-800 transition-all duration-300 font-semibold shadow-lg btn-modern">
+                  <i class="fas fa-calendar-day mr-2"></i>
+                  Hari Ini
+                </button>
+              </div>
+
+              <div class="bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-4">
+                <p class="text-sm">
+                  <span class="font-semibold text-gray-700">Tanggal Aktif:</span>
+                  <span id="tanggalAktif" class="ml-2 font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600"></span>
+                </p>
+              </div>
+            </div>
+
+            <!-- Day Navigation -->
+            <div>
+              <h4 class="text-sm font-semibold text-gray-700 mb-4 flex items-center">
+                <i class="fas fa-chevron-circle-right text-blue-600 mr-2"></i>
+                Navigasi Berdasarkan Hari:
+              </h4>
+              <div class="grid grid-cols-4 gap-2">
+                <button id="btnSenin" class="px-3 py-3 bg-white text-purple-700 rounded-xl hover:bg-purple-50 transition-all duration-300 text-sm font-medium border border-purple-200 shadow-sm" onclick="goToDay('senin')">
+                  Senin
+                </button>
+                <button id="btnSelasa" class="px-3 py-3 bg-white text-purple-700 rounded-xl hover:bg-purple-50 transition-all duration-300 text-sm font-medium border border-purple-200 shadow-sm" onclick="goToDay('selasa')">
+                  Selasa
+                </button>
+                <button id="btnRabu" class="px-3 py-3 bg-white text-purple-700 rounded-xl hover:bg-purple-50 transition-all duration-300 text-sm font-medium border border-purple-200 shadow-sm" onclick="goToDay('rabu')">
+                  Rabu
+                </button>
+                <button id="btnKamis" class="px-3 py-3 bg-white text-purple-700 rounded-xl hover:bg-purple-50 transition-all duration-300 text-sm font-medium border border-purple-200 shadow-sm" onclick="goToDay('kamis')">
+                  Kamis
+                </button>
+                <button id="btnJumat" class="px-3 py-3 bg-white text-purple-700 rounded-xl hover:bg-purple-50 transition-all duration-300 text-sm font-medium border border-purple-200 shadow-sm" onclick="goToDay('jumat')">
+                  Jumat
+                </button>
+                <button id="btnSabtu" class="px-3 py-3 bg-white text-purple-700 rounded-xl hover:bg-purple-50 transition-all duration-300 text-sm font-medium border border-purple-200 shadow-sm" onclick="goToDay('sabtu')">
+                  Sabtu
+                </button>
+                <button id="btnMinggu" class="px-3 py-3 bg-white text-purple-700 rounded-xl hover:bg-purple-50 transition-all duration-300 text-sm font-medium border border-purple-200 shadow-sm" onclick="goToDay('minggu')">
+                  Minggu
+                </button>
+              </div>
+              <p class="mt-3 text-xs text-gray-500 flex items-center">
+                <i class="fas fa-info-circle text-blue-500 mr-1"></i>
+                Klik hari untuk navigasi cepat. Hari aktif akan ditandai.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="glass-card rounded-2xl p-8 mb-8 no-print fade-in">
+          <div class="flex flex-wrap items-center justify-between gap-4">
+            <div class="flex gap-3">
+              <button id="btnHadirSemua" class="px-8 py-4 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-xl hover:from-green-600 hover:to-emerald-600 transition-all duration-300 font-semibold shadow-lg btn-modern flex items-center">
+                <i class="fas fa-check-circle mr-2 text-xl"></i>
+                Hadir Semua
+              </button>
+            </div>
+            <div class="flex gap-3">
+              <button id="btnKirim" class="px-8 py-4 bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-xl hover:from-orange-600 hover:to-red-600 transition-all duration-300 font-semibold shadow-lg btn-modern flex items-center">
+                <i class="fas fa-paper-plane mr-2 text-xl"></i>
+                Kirim
+              </button>
+            </div>
+          </div>
+
+          <!-- Save Indicator -->
+          <div id="saveIndicator" class="hidden mt-4 p-4 bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 text-green-700 rounded-xl saved-indicator flex items-center">
+            <i class="fas fa-check-circle text-green-500 mr-3 text-xl"></i>
+            <span class="font-medium">✅ Absensi telah disimpan otomatis</span>
+          </div>
+        </div>
+
+        <!-- Teacher Table -->
+        <div class="glass-card rounded-2xl overflow-hidden fade-in">
+          <div class="p-8 border-b border-gray-200 bg-gradient-to-r from-gray-50 to-white">
+            <h2 class="text-2xl font-bold gradient-text flex items-center">
+              <i class="fas fa-chalkboard-teacher mr-3"></i>
+              Daftar Absensi Guru
+            </h2>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="modern-table w-full">
+              <thead>
+                <tr>
+                  <th class="text-center">No</th>
+                  <th>No. Induk</th>
+                  <th>Nama Guru</th>
+                  <th>Mata Pelajaran</th>
+                  <th class="text-center">Status</th>
+                  <th>Keterangan</th>
+                  <th class="text-center no-print">Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="teacherTableBody">
+                <!-- Teachers will be populated here -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Page 2: Jadwal -->
+      <div id="pageJadwal" class="hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Jadwal Header -->
+        <div class="glass-card rounded-2xl p-8 mb-8 fade-in">
+          <div class="flex items-center justify-between mb-6">
+            <h2 class="text-3xl font-bold gradient-text flex items-center">
+              <i class="fas fa-calendar-alt mr-3"></i>
+              Jadwal Pelajaran
+            </h2>
+          </div>
+          <p class="text-gray-600 mb-6">Atur jadwal mengajar guru untuk setiap hari dalam seminggu. Absensi akan disesuaikan dengan jadwal yang telah ditetapkan.</p>
+          
+          <div class="flex flex-wrap gap-4">
+            <button id="btnTambahJadwal" class="px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl hover:from-purple-700 hover:to-pink-700 transition-all duration-300 font-semibold shadow-lg btn-modern flex items-center">
+              <i class="fas fa-plus-circle mr-2"></i>
+              Tambah Jadwal
+            </button>
+            <button id="btnHapusSemuaJadwal" class="px-8 py-4 bg-gradient-to-r from-red-600 to-pink-600 text-white rounded-xl hover:from-red-700 hover:to-pink-700 transition-all duration-300 font-semibold shadow-lg btn-modern flex items-center">
+              <i class="fas fa-trash-alt mr-2"></i>
+              Hapus Semua Jadwal
+            </button>
+          </div>
+        </div>
+
+        <!-- Schedule Table -->
+        <div class="glass-card rounded-2xl overflow-hidden fade-in">
+          <div class="p-8 border-b border-gray-200 bg-gradient-to-r from-gray-50 to-white">
+            <h3 class="text-xl font-bold gradient-text flex items-center">
+              <i class="fas fa-list-alt mr-3"></i>
+              Daftar Jadwal Mengajar
+            </h3>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="modern-table w-full">
+              <thead>
+                <tr>
+                  <th class="text-center">No</th>
+                  <th>No. Induk</th>
+                  <th>Nama Guru</th>
+                  <th>Mata Pelajaran</th>
+                  <th class="text-center">Senin</th>
+                  <th class="text-center">Selasa</th>
+                  <th class="text-center">Rabu</th>
+                  <th class="text-center">Kamis</th>
+                  <th class="text-center">Jumat</th>
+                  <th class="text-center">Sabtu</th>
+                  <th class="text-center">Minggu</th>
+                  <th class="text-center">Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="scheduleTableBody">
+                <!-- Schedule will be populated here -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Page 3: Data Guru -->
+      <div id="pageGuru" class="hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Guru Header -->
+        <div class="glass-card rounded-2xl p-8 mb-8 fade-in">
+          <h2 class="text-3xl font-bold gradient-text mb-4 flex items-center">
+            <i class="fas fa-chalkboard-teacher mr-3"></i>
+            Manajemen Data Guru
+          </h2>
+          <p class="text-gray-600 mb-6">Kelola data guru, tambah guru baru, import data dari Excel/CSV, dan atur informasi guru secara terpusat.</p>
+
+          <div class="flex flex-wrap gap-4 mb-6">
+            <button id="btnTambahGuru" class="px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 font-semibold shadow-lg btn-modern flex items-center">
+              <i class="fas fa-user-plus mr-2"></i>
+              Tambah Guru
+            </button>
+            <input type="file" id="importExcel" accept=".xlsx,.xls,.csv" class="hidden">
+            <button id="btnImport" class="px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl hover:from-purple-700 hover:to-pink-700 transition-all duration-300 font-semibold shadow-lg btn-modern flex items-center">
+              <i class="fas fa-file-import mr-2"></i>
+              Import Excel/CSV
+            </button>
+            <button id="btnHapusSemuaGuru" class="px-8 py-4 bg-gradient-to-r from-red-600 to-pink-600 text-white rounded-xl hover:from-red-700 hover:to-pink-700 transition-all duration-300 font-semibold shadow-lg btn-modern flex items-center">
+              <i class="fas fa-trash-alt mr-2"></i>
+              Hapus Semua Data
+            </button>
+          </div>
+
+          <!-- Import Instructions -->
+          <div class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-6 border border-blue-100">
+            <h4 class="font-semibold text-blue-800 mb-3 flex items-center">
+              <i class="fas fa-info-circle mr-2"></i>
+              Petunjuk Import Data:
+            </h4>
+            <ul class="text-sm text-blue-700 space-y-2">
+              <li class="flex items-center"><i class="fas fa-file-excel mr-2 w-4"></i>Format file: Excel (.xlsx, .xls) atau CSV (.csv)</li>
+              <li class="flex items-center"><i class="fas fa-columns mr-2 w-4"></i>Kolom A: No. Induk Guru</li>
+              <li class="flex items-center"><i class="fas fa-columns mr-2 w-4"></i>Kolom B: Nama Lengkap Guru</li>
+              <li class="flex items-center"><i class="fas fa-columns mr-2 w-4"></i>Kolom C: Mata Pelajaran Utama</li>
+              <li class="flex items-center"><i class="fas fa-columns mr-2 w-4"></i>Kolom D: Mata Pelajaran Tambahan (opsional)</li>
+              <li class="flex items-center"><i class="fas fa-info-circle mr-2 w-4"></i>Baris pertama akan diabaikan (header)</li>
+              <li class="flex items-center"><i class="fas fa-info-circle mr-2 w-4"></i>Mata pelajaran tambahan pisahkan dengan koma</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Statistics -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          <div class="stat-card hover:shadow-2xl transition-all duration-300">
+            <div class="text-4xl mb-3 text-blue-600">
+              <i class="fas fa-users"></i>
+            </div>
+            <div class="text-3xl font-bold text-blue-600" id="totalGuruCount">0</div>
+            <div class="text-sm text-gray-600 font-medium">Total Guru</div>
+          </div>
+          <div class="stat-card hover:shadow-2xl transition-all duration-300">
+            <div class="text-4xl mb-3 text-purple-600">
+              <i class="fas fa-calendar-check"></i>
+            </div>
+            <div class="text-3xl font-bold text-purple-600" id="guruTerjadwalCount">0</div>
+            <div class="text-sm text-gray-600 font-medium">Guru Terjadwal</div>
+          </div>
+          <div class="stat-card hover:shadow-2xl transition-all duration-300">
+            <div class="text-4xl mb-3 text-green-600">
+              <i class="fas fa-user-check"></i>
+            </div>
+            <div class="text-3xl font-bold text-green-600" id="guruAktifCount">0</div>
+            <div class="text-sm text-gray-600 font-medium">Guru Aktif Hari Ini</div>
+          </div>
+        </div>
+
+        <!-- Teacher Management Table -->
+        <div class="glass-card rounded-2xl overflow-hidden fade-in">
+          <div class="p-8 border-b border-gray-200 bg-gradient-to-r from-gray-50 to-white">
+            <h3 class="text-xl font-bold gradient-text flex items-center">
+              <i class="fas fa-list-alt mr-3"></i>
+              Daftar Data Guru
+            </h3>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="modern-table w-full">
+              <thead>
+                <tr>
+                  <th class="text-center">No</th>
+                  <th>No. Induk</th>
+                  <th>Nama Guru</th>
+                  <th>Mata Pelajaran Utama</th>
+                  <th>Mata Pelajaran Tambahan</th>
+                  <th class="text-center">Status Jadwal</th>
+                  <th class="text-center">Tanggal Ditambah</th>
+                  <th class="text-center">Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="guruManagementTableBody">
+                <!-- Teachers will be populated here -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Page 4: Rekap -->
+      <div id="pageRekap" class="hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Rekap Header -->
+        <div class="glass-card rounded-2xl p-8 mb-8 fade-in">
+          <h2 class="text-3xl font-bold gradient-text mb-6 flex items-center">
+            <i class="fas fa-chart-pie mr-3"></i>
+            Rekapitulasi Kehadiran
+          </h2>
+
+          <!-- Date Range Filter -->
+          <div class="bg-gradient-to-r from-gray-50 to-white rounded-xl p-6 mb-6 border border-gray-200">
+            <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+              <i class="fas fa-calendar-range mr-2 text-blue-600"></i>
+              Filter Periode Tanggal
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+              <div class="flex flex-col">
+                <label class="text-sm font-medium text-gray-700 mb-2">Dari Tanggal:</label>
+                <input type="date" id="tanggalMulai" class="modern-input w-full">
+              </div>
+              <div class="flex flex-col">
+                <label class="text-sm font-medium text-gray-700 mb-2">Sampai Tanggal:</label>
+                <input type="date" id="tanggalSelesai" class="modern-input w-full">
+              </div>
+            </div>
+            <div class="flex flex-wrap gap-3">
+              <button id="btnFilterTanggal" class="px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-xl hover:from-green-700 hover:to-emerald-700 transition-all duration-300 font-semibold shadow-md btn-modern flex items-center">
+                <i class="fas fa-search mr-2"></i>
+                Filter
+              </button>
+              <button id="btnResetFilter" class="px-6 py-3 bg-gradient-to-r from-gray-600 to-gray-700 text-white rounded-xl hover:from-gray-700 hover:to-gray-800 transition-all duration-300 font-semibold shadow-md btn-modern flex items-center">
+                <i class="fas fa-undo mr-2"></i>
+                Reset
+              </button>
+            </div>
+            <div class="mt-4 p-3 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg">
+              <p class="text-sm">
+                <span class="font-medium text-gray-700">Periode Aktif:</span>
+                <span id="periodeAktif" class="ml-2 font-semibold text-green-600">Semua Data</span>
+              </p>
+            </div>
+          </div>
+
+          <!-- Month Filter and Actions -->
+          <div class="flex flex-wrap gap-4 items-center">
+            <select id="filterBulan" class="modern-input min-w-[200px]">
+              <option value="">Semua Bulan</option>
+              <option value="01">Januari</option>
+              <option value="02">Februari</option>
+              <option value="03">Maret</option>
+              <option value="04">April</option>
+              <option value="05">Mei</option>
+              <option value="06">Juni</option>
+              <option value="07">Juli</option>
+              <option value="08">Agustus</option>
+              <option value="09">September</option>
+              <option value="10">Oktober</option>
+              <option value="11">November</option>
+              <option value="12">Desember</option>
+            </select>
+            <button id="btnCetak" class="px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 font-semibold shadow-md btn-modern flex items-center no-print">
+              <i class="fas fa-print mr-2"></i>
+              Cetak
+            </button>
+            <button id="btnRincianRekap" class="px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl hover:from-purple-700 hover:to-pink-700 transition-all duration-300 font-semibold shadow-md btn-modern flex items-center no-print">
+              <i class="fas fa-table mr-2"></i>
+              Rincian Data Rekap
+            </button>
+          </div>
+        </div>
+
+        <!-- Statistics -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+          <div class="stat-card">
+            <div class="text-4xl mb-3 text-gray-800">
+              <i class="fas fa-users"></i>
+            </div>
+            <div class="text-3xl font-bold text-gray-800" id="totalGuru">0</div>
+            <div class="text-sm text-gray-600 font-medium">Total Guru</div>
+          </div>
+          <div class="stat-card">
+            <div class="text-4xl mb-3 text-green-600">
+              <i class="fas fa-check-circle"></i>
+            </div>
+            <div class="text-3xl font-bold text-green-600" id="totalHadir">0</div>
+            <div class="text-sm text-gray-600 font-medium">Total Hadir</div>
+          </div>
+          <div class="stat-card">
+            <div class="text-4xl mb-3 text-yellow-600">
+              <i class="fas fa-pen"></i>
+            </div>
+            <div class="text-3xl font-bold text-yellow-600" id="totalIzin">0</div>
+            <div class="text-sm text-gray-600 font-medium">Total Izin</div>
+          </div>
+          <div class="stat-card">
+            <div class="text-4xl mb-3 text-red-600">
+              <i class="fas fa-hospital"></i>
+            </div>
+            <div class="text-3xl font-bold text-red-600" id="totalSakit">0</div>
+            <div class="text-sm text-gray-600 font-medium">Total Sakit</div>
+          </div>
+        </div>
+
+        <!-- Rekap Table -->
+        <div class="glass-card rounded-2xl overflow-hidden fade-in">
+          <div class="p-8 border-b border-gray-200 bg-gradient-to-r from-gray-50 to-white flex justify-between items-center">
+            <h3 class="text-xl font-bold gradient-text flex items-center">
+              <i class="fas fa-history mr-3"></i>
+              Detail Kehadiran
+            </h3>
+            <button id="btnHapusSemuaKehadiran" class="px-6 py-3 bg-gradient-to-r from-red-600 to-pink-600 text-white rounded-xl hover:from-red-700 hover:to-pink-700 transition-all duration-300 font-semibold shadow-md btn-modern flex items-center">
+              <i class="fas fa-trash-alt mr-2"></i>
+              Hapus Semua
+            </button>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="modern-table w-full">
+              <thead>
+                <tr>
+                  <th>Tanggal</th>
+                  <th>Nama Guru</th>
+                  <th>Mata Pelajaran</th>
+                  <th class="text-center">Status</th>
+                  <th>Keterangan</th>
+                </tr>
+              </thead>
+              <tbody id="rekapTableBody">
+                <!-- Rekap data will be populated here -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add Schedule Modal -->
+    <div id="addScheduleModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+      <div class="modal-content w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+        <div class="p-8">
+          <h3 class="text-2xl font-bold gradient-text mb-6 flex items-center">
+            <i class="fas fa-plus-circle mr-3 text-purple-600"></i>
+            Tambah Jadwal Mengajar
+          </h3>
+          <form id="addScheduleForm" class="space-y-6">
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-2">Pilih Guru</label>
+              <select id="selectGuru" class="modern-input w-full" required>
+                <option value="">-- Pilih Guru --</option>
+              </select>
+            </div>
+            
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-3">Hari Mengajar</label>
+              <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <label class="flex items-center space-x-2 p-3 bg-gray-50 rounded-xl hover:bg-purple-50 transition-colors cursor-pointer">
+                  <input type="checkbox" name="hari" value="senin" class="w-4 h-4 text-purple-600 rounded focus:ring-purple-500">
+                  <span class="text-sm font-medium">Senin</span>
+                </label>
+                <label class="flex items-center space-x-2 p-3 bg-gray-50 rounded-xl hover:bg-purple-50 transition-colors cursor-pointer">
+                  <input type="checkbox" name="hari" value="selasa" class="w-4 h-4 text-purple-600 rounded focus:ring-purple-500">
+                  <span class="text-sm font-medium">Selasa</span>
+                </label>
+                <label class="flex items-center space-x-2 p-3 bg-gray-50 rounded-xl hover:bg-purple-50 transition-colors cursor-pointer">
+                  <input type="checkbox" name="hari" value="rabu" class="w-4 h-4 text-purple-600 rounded focus:ring-purple-500">
+                  <span class="text-sm font-medium">Rabu</span>
+                </label>
+                <label class="flex items-center space-x-2 p-3 bg-gray-50 rounded-xl hover:bg-purple-50 transition-colors cursor-pointer">
+                  <input type="checkbox" name="hari" value="kamis" class="w-4 h-4 text-purple-600 rounded focus:ring-purple-500">
+                  <span class="text-sm font-medium">Kamis</span>
+                </label>
+                <label class="flex items-center space-x-2 p-3 bg-gray-50 rounded-xl hover:bg-purple-50 transition-colors cursor-pointer">
+                  <input type="checkbox" name="hari" value="jumat" class="w-4 h-4 text-purple-600 rounded focus:ring-purple-500">
+                  <span class="text-sm font-medium">Jumat</span>
+                </label>
+                <label class="flex items-center space-x-2 p-3 bg-gray-50 rounded-xl hover:bg-purple-50 transition-colors cursor-pointer">
+                  <input type="checkbox" name="hari" value="sabtu" class="w-4 h-4 text-purple-600 rounded focus:ring-purple-500">
+                  <span class="text-sm font-medium">Sabtu</span>
+                </label>
+                <label class="flex items-center space-x-2 p-3 bg-gray-50 rounded-xl hover:bg-purple-50 transition-colors cursor-pointer">
+                  <input type="checkbox" name="hari" value="minggu" class="w-4 h-4 text-purple-600 rounded focus:ring-purple-500">
+                  <span class="text-sm font-medium">Minggu</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="flex gap-3 pt-4">
+              <button type="submit" id="btnSimpanJadwal" class="flex-1 px-6 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl hover:from-purple-700 hover:to-pink-700 transition-all duration-300 font-semibold shadow-lg btn-modern">
+                <i class="fas fa-save mr-2"></i>
+                Simpan Jadwal
+              </button>
+              <button type="button" id="btnBatalJadwal" class="flex-1 px-6 py-4 bg-gradient-to-r from-gray-600 to-gray-700 text-white rounded-xl hover:from-gray-700 hover:to-gray-800 transition-all duration-300 font-semibold shadow-lg btn-modern">
+                <i class="fas fa-times mr-2"></i>
+                Batal
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add Teacher Modal -->
+    <div id="addTeacherModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+      <div class="modal-content w-full max-w-md">
+        <div class="p-8">
+          <h3 class="text-2xl font-bold gradient-text mb-6 flex items-center">
+            <i class="fas fa-user-plus mr-3 text-blue-600"></i>
+            Tambah Guru Baru
+          </h3>
+          <form id="addTeacherForm" class="space-y-4">
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-2">No. Induk</label>
+              <input type="text" id="newInduk" class="modern-input w-full" required>
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-2">Nama Guru</label>
+              <input type="text" id="newNama" class="modern-input w-full" required>
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-2">Mata Pelajaran Utama</label>
+              <input type="text" id="newMapel" class="modern-input w-full" required>
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-2">Mata Pelajaran Tambahan</label>
+              <input type="text" id="newMapelTambahan" class="modern-input w-full" placeholder="Opsional - pisahkan dengan koma">
+            </div>
+
+            <div class="flex gap-3 pt-4">
+              <button type="submit" id="btnSimpanGuru" class="flex-1 px-6 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 font-semibold shadow-lg btn-modern">
+                <i class="fas fa-save mr-2"></i>
+                Simpan
+              </button>
+              <button type="button" id="btnBatalTambah" class="flex-1 px-6 py-4 bg-gradient-to-r from-gray-600 to-gray-700 text-white rounded-xl hover:from-gray-700 hover:to-gray-800 transition-all duration-300 font-semibold shadow-lg btn-modern">
+                <i class="fas fa-times mr-2"></i>
+                Batal
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div id="deleteModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+      <div class="modal-content w-full max-w-md">
+        <div class="p-8">
+          <div class="text-center mb-6">
+            <div class="w-20 h-20 bg-gradient-to-r from-red-500 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-4">
+              <i class="fas fa-exclamation-triangle text-white text-4xl"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-800 mb-2">Konfirmasi Hapus</h3>
+            <p class="text-gray-600">Apakah Anda yakin ingin menghapus data ini? Tindakan ini tidak dapat dibatalkan.</p>
+          </div>
+          <div class="flex gap-3">
+            <button id="btnKonfirmasiHapus" class="flex-1 px-6 py-4 bg-gradient-to-r from-red-600 to-pink-600 text-white rounded-xl hover:from-red-700 hover:to-pink-700 transition-all duration-300 font-semibold shadow-lg btn-modern">
+              <i class="fas fa-trash-alt mr-2"></i>
+              Hapus
+            </button>
+            <button id="btnBatalHapus" class="flex-1 px-6 py-4 bg-gradient-to-r from-gray-600 to-gray-700 text-white rounded-xl hover:from-gray-700 hover:to-gray-800 transition-all duration-300 font-semibold shadow-lg btn-modern">
+              <i class="fas fa-times mr-2"></i>
+              Batal
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Global variables with default data
+    let masterTeachers = [];
+    let attendanceRecords = [];
+    let scheduleRecords = [];
+    let currentPage = 'absensi';
+    let teacherToDelete = null;
+    let scheduleToDelete = null;
+    let isLoading = false;
+    let currentDate = new Date().toISOString().split('T')[0];
+    let dateRangeFilter = { start: null, end: null };
+    let sdkInitialized = false;
+
+    // Default configuration
+    const defaultConfig = {
+      logo_sekolah: "🏫",
+      nama_sekolah: "MAS IBNU HUSAIN",
+      npsn: "60728117",
+      alamat: "JL. Irawati 1 No. 15-17",
+      kelurahan: "SIDOTOPO",
+      kecamatan: "KEC. SEMAMPIR",
+      kota: "KOTA SURABAYA"
+    };
+
+    // Default teachers data
+    const defaultTeachers = [
+      { induk: "001", nama: "Maulana Rizky Pratama", mapel: "Matematika" },
+      { induk: "001", nama: "Maulana Rizky Pratama", mapel: "Fisika" },
+      { induk: "002", nama: "Saifulloh", mapel: "Bahasa Indonesia" },
+      { induk: "002", nama: "Saifulloh", mapel: "Bahasa Arab" }
+    ];
+
+    // Data handler for SDK
+    const dataHandler = {
+      onDataChanged(data) {
+        console.log('Data changed:', data);
+        if (data && Array.isArray(data)) {
+          masterTeachers = data.filter(item => item && item.type === 'teacher') || [];
+          attendanceRecords = data.filter(item => item && item.type === 'attendance') || [];
+          scheduleRecords = data.filter(item => item && item.type === 'schedule') || [];
+        }
+        
+        // Always render tables even if data is empty
+        renderTeacherTable();
+        renderScheduleTable();
+        renderRekapTable();
+        updateStatistics();
+        updateGuruSelect();
+        
+        if (currentPage === 'guru') {
+          renderGuruManagementTable();
+          updateGuruStatistics();
+        }
+        
+        // Hide loading after first data load
+        if (!sdkInitialized) {
+          sdkInitialized = true;
+          setTimeout(() => {
+            document.getElementById('loading').classList.add('hidden');
+            document.getElementById('mainApp').classList.remove('hidden');
+          }, 500);
+        }
+      }
+    };
+
+    // Element SDK configuration
+    const elementConfig = {
+      defaultConfig: defaultConfig,
+      onConfigChange: async (config) => {
+        updateLogo(config?.logo_sekolah || defaultConfig.logo_sekolah);
+        
+        document.getElementById('namaSekolah').textContent = config?.nama_sekolah || defaultConfig.nama_sekolah;
+        document.getElementById('namaSekolahNav').textContent = config?.nama_sekolah || defaultConfig.nama_sekolah;
+        document.getElementById('npsn').textContent = config?.npsn || defaultConfig.npsn;
+        document.getElementById('alamat').textContent = config?.alamat || defaultConfig.alamat;
+        document.getElementById('kelurahan').textContent = config?.kelurahan || defaultConfig.kelurahan;
+        document.getElementById('kecamatan').textContent = config?.kecamatan || defaultConfig.kecamatan;
+        document.getElementById('kota').textContent = config?.kota || defaultConfig.kota;
+      }
+    };
+
+    // Initialize app
+    async function initApp() {
+      try {
+        document.getElementById('loadingStatus').textContent = 'Menghubungkan ke SDK...';
+        
+        // Initialize Data SDK with timeout
+        if (window.dataSdk) {
+          try {
+            const initResult = await Promise.race([
+              window.dataSdk.init(dataHandler),
+              new Promise((_, reject) => setTimeout(() => reject(new Error('SDK Timeout')), 3000))
+            ]);
+            
+            if (!initResult?.isOk) {
+              console.warn("SDK initialization failed, using local data");
+              loadLocalData();
+            }
+          } catch (sdkError) {
+            console.warn("SDK error, using local data:", sdkError);
+            loadLocalData();
+          }
+        } else {
+          console.warn("Data SDK not found, using local data");
+          loadLocalData();
+        }
+
+        // Initialize Element SDK if available
+        if (window.elementSdk) {
+          try {
+            window.elementSdk.init(elementConfig);
+          } catch (e) {
+            console.warn("Element SDK init failed:", e);
+          }
+        }
+
+        // Set current date
+        updateDateDisplay();
+        document.getElementById('inputTanggal').value = currentDate;
+        
+        // Initialize date range filter
+        initializeDateRangeFilter();
+
+        // Setup event listeners
+        setupEventListeners();
+        
+        // Show default page
+        showPage('absensi');
+
+      } catch (error) {
+        console.error("Error initializing app:", error);
+        loadLocalData();
+      }
+    }
+
+    // Load local data if SDK fails
+    function loadLocalData() {
+      document.getElementById('loadingStatus').textContent = 'Memuat data lokal...';
+      
+      // Create local data
+      masterTeachers = defaultTeachers.map((teacher, index) => ({
+        id: generateId(),
+        type: 'teacher',
+        induk: teacher.induk,
+        nama: teacher.nama,
+        mapel: teacher.mapel,
+        timestamp: Date.now() - index * 1000
+      }));
+      
+      attendanceRecords = [];
+      scheduleRecords = [];
+      
+      // Render tables
+      renderTeacherTable();
+      renderScheduleTable();
+      renderRekapTable();
+      updateStatistics();
+      updateGuruSelect();
+      
+      if (currentPage === 'guru') {
+        renderGuruManagementTable();
+        updateGuruStatistics();
+      }
+      
+      // Hide loading
+      setTimeout(() => {
+        document.getElementById('loading').classList.add('hidden');
+        document.getElementById('mainApp').classList.remove('hidden');
+      }, 500);
+      
+      sdkInitialized = true;
+    }
+
+    // Generate unique ID
+    function generateId() {
+      return Date.now().toString(36) + Math.random().toString(36).substr(2, 9);
+    }
+
+    // Update logo function
+    function updateLogo(logoValue) {
+      const logoNav = document.getElementById('logoNav');
+      const logoMain = document.getElementById('logoMain');
+      
+      if (logoValue && logoValue.startsWith('data:image/')) {
+        logoNav.innerHTML = `<img src="${logoValue}" alt="Logo" class="w-full h-full object-cover rounded-xl">`;
+        logoMain.innerHTML = `<img src="${logoValue}" alt="Logo" class="w-full h-full object-cover rounded-2xl">`;
+      } else {
+        const displayLogo = logoValue || '🏫';
+        logoNav.innerHTML = `<span class="text-white font-bold text-xl">${displayLogo}</span>`;
+        logoMain.innerHTML = `<span class="text-white text-4xl">${displayLogo}</span>`;
+      }
+    }
+
+    // Handle logo upload
+    function handleLogoUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      
+      if (!file.type.startsWith('image/')) {
+        showCustomAlert('Silakan pilih file gambar yang valid (JPG, PNG, GIF, dll.)');
+        return;
+      }
+      
+      if (file.size > 2 * 1024 * 1024) {
+        showCustomAlert('Ukuran file terlalu besar. Maksimal 2MB.');
+        return;
+      }
+      
+      fileToBase64(file).then(base64 => {
+        if (window.elementSdk) {
+          window.elementSdk.setConfig({ logo_sekolah: base64 });
+        } else {
+          updateLogo(base64);
+        }
+      }).catch(error => {
+        console.error('Error converting file to base64:', error);
+        showCustomAlert('Gagal memproses gambar. Silakan coba lagi.');
+      });
+    }
+
+    // Convert file to base64
+    function fileToBase64(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    }
+
+    // Update date display
+    function updateDateDisplay() {
+      try {
+        const dateObj = new Date(currentDate);
+        document.getElementById('tanggalHari').textContent = dateObj.toLocaleDateString('id-ID', {
+          weekday: 'long',
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        });
+        document.getElementById('tanggalAktif').textContent = dateObj.toLocaleDateString('id-ID', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        });
+        
+        updateDayButtonStyles();
+      } catch (e) {
+        console.warn('Date error:', e);
+      }
+    }
+
+    // Update day button styles to highlight current day
+    function updateDayButtonStyles() {
+      try {
+        const currentDayName = getDayName(currentDate);
+        const dayButtons = ['senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu', 'minggu'];
+        
+        dayButtons.forEach(day => {
+          const button = document.getElementById(`btn${day.charAt(0).toUpperCase() + day.slice(1)}`);
+          if (button) {
+            if (day === currentDayName) {
+              button.className = 'px-3 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl hover:from-purple-700 hover:to-pink-700 transition-all duration-300 text-sm font-medium shadow-lg';
+            } else {
+              button.className = 'px-3 py-3 bg-white text-purple-700 rounded-xl hover:bg-purple-50 transition-all duration-300 text-sm font-medium border border-purple-200 shadow-sm';
+            }
+          }
+        });
+      } catch (e) {
+        console.warn('Day button style error:', e);
+      }
+    }
+
+    // Go to specific day in current week
+    function goToDay(targetDay) {
+      try {
+        const currentDateObj = new Date(currentDate);
+        const currentDayIndex = currentDateObj.getDay();
+        
+        const dayIndices = {
+          'minggu': 0,
+          'senin': 1,
+          'selasa': 2,
+          'rabu': 3,
+          'kamis': 4,
+          'jumat': 5,
+          'sabtu': 6
+        };
+        
+        const targetDayIndex = dayIndices[targetDay];
+        const dayDifference = targetDayIndex - currentDayIndex;
+        
+        const targetDateObj = new Date(currentDateObj);
+        targetDateObj.setDate(currentDateObj.getDate() + dayDifference);
+        
+        currentDate = targetDateObj.toISOString().split('T')[0];
+        document.getElementById('inputTanggal').value = currentDate;
+        
+        updateDateDisplay();
+        renderTeacherTable();
+        showSaveIndicator();
+      } catch (e) {
+        console.warn('Go to day error:', e);
+      }
+    }
+
+    // Set custom date
+    function setCustomDate() {
+      const selectedDate = document.getElementById('inputTanggal').value;
+      if (selectedDate) {
+        currentDate = selectedDate;
+        updateDateDisplay();
+        renderTeacherTable();
+        showSaveIndicator();
+      } else {
+        showCustomAlert("Silakan pilih tanggal terlebih dahulu.");
+      }
+    }
+
+    // Set today's date
+    function setTodayDate() {
+      currentDate = new Date().toISOString().split('T')[0];
+      document.getElementById('inputTanggal').value = currentDate;
+      updateDateDisplay();
+      renderTeacherTable();
+      showSaveIndicator();
+    }
+
+    // Go to previous date
+    function goToPreviousDate() {
+      const currentDateObj = new Date(currentDate);
+      currentDateObj.setDate(currentDateObj.getDate() - 1);
+      currentDate = currentDateObj.toISOString().split('T')[0];
+      document.getElementById('inputTanggal').value = currentDate;
+      updateDateDisplay();
+      renderTeacherTable();
+      showSaveIndicator();
+    }
+
+    // Go to next date
+    function goToNextDate() {
+      const currentDateObj = new Date(currentDate);
+      currentDateObj.setDate(currentDateObj.getDate() + 1);
+      currentDate = currentDateObj.toISOString().split('T')[0];
+      document.getElementById('inputTanggal').value = currentDate;
+      updateDateDisplay();
+      renderTeacherTable();
+      showSaveIndicator();
+    }
+
+    // Initialize date range filter
+    function initializeDateRangeFilter() {
+      try {
+        const today = new Date();
+        const firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
+        const lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+        
+        const startDate = firstDay.toISOString().split('T')[0];
+        const endDate = lastDay.toISOString().split('T')[0];
+        
+        document.getElementById('tanggalMulai').value = startDate;
+        document.getElementById('tanggalSelesai').value = endDate;
+        
+        dateRangeFilter.start = startDate;
+        dateRangeFilter.end = endDate;
+        
+        updatePeriodeAktif();
+      } catch (e) {
+        console.warn('Date range init error:', e);
+      }
+    }
+
+    // Apply date range filter
+    function applyDateRangeFilter() {
+      const startDate = document.getElementById('tanggalMulai').value;
+      const endDate = document.getElementById('tanggalSelesai').value;
+      
+      if (!startDate || !endDate) {
+        showCustomAlert("Silakan pilih tanggal mulai dan tanggal selesai.");
+        return;
+      }
+      
+      if (startDate > endDate) {
+        showCustomAlert("Tanggal mulai tidak boleh lebih besar dari tanggal selesai.");
+        return;
+      }
+      
+      dateRangeFilter.start = startDate;
+      dateRangeFilter.end = endDate;
+      
+      document.getElementById('filterBulan').value = '';
+      
+      updatePeriodeAktif();
+      renderRekapTable();
+      updateStatistics();
+    }
+
+    // Reset date range filter
+    function resetDateRangeFilter() {
+      dateRangeFilter.start = null;
+      dateRangeFilter.end = null;
+      
+      document.getElementById('tanggalMulai').value = '';
+      document.getElementById('tanggalSelesai').value = '';
+      document.getElementById('filterBulan').value = '';
+      
+      updatePeriodeAktif();
+      renderRekapTable();
+      updateStatistics();
+    }
+
+    // Update periode aktif display
+    function updatePeriodeAktif() {
+      const periodeElement = document.getElementById('periodeAktif');
+      
+      if (dateRangeFilter.start && dateRangeFilter.end) {
+        try {
+          const startDate = new Date(dateRangeFilter.start);
+          const endDate = new Date(dateRangeFilter.end);
+          
+          const startFormatted = startDate.toLocaleDateString('id-ID', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric'
+          });
+          
+          const endFormatted = endDate.toLocaleDateString('id-ID', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric'
+          });
+          
+          periodeElement.textContent = `${startFormatted} - ${endFormatted}`;
+        } catch (e) {
+          periodeElement.textContent = 'Semua Data';
+        }
+      } else {
+        periodeElement.textContent = 'Semua Data';
+      }
+    }
+
+    // Setup event listeners
+    function setupEventListeners() {
+      // Navigation
+      document.getElementById('btnAbsensi').addEventListener('click', () => showPage('absensi'));
+      document.getElementById('btnJadwal').addEventListener('click', () => showPage('jadwal'));
+      document.getElementById('btnRekap').addEventListener('click', () => showPage('rekap'));
+      document.getElementById('btnGuru').addEventListener('click', () => showPage('guru'));
+
+      // Attendance controls
+      document.getElementById('btnHadirSemua').addEventListener('click', markAllPresent);
+      document.getElementById('btnKirim').addEventListener('click', sendAttendance);
+
+      // Guru management controls
+      document.getElementById('btnTambahGuru').addEventListener('click', showAddTeacherModal);
+      document.getElementById('btnImport').addEventListener('click', () => document.getElementById('importExcel').click());
+      document.getElementById('btnHapusSemuaGuru').addEventListener('click', deleteAllTeachers);
+
+      // Logo upload
+      document.getElementById('logoUpload').addEventListener('change', handleLogoUpload);
+
+      // Schedule controls
+      document.getElementById('btnTambahJadwal').addEventListener('click', showAddScheduleModal);
+      document.getElementById('btnHapusSemuaJadwal').addEventListener('click', deleteAllSchedules);
+      document.getElementById('btnBatalJadwal').addEventListener('click', hideAddScheduleModal);
+      document.getElementById('addScheduleForm').addEventListener('submit', handleAddSchedule);
+
+      // Modal controls
+      document.getElementById('btnBatalTambah').addEventListener('click', hideAddTeacherModal);
+      document.getElementById('addTeacherForm').addEventListener('submit', handleAddTeacher);
+      document.getElementById('btnBatalHapus').addEventListener('click', hideDeleteModal);
+      document.getElementById('btnKonfirmasiHapus').addEventListener('click', confirmDelete);
+
+      // Import file
+      document.getElementById('importExcel').addEventListener('change', handleImportExcel);
+
+      // Filter
+      document.getElementById('filterBulan').addEventListener('change', () => {
+        renderRekapTable();
+        updateStatistics();
+      });
+
+      // Print
+      document.getElementById('btnCetak').addEventListener('click', printReport);
+      document.getElementById('btnRincianRekap').addEventListener('click', printDetailedReport);
+
+      // Delete all attendance records
+      document.getElementById('btnHapusSemuaKehadiran').addEventListener('click', deleteAllAttendanceRecords);
+
+      // Date controls
+      document.getElementById('btnSetTanggal').addEventListener('click', setCustomDate);
+      document.getElementById('btnHariIni').addEventListener('click', setTodayDate);
+      document.getElementById('btnTanggalSebelum').addEventListener('click', goToPreviousDate);
+      document.getElementById('btnTanggalSesudah').addEventListener('click', goToNextDate);
+      
+      // Date range controls
+      document.getElementById('btnFilterTanggal').addEventListener('click', applyDateRangeFilter);
+      document.getElementById('btnResetFilter').addEventListener('click', resetDateRangeFilter);
+    }
+
+    // Show page
+    function showPage(page) {
+      currentPage = page;
+      document.getElementById('pageAbsensi').classList.toggle('hidden', page !== 'absensi');
+      document.getElementById('pageJadwal').classList.toggle('hidden', page !== 'jadwal');
+      document.getElementById('pageGuru').classList.toggle('hidden', page !== 'guru');
+      document.getElementById('pageRekap').classList.toggle('hidden', page !== 'rekap');
+      
+      // Update navigation buttons
+      const navButtons = {
+        'absensi': 'btnAbsensi',
+        'jadwal': 'btnJadwal',
+        'guru': 'btnGuru',
+        'rekap': 'btnRekap'
+      };
+
+      Object.keys(navButtons).forEach(key => {
+        const btn = document.getElementById(navButtons[key]);
+        if (btn) {
+          if (page === key) {
+            btn.classList.add('active');
+          } else {
+            btn.classList.remove('active');
+          }
+        }
+      });
+
+      if (page === 'rekap') {
+        updateStatistics();
+      } else if (page === 'jadwal') {
+        updateGuruSelect();
+      } else if (page === 'guru') {
+        renderGuruManagementTable();
+        updateGuruStatistics();
+      }
+    }
+
+    // Get day name from date
+    function getDayName(dateString) {
+      try {
+        const date = new Date(dateString);
+        const days = ['minggu', 'senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu'];
+        return days[date.getDay()];
+      } catch (e) {
+        return 'senin';
+      }
+    }
+
+    // Get teachers scheduled for specific day
+    function getScheduledTeachers(dayName) {
+      if (!scheduleRecords || !masterTeachers) return [];
+      
+      const scheduledTeacherIds = scheduleRecords
+        .filter(schedule => schedule && schedule[dayName] === true)
+        .map(schedule => schedule.teacher_id);
+      
+      return masterTeachers.filter(teacher => teacher && scheduledTeacherIds.includes(teacher.id));
+    }
+
+    // Render teacher table
+    function renderTeacherTable() {
+      const tbody = document.getElementById('teacherTableBody');
+      if (!tbody) return;
+      
+      const currentDayName = getDayName(currentDate);
+      const scheduledTeachers = getScheduledTeachers(currentDayName);
+      const todayAttendance = attendanceRecords.filter(record => record && record.tanggal === currentDate);
+      
+      if (!scheduledTeachers || scheduledTeachers.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="7" class="px-4 py-12 text-center">
+              <div class="text-5xl mb-4 text-gray-400">📅</div>
+              <div class="text-lg text-gray-600 mb-2">Tidak ada guru yang dijadwalkan mengajar pada hari <span class="font-bold text-purple-600">${currentDayName.charAt(0).toUpperCase() + currentDayName.slice(1)}</span></div>
+              <div class="text-sm text-gray-500">Silakan atur jadwal di halaman <span class="font-semibold">Jadwal Pelajaran</span></div>
+            </td>
+          </tr>
+        `;
+        return;
+      }
+      
+      tbody.innerHTML = scheduledTeachers.map((teacher, index) => {
+        if (!teacher) return '';
+        const attendance = todayAttendance.find(record => record && record.teacher_id === teacher.id);
+        
+        return `
+          <tr class="hover:bg-gray-50">
+            <td class="px-4 py-4 text-sm text-gray-900 text-center">${index + 1}</td>
+            <td class="px-4 py-4 text-sm text-gray-900">${teacher.induk || ''}</td>
+            <td class="px-4 py-4 text-sm font-medium text-gray-900">${teacher.nama || ''}</td>
+            <td class="px-4 py-4">
+              <input type="text" value="${teacher.mapel || ''}" 
+                     class="modern-input w-full"
+                     onchange="updateTeacherMapel('${teacher.id}', this.value)">
+            </td>
+            <td class="px-4 py-4 text-center">
+              <select class="modern-input" style="${attendance?.status ? getStatusColor(attendance.status) : ''}"
+                      onchange="updateAttendanceStatus('${teacher.id}', this.value)">
+                <option value="">Pilih Status</option>
+                <option value="hadir" ${attendance?.status === 'hadir' ? 'selected' : ''}>✅ Hadir</option>
+                <option value="izin" ${attendance?.status === 'izin' ? 'selected' : ''}>📝 Izin</option>
+                <option value="sakit" ${attendance?.status === 'sakit' ? 'selected' : ''}>🏥 Sakit</option>
+                <option value="absen" ${attendance?.status === 'absen' ? 'selected' : ''}>❌ Absen</option>
+              </select>
+            </td>
+            <td class="px-4 py-4">
+              <input type="text" value="${attendance?.keterangan || ''}" 
+                     class="modern-input w-full"
+                     onchange="updateAttendanceKeterangan('${teacher.id}', this.value)"
+                     placeholder="Keterangan...">
+            </td>
+            <td class="px-4 py-4 text-center no-print">
+              <button onclick="deleteTeacher('${teacher.id}')" 
+                      class="px-4 py-2 bg-gradient-to-r from-red-600 to-pink-600 text-white text-sm rounded-xl hover:from-red-700 hover:to-pink-700 transition-all duration-300 shadow-md btn-modern">
+                <i class="fas fa-trash-alt mr-1"></i>
+                Hapus
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    // Get status color class
+    function getStatusColor(status) {
+      switch (status) {
+        case 'hadir': return 'background: linear-gradient(135deg, #10b981 0%, #34d399 100%); color: white;';
+        case 'izin': return 'background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%); color: white;';
+        case 'sakit': return 'background: linear-gradient(135deg, #ef4444 0%, #f87171 100%); color: white;';
+        case 'absen': return 'background: linear-gradient(135deg, #6b7280 0%, #9ca3af 100%); color: white;';
+        default: return '';
+      }
+    }
+
+    // Update teacher mapel (master data)
+    async function updateTeacherMapel(teacherId, mapel) {
+      if (isLoading || !teacherId) return;
+      isLoading = true;
+      
+      const teacher = masterTeachers.find(t => t && t.id === teacherId);
+      if (teacher) {
+        teacher.mapel = mapel;
+        if (window.dataSdk && sdkInitialized) {
+          await window.dataSdk.update(teacher);
+        }
+        showSaveIndicator();
+      }
+      isLoading = false;
+    }
+
+    // Update attendance status
+    async function updateAttendanceStatus(teacherId, status) {
+      if (isLoading || !teacherId) return;
+      isLoading = true;
+      
+      const teacher = masterTeachers.find(t => t && t.id === teacherId);
+      if (!teacher) {
+        isLoading = false;
+        return;
+      }
+      
+      let attendance = attendanceRecords.find(record => 
+        record && record.teacher_id === teacherId && record.tanggal === currentDate
+      );
+      
+      const attendanceData = {
+        id: attendance ? attendance.id : generateId(),
+        type: 'attendance',
+        teacher_id: teacherId,
+        teacher_induk: teacher.induk,
+        teacher_nama: teacher.nama,
+        teacher_mapel: teacher.mapel,
+        status: status,
+        keterangan: attendance ? attendance.keterangan : '',
+        tanggal: currentDate,
+        timestamp: Date.now()
+      };
+      
+      if (attendance) {
+        Object.assign(attendance, attendanceData);
+        if (window.dataSdk && sdkInitialized) {
+          await window.dataSdk.update(attendance);
+        }
+      } else {
+        attendanceRecords.push(attendanceData);
+        if (window.dataSdk && sdkInitialized) {
+          await window.dataSdk.create(attendanceData);
+        }
+      }
+      
+      showSaveIndicator();
+      isLoading = false;
+    }
+
+    // Update attendance keterangan
+    async function updateAttendanceKeterangan(teacherId, keterangan) {
+      if (isLoading || !teacherId) return;
+      isLoading = true;
+      
+      const teacher = masterTeachers.find(t => t && t.id === teacherId);
+      if (!teacher) {
+        isLoading = false;
+        return;
+      }
+      
+      let attendance = attendanceRecords.find(record => 
+        record && record.teacher_id === teacherId && record.tanggal === currentDate
+      );
+      
+      if (attendance) {
+        attendance.keterangan = keterangan;
+        if (window.dataSdk && sdkInitialized) {
+          await window.dataSdk.update(attendance);
+        }
+      } else if (keterangan.trim()) {
+        const newAttendance = {
+          id: generateId(),
+          type: 'attendance',
+          teacher_id: teacherId,
+          teacher_induk: teacher.induk,
+          teacher_nama: teacher.nama,
+          teacher_mapel: teacher.mapel,
+          status: '',
+          keterangan: keterangan,
+          tanggal: currentDate,
+          timestamp: Date.now()
+        };
+        
+        attendanceRecords.push(newAttendance);
+        if (window.dataSdk && sdkInitialized) {
+          await window.dataSdk.create(newAttendance);
+        }
+      }
+      
+      showSaveIndicator();
+      isLoading = false;
+    }
+
+    // Show save indicator
+    function showSaveIndicator() {
+      const indicator = document.getElementById('saveIndicator');
+      if (indicator) {
+        indicator.classList.remove('hidden');
+        setTimeout(() => {
+          indicator.classList.add('hidden');
+        }, 3000);
+      }
+    }
+
+    // Mark all present
+    async function markAllPresent() {
+      if (isLoading) return;
+      isLoading = true;
+      
+      const btn = document.getElementById('btnHadirSemua');
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Memproses...';
+      }
+      
+      const currentDayName = getDayName(currentDate);
+      const scheduledTeachers = getScheduledTeachers(currentDayName);
+      
+      if (!scheduledTeachers || scheduledTeachers.length === 0) {
+        await showCustomAlert(`Tidak ada guru yang dijadwalkan mengajar pada hari ${currentDayName.charAt(0).toUpperCase() + currentDayName.slice(1)}.`);
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = '<i class="fas fa-check-circle mr-2"></i>Hadir Semua';
+        }
+        isLoading = false;
+        return;
+      }
+      
+      for (const teacher of scheduledTeachers) {
+        if (!teacher) continue;
+        
+        let attendance = attendanceRecords.find(record => 
+          record && record.teacher_id === teacher.id && record.tanggal === currentDate
+        );
+        
+        const attendanceData = {
+          id: attendance ? attendance.id : generateId(),
+          type: 'attendance',
+          teacher_id: teacher.id,
+          teacher_induk: teacher.induk,
+          teacher_nama: teacher.nama,
+          teacher_mapel: teacher.mapel,
+          status: 'hadir',
+          keterangan: attendance ? attendance.keterangan : '',
+          tanggal: currentDate,
+          timestamp: Date.now()
+        };
+        
+        if (attendance) {
+          Object.assign(attendance, attendanceData);
+          if (window.dataSdk && sdkInitialized) {
+            await window.dataSdk.update(attendance);
+          }
+        } else {
+          attendanceRecords.push(attendanceData);
+          if (window.dataSdk && sdkInitialized) {
+            await window.dataSdk.create(attendanceData);
+          }
+        }
+      }
+      
+      if (btn) {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-check-circle mr-2"></i>Hadir Semua';
+      }
+      
+      renderTeacherTable();
+      showSaveIndicator();
+      isLoading = false;
+    }
+
+    // Show add teacher modal
+    function showAddTeacherModal() {
+      const modal = document.getElementById('addTeacherModal');
+      const input = document.getElementById('newInduk');
+      if (modal && input) {
+        modal.classList.remove('hidden');
+        input.focus();
+      }
+    }
+
+    // Hide add teacher modal
+    function hideAddTeacherModal() {
+      const modal = document.getElementById('addTeacherModal');
+      const form = document.getElementById('addTeacherForm');
+      if (modal) modal.classList.add('hidden');
+      if (form) form.reset();
+    }
+
+    // Handle add teacher
+    async function handleAddTeacher(e) {
+      e.preventDefault();
+      if (isLoading) return;
+      
+      if (masterTeachers.length >= 999) {
+        showCustomAlert("Maksimum 999 guru telah tercapai. Silakan hapus beberapa guru terlebih dahulu.");
+        return;
+      }
+      
+      isLoading = true;
+      const btn = document.getElementById('btnSimpanGuru');
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Menyimpan...';
+      }
+      
+      const induk = document.getElementById('newInduk')?.value || '';
+      const nama = document.getElementById('newNama')?.value || '';
+      const mapel = document.getElementById('newMapel')?.value || '';
+      const mapelTambahan = document.getElementById('newMapelTambahan')?.value || '';
+      
+      if (!induk || !nama || !mapel) {
+        showCustomAlert("Harap isi semua field yang wajib diisi.");
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = '<i class="fas fa-save mr-2"></i>Simpan';
+        }
+        isLoading = false;
+        return;
+      }
+      
+      const teacherData = {
+        id: generateId(),
+        type: 'teacher',
+        induk: induk,
+        nama: nama,
+        mapel: mapel,
+        mapel_tambahan: mapelTambahan,
+        timestamp: Date.now()
+      };
+      
+      masterTeachers.push(teacherData);
+      
+      if (window.dataSdk && sdkInitialized) {
+        await window.dataSdk.create(teacherData);
+      }
+      
+      hideAddTeacherModal();
+      renderTeacherTable();
+      renderGuruManagementTable();
+      updateGuruStatistics();
+      showSaveIndicator();
+      showCustomAlert('Guru berhasil ditambahkan!');
+      
+      if (btn) {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-save mr-2"></i>Simpan';
+      }
+      isLoading = false;
+    }
+
+    // Delete teacher
+    function deleteTeacher(id) {
+      teacherToDelete = id;
+      const modal = document.getElementById('deleteModal');
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    // Hide delete modal
+    function hideDeleteModal() {
+      const modal = document.getElementById('deleteModal');
+      if (modal) modal.classList.add('hidden');
+      teacherToDelete = null;
+      scheduleToDelete = null;
+    }
+
+    // Confirm delete
+    async function confirmDelete() {
+      if ((!teacherToDelete && !scheduleToDelete) || isLoading) return;
+      
+      isLoading = true;
+      const btn = document.getElementById('btnKonfirmasiHapus');
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Menghapus...';
+      }
+      
+      if (teacherToDelete) {
+        const teacherIndex = masterTeachers.findIndex(t => t && t.id === teacherToDelete);
+        if (teacherIndex !== -1) {
+          const teacher = masterTeachers[teacherIndex];
+          
+          if (window.dataSdk && sdkInitialized) {
+            await window.dataSdk.delete(teacher);
+          }
+          
+          masterTeachers.splice(teacherIndex, 1);
+          
+          // Delete related attendance records
+          attendanceRecords = attendanceRecords.filter(record => {
+            if (record && record.teacher_id === teacherToDelete) {
+              if (window.dataSdk && sdkInitialized) window.dataSdk.delete(record);
+              return false;
+            }
+            return true;
+          });
+          
+          // Delete related schedule
+          const scheduleIndex = scheduleRecords.findIndex(s => s && s.teacher_id === teacherToDelete);
+          if (scheduleIndex !== -1) {
+            const schedule = scheduleRecords[scheduleIndex];
+            if (window.dataSdk && sdkInitialized) window.dataSdk.delete(schedule);
+            scheduleRecords.splice(scheduleIndex, 1);
+          }
+          
+          hideDeleteModal();
+          renderTeacherTable();
+          renderScheduleTable();
+          renderGuruManagementTable();
+          updateGuruStatistics();
+          showSaveIndicator();
+          showCustomAlert('Data guru berhasil dihapus!');
+        }
+      } else if (scheduleToDelete) {
+        const scheduleIndex = scheduleRecords.findIndex(s => s && s.id === scheduleToDelete);
+        if (scheduleIndex !== -1) {
+          const schedule = scheduleRecords[scheduleIndex];
+          
+          if (window.dataSdk && sdkInitialized) {
+            await window.dataSdk.delete(schedule);
+          }
+          
+          scheduleRecords.splice(scheduleIndex, 1);
+          
+          hideDeleteModal();
+          renderScheduleTable();
+          renderTeacherTable();
+          showSaveIndicator();
+          showCustomAlert('Jadwal berhasil dihapus!');
+        }
+      }
+      
+      if (btn) {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-trash-alt mr-2"></i>Hapus';
+      }
+      isLoading = false;
+    }
+
+    // Handle import Excel
+    async function handleImportExcel(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      
+      const validTypes = [
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        'application/vnd.ms-excel',
+        'text/csv'
+      ];
+      
+      if (!validTypes.includes(file.type) && !file.name.match(/\.(xlsx|xls|csv)$/i)) {
+        showCustomAlert("Format file tidak didukung. Gunakan file Excel (.xlsx, .xls) atau CSV (.csv)");
+        e.target.value = '';
+        return;
+      }
+      
+      if (isLoading) return;
+      isLoading = true;
+      
+      const importBtn = document.getElementById('btnImport');
+      if (importBtn) {
+        importBtn.disabled = true;
+        importBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Mengimpor...';
+      }
+      
+      try {
+        let data;
+        
+        if (file.type === 'text/csv' || file.name.endsWith('.csv')) {
+          data = await parseCSV(file);
+        } else {
+          data = await parseExcel(file);
+        }
+        
+        if (data && data.length > 0) {
+          await importTeachersData(data);
+          showImportSuccess(data.length);
+        } else {
+          showCustomAlert("File kosong atau format tidak sesuai. Pastikan file menggunakan format template yang benar.");
+        }
+        
+      } catch (error) {
+        console.error("Error importing file:", error);
+        showCustomAlert("Gagal mengimpor file. Pastikan format file sesuai dengan template yang disediakan.");
+      }
+      
+      if (importBtn) {
+        importBtn.disabled = false;
+        importBtn.innerHTML = '<i class="fas fa-file-import mr-2"></i>Import Excel';
+      }
+      e.target.value = '';
+      isLoading = false;
+    }
+    
+    // Parse CSV file
+    async function parseCSV(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          try {
+            const csv = e.target.result;
+            const lines = csv.split('\n');
+            const data = [];
+            
+            for (let i = 1; i < lines.length; i++) {
+              const line = lines[i].trim();
+              if (!line) continue;
+              
+              const values = line.split(',').map(v => v.trim().replace(/"/g, ''));
+              if (values.length >= 3) {
+                data.push({
+                  induk: values[0] || '',
+                  nama: values[1] || '',
+                  mapel: values[2] || '',
+                  mapel_tambahan: values[3] || ''
+                });
+              }
+            }
+            
+            resolve(data);
+          } catch (error) {
+            reject(error);
+          }
+        };
+        reader.onerror = reject;
+        reader.readAsText(file);
+      });
+    }
+    
+    // Parse Excel file using SheetJS library
+    async function parseExcel(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          try {
+            if (typeof XLSX === 'undefined') {
+              throw new Error('Library Excel tidak tersedia');
+            }
+            
+            const data = new Uint8Array(e.target.result);
+            const workbook = XLSX.read(data, { type: 'array' });
+            
+            if (!workbook.SheetNames || workbook.SheetNames.length === 0) {
+              throw new Error('File Excel kosong');
+            }
+            
+            const firstSheetName = workbook.SheetNames[0];
+            const worksheet = workbook.Sheets[firstSheetName];
+            
+            const jsonData = XLSX.utils.sheet_to_json(worksheet, { 
+              header: 1,
+              defval: ''
+            });
+            
+            if (!jsonData || jsonData.length === 0) {
+              throw new Error('Sheet Excel kosong');
+            }
+            
+            const parsedData = [];
+            
+            for (let i = 1; i < jsonData.length; i++) {
+              const row = jsonData[i];
+              if (row && row.length >= 3) {
+                const induk = String(row[0] || '').trim();
+                const nama = String(row[1] || '').trim();
+                const mapel = String(row[2] || '').trim();
+                const mapelTambahan = row[3] ? String(row[3]).trim() : '';
+                
+                if (induk && nama && mapel) {
+                  parsedData.push({
+                    induk: induk,
+                    nama: nama,
+                    mapel: mapel,
+                    mapel_tambahan: mapelTambahan
+                  });
+                }
+              }
+            }
+            
+            resolve(parsedData);
+          } catch (error) {
+            console.error('Error parsing Excel:', error);
+            reject(error);
+          }
+        };
+        reader.onerror = () => reject(new Error('Gagal membaca file'));
+        reader.readAsArrayBuffer(file);
+      });
+    }
+    
+    // Import teachers data
+    async function importTeachersData(data) {
+      if (masterTeachers.length + data.length > 999) {
+        showCustomAlert(`Tidak dapat mengimpor ${data.length} guru. Maksimum total adalah 999 guru.`);
+        return;
+      }
+      
+      let successCount = 0;
+      
+      for (const teacherData of data) {
+        if (!teacherData.induk || !teacherData.nama || !teacherData.mapel) continue;
+        
+        const newTeacher = {
+          id: generateId(),
+          type: 'teacher',
+          induk: teacherData.induk,
+          nama: teacherData.nama,
+          mapel: teacherData.mapel,
+          mapel_tambahan: teacherData.mapel_tambahan || '',
+          timestamp: Date.now()
+        };
+        
+        masterTeachers.push(newTeacher);
+        
+        if (window.dataSdk && sdkInitialized) {
+          await window.dataSdk.create(newTeacher);
+        }
+        
+        successCount++;
+      }
+      
+      renderTeacherTable();
+      renderGuruManagementTable();
+      updateGuruStatistics();
+      showCustomAlert(`Berhasil mengimpor ${successCount} guru.`);
+    }
+    
+    // Show import success
+    function showImportSuccess(count) {
+      const indicator = document.getElementById('saveIndicator');
+      if (indicator) {
+        indicator.innerHTML = `<i class="fas fa-check-circle text-green-500 mr-3 text-xl"></i><span class="font-medium">✅ Berhasil mengimpor ${count} data guru</span>`;
+        indicator.classList.remove('hidden');
+        
+        setTimeout(() => {
+          indicator.classList.add('hidden');
+        }, 5000);
+      }
+    }
+
+    // Send attendance
+    function sendAttendance() {
+      const todayAttendance = attendanceRecords.filter(record => record && record.tanggal === currentDate);
+      
+      if (todayAttendance.length === 0) {
+        showCustomAlert("Tidak ada data absensi untuk dikirim.");
+        return;
+      }
+      
+      showCustomAlert(`Absensi untuk ${todayAttendance.length} guru telah dikirim.`);
+    }
+
+    // Render schedule table
+    function renderScheduleTable() {
+      const tbody = document.getElementById('scheduleTableBody');
+      if (!tbody) return;
+      
+      if (!scheduleRecords || scheduleRecords.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="12" class="px-4 py-12 text-center">
+              <div class="text-5xl mb-4 text-gray-400">📅</div>
+              <div class="text-lg text-gray-600 mb-2">Belum ada jadwal mengajar</div>
+              <div class="text-sm text-gray-500">Silakan tambah jadwal baru</div>
+            </td>
+          </tr>
+        `;
+        return;
+      }
+      
+      tbody.innerHTML = scheduleRecords.map((schedule, index) => {
+        if (!schedule) return '';
+        const teacher = masterTeachers.find(t => t && t.id === schedule.teacher_id);
+        if (!teacher) return '';
+        
+        const days = ['senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu', 'minggu'];
+        
+        return `
+          <tr class="hover:bg-gray-50">
+            <td class="px-4 py-4 text-sm text-gray-900 text-center">${index + 1}</td>
+            <td class="px-4 py-4 text-sm text-gray-900">${teacher.induk || ''}</td>
+            <td class="px-4 py-4 text-sm font-medium text-gray-900">${teacher.nama || ''}</td>
+            <td class="px-4 py-4 text-sm text-gray-900">${teacher.mapel || ''}</td>
+            ${days.map(day => `
+              <td class="px-4 py-4 text-center">
+                <input type="checkbox" ${schedule[day] ? 'checked' : ''} 
+                       onchange="updateScheduleDay('${schedule.id}', '${day}', this.checked)"
+                       class="w-5 h-5 text-purple-600 bg-gray-100 border-gray-300 rounded-xl focus:ring-purple-500 cursor-pointer">
+              </td>
+            `).join('')}
+            <td class="px-4 py-4 text-center">
+              <button onclick="deleteSchedule('${schedule.id}')" 
+                      class="px-4 py-2 bg-gradient-to-r from-red-600 to-pink-600 text-white text-sm rounded-xl hover:from-red-700 hover:to-pink-700 transition-all duration-300 shadow-md btn-modern">
+                <i class="fas fa-trash-alt mr-1"></i>
+                Hapus
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    // Update guru select options
+    function updateGuruSelect() {
+      const select = document.getElementById('selectGuru');
+      if (!select) return;
+      
+      const scheduledTeacherIds = (scheduleRecords || [])
+        .map(s => s && s.teacher_id)
+        .filter(id => id);
+      
+      const availableTeachers = (masterTeachers || [])
+        .filter(t => t && !scheduledTeacherIds.includes(t.id));
+      
+      select.innerHTML = '<option value="">-- Pilih Guru --</option>' +
+        availableTeachers.map(teacher => 
+          `<option value="${teacher.id}">${teacher.nama || ''} - ${teacher.mapel || ''}</option>`
+        ).join('');
+    }
+
+    // Show add schedule modal
+    function showAddScheduleModal() {
+      updateGuruSelect();
+      
+      if (!masterTeachers || masterTeachers.length === 0) {
+        showCustomAlert("Belum ada data guru. Silakan tambah guru terlebih dahulu di halaman Data Guru.");
+        return;
+      }
+      
+      const scheduledTeacherIds = (scheduleRecords || []).map(s => s && s.teacher_id).filter(id => id);
+      const availableTeachers = (masterTeachers || []).filter(t => t && !scheduledTeacherIds.includes(t.id));
+      
+      if (availableTeachers.length === 0) {
+        showCustomAlert("Semua guru sudah memiliki jadwal. Silakan hapus jadwal yang ada jika ingin mengubah.");
+        return;
+      }
+      
+      const modal = document.getElementById('addScheduleModal');
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    // Hide add schedule modal
+    function hideAddScheduleModal() {
+      const modal = document.getElementById('addScheduleModal');
+      const form = document.getElementById('addScheduleForm');
+      if (modal) modal.classList.add('hidden');
+      if (form) form.reset();
+    }
+
+    // Handle add schedule
+    async function handleAddSchedule(e) {
+      e.preventDefault();
+      if (isLoading) return;
+      
+      const teacherId = document.getElementById('selectGuru')?.value;
+      const selectedDays = Array.from(document.querySelectorAll('input[name="hari"]:checked'))
+        .map(cb => cb.value);
+      
+      if (!teacherId) {
+        showCustomAlert("Silakan pilih guru terlebih dahulu.");
+        return;
+      }
+      
+      if (selectedDays.length === 0) {
+        showCustomAlert("Silakan pilih minimal satu hari mengajar.");
+        return;
+      }
+      
+      if (scheduleRecords.length >= 999) {
+        showCustomAlert("Maksimum 999 jadwal telah tercapai.");
+        return;
+      }
+      
+      isLoading = true;
+      const btn = document.getElementById('btnSimpanJadwal');
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Menyimpan...';
+      }
+      
+      const teacher = masterTeachers.find(t => t && t.id === teacherId);
+      if (!teacher) {
+        showCustomAlert("Guru tidak ditemukan.");
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = '<i class="fas fa-save mr-2"></i>Simpan Jadwal';
+        }
+        isLoading = false;
+        return;
+      }
+      
+      const scheduleData = {
+        id: generateId(),
+        type: 'schedule',
+        teacher_id: teacherId,
+        teacher_induk: teacher.induk,
+        teacher_nama: teacher.nama,
+        teacher_mapel: teacher.mapel,
+        senin: selectedDays.includes('senin'),
+        selasa: selectedDays.includes('selasa'),
+        rabu: selectedDays.includes('rabu'),
+        kamis: selectedDays.includes('kamis'),
+        jumat: selectedDays.includes('jumat'),
+        sabtu: selectedDays.includes('sabtu'),
+        minggu: selectedDays.includes('minggu'),
+        timestamp: Date.now()
+      };
+      
+      scheduleRecords.push(scheduleData);
+      
+      if (window.dataSdk && sdkInitialized) {
+        await window.dataSdk.create(scheduleData);
+      }
+      
+      hideAddScheduleModal();
+      renderScheduleTable();
+      renderTeacherTable();
+      updateGuruStatistics();
+      showSaveIndicator();
+      showCustomAlert('Jadwal berhasil ditambahkan!');
+      
+      if (btn) {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-save mr-2"></i>Simpan Jadwal';
+      }
+      isLoading = false;
+    }
+
+    // Update schedule day
+    async function updateScheduleDay(scheduleId, day, checked) {
+      if (isLoading || !scheduleId) return;
+      isLoading = true;
+      
+      const schedule = scheduleRecords.find(s => s && s.id === scheduleId);
+      if (schedule) {
+        schedule[day] = checked;
+        if (window.dataSdk && sdkInitialized) {
+          await window.dataSdk.update(schedule);
+        }
+        showSaveIndicator();
+      }
+      isLoading = false;
+    }
+
+    // Delete schedule
+    function deleteSchedule(scheduleId) {
+      scheduleToDelete = scheduleId;
+      const modal = document.getElementById('deleteModal');
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    // Delete all schedules
+    async function deleteAllSchedules() {
+      if (!scheduleRecords || scheduleRecords.length === 0) {
+        showCustomAlert("Tidak ada jadwal untuk dihapus.");
+        return;
+      }
+      
+      const userConfirmed = await showCustomConfirm(
+        `Apakah Anda yakin ingin menghapus semua ${scheduleRecords.length} jadwal?`,
+        'Tindakan ini tidak dapat dibatalkan.'
+      );
+      
+      if (!userConfirmed) return;
+      
+      if (isLoading) return;
+      isLoading = true;
+      
+      const btn = document.getElementById('btnHapusSemuaJadwal');
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Menghapus...';
+      }
+      
+      try {
+        for (const schedule of scheduleRecords) {
+          if (schedule && window.dataSdk && sdkInitialized) {
+            await window.dataSdk.delete(schedule);
+          }
+        }
+        
+        scheduleRecords = [];
+        renderScheduleTable();
+        renderTeacherTable();
+        showSaveIndicator();
+        showCustomAlert('Berhasil menghapus semua jadwal.');
+      } catch (error) {
+        console.error('Error deleting all schedules:', error);
+        showCustomAlert('Gagal menghapus jadwal. Silakan coba lagi.');
+      }
+      
+      if (btn) {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-trash-alt mr-2"></i>Hapus Semua Jadwal';
+      }
+      isLoading = false;
+    }
+
+    // Render rekap table
+    function renderRekapTable() {
+      const tbody = document.getElementById('rekapTableBody');
+      if (!tbody) return;
+      
+      const filterBulan = document.getElementById('filterBulan')?.value || '';
+      
+      let filteredData = (attendanceRecords || []).filter(record => record && record.status);
+      
+      if (dateRangeFilter.start && dateRangeFilter.end) {
+        filteredData = filteredData.filter(record => {
+          return record && record.tanggal >= dateRangeFilter.start && record.tanggal <= dateRangeFilter.end;
+        });
+      } else if (filterBulan) {
+        filteredData = filteredData.filter(record => {
+          return record && record.tanggal && record.tanggal.split('-')[1] === filterBulan;
+        });
+      }
+      
+      filteredData.sort((a, b) => {
+        if (!a || !b) return 0;
+        return new Date(b.tanggal) - new Date(a.tanggal);
+      });
+      
+      if (filteredData.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="5" class="px-4 py-12 text-center">
+              <div class="text-5xl mb-4 text-gray-400">📊</div>
+              <div class="text-lg text-gray-600">Tidak ada data kehadiran untuk periode ini</div>
+            </td>
+          </tr>
+        `;
+      } else {
+        tbody.innerHTML = filteredData.map(record => {
+          if (!record) return '';
+          return `
+            <tr class="hover:bg-gray-50">
+              <td class="px-4 py-4 text-sm text-gray-900">${record.tanggal ? new Date(record.tanggal).toLocaleDateString('id-ID') : '-'}</td>
+              <td class="px-4 py-4 text-sm font-medium text-gray-900">${record.teacher_nama || ''}</td>
+              <td class="px-4 py-4 text-sm text-gray-900">${record.teacher_mapel || ''}</td>
+              <td class="px-4 py-4 text-center">
+                <span class="status-badge ${record.status || ''}">
+                  ${record.status === 'hadir' ? '✅' : record.status === 'izin' ? '📝' : record.status === 'sakit' ? '🏥' : '❌'} ${(record.status || '').toUpperCase()}
+                </span>
+              </td>
+              <td class="px-4 py-4 text-sm text-gray-900">${record.keterangan || '-'}</td>
+            </tr>
+          `;
+        }).join('');
+      }
+    }
+
+    // Update statistics
+    function updateStatistics() {
+      const filterBulan = document.getElementById('filterBulan')?.value || '';
+      let filteredData = (attendanceRecords || []).filter(record => record && record.status);
+      
+      if (dateRangeFilter.start && dateRangeFilter.end) {
+        filteredData = filteredData.filter(record => {
+          return record && record.tanggal >= dateRangeFilter.start && record.tanggal <= dateRangeFilter.end;
+        });
+      } else if (filterBulan) {
+        filteredData = filteredData.filter(record => {
+          return record && record.tanggal && record.tanggal.split('-')[1] === filterBulan;
+        });
+      }
+      
+      const stats = {
+        total: new Set(filteredData.map(record => record && record.teacher_id).filter(id => id)).size,
+        hadir: filteredData.filter(record => record && record.status === 'hadir').length,
+        izin: filteredData.filter(record => record && record.status === 'izin').length,
+        sakit: filteredData.filter(record => record && record.status === 'sakit').length
+      };
+      
+      const totalGuru = document.getElementById('totalGuru');
+      const totalHadir = document.getElementById('totalHadir');
+      const totalIzin = document.getElementById('totalIzin');
+      const totalSakit = document.getElementById('totalSakit');
+      
+      if (totalGuru) totalGuru.textContent = stats.total;
+      if (totalHadir) totalHadir.textContent = stats.hadir;
+      if (totalIzin) totalIzin.textContent = stats.izin;
+      if (totalSakit) totalSakit.textContent = stats.sakit;
+    }
+
+    // Print report function - CETAK with persentase and tanda tangan
+    function printReport() {
+      const config = window.elementSdk ? window.elementSdk.config : defaultConfig;
+      
+      const filterBulan = document.getElementById('filterBulan')?.value || '';
+      let filteredData = (attendanceRecords || []).filter(record => record && record.status);
+      
+      let periodInfo = 'Semua Data';
+      let startDate, endDate;
+      
+      if (dateRangeFilter.start && dateRangeFilter.end) {
+        startDate = new Date(dateRangeFilter.start);
+        endDate = new Date(dateRangeFilter.end);
+        filteredData = filteredData.filter(record => {
+          return record && record.tanggal >= dateRangeFilter.start && record.tanggal <= dateRangeFilter.end;
+        });
+        periodInfo = `${startDate.toLocaleDateString('id-ID')} - ${endDate.toLocaleDateString('id-ID')}`;
+      } else if (filterBulan) {
+        const year = new Date().getFullYear();
+        startDate = new Date(year, parseInt(filterBulan) - 1, 1);
+        endDate = new Date(year, parseInt(filterBulan), 0);
+        filteredData = filteredData.filter(record => {
+          return record && record.tanggal && record.tanggal.split('-')[1] === filterBulan;
+        });
+        const monthNames = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+        periodInfo = `${monthNames[parseInt(filterBulan) - 1]} ${year}`;
+      }
+      
+      // Group data by teacher for statistics
+      const teacherStats = {};
+      filteredData.forEach(record => {
+        if (!record) return;
+        const teacherId = record.teacher_id;
+        if (!teacherStats[teacherId]) {
+          teacherStats[teacherId] = {
+            induk: record.teacher_induk,
+            nama: record.teacher_nama,
+            mapel: record.teacher_mapel,
+            hadir: 0,
+            izin: 0,
+            sakit: 0,
+            absen: 0,
+            total: 0
+          };
+        }
+        
+        teacherStats[teacherId].total++;
+        if (record.status === 'hadir') teacherStats[teacherId].hadir++;
+        else if (record.status === 'izin') teacherStats[teacherId].izin++;
+        else if (record.status === 'sakit') teacherStats[teacherId].sakit++;
+        else if (record.status === 'absen') teacherStats[teacherId].absen++;
+      });
+      
+      const logoElement = document.querySelector('#logoMain img');
+      const logoSrc = logoElement ? logoElement.src : null;
+      
+      // Create print window
+      const printWindow = window.open('', '_blank', 'width=1200,height=800,scrollbars=yes,resizable=yes');
+      if (!printWindow) {
+        showCustomAlert("Popup diblokir. Izinkan popup untuk mencetak.");
+        return;
+      }
+      
+      const printContent = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <meta charset="UTF-8">
+          <title>Laporan Rekap Absensi - ${config.nama_sekolah || defaultConfig.nama_sekolah}</title>
+          <style>
+            body { 
+              font-family: Arial, sans-serif; 
+              margin: 30px; 
+              padding: 0;
+              color: #333;
+            }
+            .print-header { 
+              text-align: center; 
+              margin-bottom: 30px; 
+              border-bottom: 2px solid #667eea;
+              padding-bottom: 20px;
+            }
+            .logo-print { 
+              width: 80px; 
+              height: 80px; 
+              object-fit: cover; 
+              border-radius: 50%; 
+              margin-bottom: 10px;
+            }
+            .logo-emoji { 
+              width: 80px; 
+              height: 80px; 
+              background: linear-gradient(135deg, #667eea, #764ba2); 
+              border-radius: 50%; 
+              display: inline-flex; 
+              align-items: center; 
+              justify-content: center; 
+              font-size: 40px; 
+              color: white; 
+              margin-bottom: 10px;
+            }
+            .school-name { 
+              font-size: 24px; 
+              font-weight: bold; 
+              color: #667eea; 
+              margin: 5px 0; 
+            }
+            .school-address { 
+              font-size: 12px; 
+              color: #666; 
+              margin: 2px 0; 
+            }
+            .report-title { 
+              font-size: 18px; 
+              font-weight: bold; 
+              margin: 20px 0 10px 0; 
+              text-align: center;
+            }
+            .period-info { 
+              font-size: 14px; 
+              color: #666; 
+              margin-bottom: 20px; 
+              text-align: center;
+            }
+            table { 
+              width: 100%; 
+              border-collapse: collapse; 
+              margin: 20px 0; 
+              font-size: 12px;
+            }
+            th { 
+              background: #667eea; 
+              color: white; 
+              padding: 10px; 
+              text-align: left; 
+              border: 1px solid #ddd;
+            }
+            td { 
+              padding: 8px; 
+              border: 1px solid #ddd; 
+            }
+            .text-center { text-align: center; }
+            .text-right { text-align: right; }
+            .font-bold { font-weight: bold; }
+            .signature { 
+              margin-top: 50px; 
+              text-align: right; 
+            }
+            .signature-line { 
+              margin-top: 60px; 
+              padding-right: 50px; 
+            }
+            .signature-name { 
+              font-weight: bold; 
+              margin-top: 5px; 
+            }
+            .signature-title { 
+              font-size: 11px; 
+              color: #666; 
+            }
+            .footer { 
+              margin-top: 30px; 
+              font-size: 10px; 
+              color: #666; 
+              text-align: center; 
+              border-top: 1px solid #ddd; 
+              padding-top: 10px; 
+            }
+            .bg-hadir { background-color: #10b981; color: white; }
+            .bg-izin { background-color: #f59e0b; color: white; }
+            .bg-sakit { background-color: #ef4444; color: white; }
+            .bg-absen { background-color: #6b7280; color: white; }
+            .persentase-badge {
+              padding: 3px 8px;
+              border-radius: 12px;
+              font-weight: bold;
+            }
+            .persentase-tinggi { color: #10b981; }
+            .persentase-sedang { color: #f59e0b; }
+            .persentase-rendah { color: #ef4444; }
+          </style>
+        </head>
+        <body>
+          <div class="print-header">
+            ${logoSrc ? 
+              `<img src="${logoSrc}" alt="Logo Sekolah" class="logo-print">` : 
+              `<div class="logo-emoji">${config.logo_sekolah || defaultConfig.logo_sekolah}</div>`
+            }
+            <div class="school-name">${config.nama_sekolah || defaultConfig.nama_sekolah}</div>
+            <div class="school-address">${config.alamat || defaultConfig.alamat}</div>
+            <div class="school-address">${config.kelurahan || defaultConfig.kelurahan}, ${config.kecamatan || defaultConfig.kecamatan}, ${config.kota || defaultConfig.kota}</div>
+            <div class="school-address">NPSN: ${config.npsn || defaultConfig.npsn}</div>
+          </div>
+          
+          <div class="report-title">LAPORAN REKAPITULASI KEHADIRAN GURU</div>
+          <div class="period-info">Periode: ${periodInfo}</div>
+          
+          <table>
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>No. Induk</th>
+                <th>Nama Guru</th>
+                <th>Mata Pelajaran</th>
+                <th class="text-center">Hadir</th>
+                <th class="text-center">Izin</th>
+                <th class="text-center">Sakit</th>
+                <th class="text-center">Alpha</th>
+                <th class="text-center">Total</th>
+                <th class="text-center">Persentase</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${Object.values(teacherStats).map((teacher, index) => {
+                const persentase = teacher.total > 0 ? ((teacher.hadir / teacher.total) * 100).toFixed(1) : '0.0';
+                const persentaseClass = parseFloat(persentase) >= 80 ? 'persentase-tinggi' : (parseFloat(persentase) >= 60 ? 'persentase-sedang' : 'persentase-rendah');
+                return `
+                  <tr>
+                    <td>${index + 1}</td>
+                    <td>${teacher.induk || ''}</td>
+                    <td>${teacher.nama || ''}</td>
+                    <td>${teacher.mapel || ''}</td>
+                    <td class="text-center">${teacher.hadir}</td>
+                    <td class="text-center">${teacher.izin}</td>
+                    <td class="text-center">${teacher.sakit}</td>
+                    <td class="text-center">${teacher.absen}</td>
+                    <td class="text-center font-bold">${teacher.total}</td>
+                    <td class="text-center font-bold ${persentaseClass}">${persentase}%</td>
+                  </tr>
+                `;
+              }).join('')}
+            </tbody>
+          </table>
+          
+          <div class="signature">
+            <p>${config.kota || defaultConfig.kota}, ${new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
+            <p>Kepala Sekolah,</p>
+            <div class="signature-line">
+              <p class="signature-name">Muhammad Saidi, S.E., M.M.</p>
+              <p class="signature-title">NIP. - </p>
+            </div>
+          </div>
+          
+          <div class="footer">
+            Dokumen ini dicetak secara otomatis dari Sistem Absensi Digital MAS IBNU HUSAIN<br>
+            Dicetak pada: ${new Date().toLocaleString('id-ID')}
+          </div>
+        </body>
+        </html>
+      `;
+      
+      printWindow.document.write(printContent);
+      printWindow.document.close();
+      printWindow.focus();
+    }
+
+    // Print detailed report function - RINCIAN DATA REKAP with persentase and tanda tangan
+    function printDetailedReport() {
+      const config = window.elementSdk ? window.elementSdk.config : defaultConfig;
+      
+      const filterBulan = document.getElementById('filterBulan')?.value || '';
+      let filteredData = (attendanceRecords || []).filter(record => record && record.status);
+      
+      let periodInfo = 'Semua Data';
+      let startDate, endDate;
+      
+      if (dateRangeFilter.start && dateRangeFilter.end) {
+        startDate = new Date(dateRangeFilter.start);
+        endDate = new Date(dateRangeFilter.end);
+        filteredData = filteredData.filter(record => {
+          return record && record.tanggal >= dateRangeFilter.start && record.tanggal <= dateRangeFilter.end;
+        });
+        periodInfo = `${startDate.toLocaleDateString('id-ID')} - ${endDate.toLocaleDateString('id-ID')}`;
+      } else if (filterBulan) {
+        const year = new Date().getFullYear();
+        startDate = new Date(year, parseInt(filterBulan) - 1, 1);
+        endDate = new Date(year, parseInt(filterBulan), 0);
+        filteredData = filteredData.filter(record => {
+          return record && record.tanggal && record.tanggal.split('-')[1] === filterBulan;
+        });
+        const monthNames = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+        periodInfo = `${monthNames[parseInt(filterBulan) - 1]} ${year}`;
+      }
+      
+      filteredData.sort((a, b) => {
+        if (!a || !b) return 0;
+        return new Date(b.tanggal) - new Date(a.tanggal);
+      });
+      
+      // Group data by teacher for statistics
+      const teacherStats = {};
+      filteredData.forEach(record => {
+        if (!record) return;
+        const teacherId = record.teacher_id;
+        if (!teacherStats[teacherId]) {
+          teacherStats[teacherId] = {
+            induk: record.teacher_induk,
+            nama: record.teacher_nama,
+            mapel: record.teacher_mapel,
+            hadir: 0,
+            izin: 0,
+            sakit: 0,
+            absen: 0,
+            total: 0
+          };
+        }
+        
+        teacherStats[teacherId].total++;
+        if (record.status === 'hadir') teacherStats[teacherId].hadir++;
+        else if (record.status === 'izin') teacherStats[teacherId].izin++;
+        else if (record.status === 'sakit') teacherStats[teacherId].sakit++;
+        else if (record.status === 'absen') teacherStats[teacherId].absen++;
+      });
+      
+      // Group data by date for detailed view
+      const recordsByDate = {};
+      filteredData.forEach(record => {
+        if (!record || !record.tanggal) return;
+        if (!recordsByDate[record.tanggal]) {
+          recordsByDate[record.tanggal] = [];
+        }
+        recordsByDate[record.tanggal].push(record);
+      });
+      
+      const logoElement = document.querySelector('#logoMain img');
+      const logoSrc = logoElement ? logoElement.src : null;
+      
+      // Create print window
+      const printWindow = window.open('', '_blank', 'width=1200,height=800,scrollbars=yes,resizable=yes');
+      if (!printWindow) {
+        showCustomAlert("Popup diblokir. Izinkan popup untuk mencetak.");
+        return;
+      }
+      
+      const printContent = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <meta charset="UTF-8">
+          <title>Rincian Data Rekap Absensi - ${config.nama_sekolah || defaultConfig.nama_sekolah}</title>
+          <style>
+            body { 
+              font-family: Arial, sans-serif; 
+              margin: 30px; 
+              padding: 0;
+              color: #333;
+            }
+            .print-header { 
+              text-align: center; 
+              margin-bottom: 30px; 
+              border-bottom: 2px solid #667eea;
+              padding-bottom: 20px;
+            }
+            .logo-print { 
+              width: 80px; 
+              height: 80px; 
+              object-fit: cover; 
+              border-radius: 50%; 
+              margin-bottom: 10px;
+            }
+            .logo-emoji { 
+              width: 80px; 
+              height: 80px; 
+              background: linear-gradient(135deg, #667eea, #764ba2); 
+              border-radius: 50%; 
+              display: inline-flex; 
+              align-items: center; 
+              justify-content: center; 
+              font-size: 40px; 
+              color: white; 
+              margin-bottom: 10px;
+            }
+            .school-name { 
+              font-size: 24px; 
+              font-weight: bold; 
+              color: #667eea; 
+              margin: 5px 0; 
+            }
+            .school-address { 
+              font-size: 12px; 
+              color: #666; 
+              margin: 2px 0; 
+            }
+            .report-title { 
+              font-size: 18px; 
+              font-weight: bold; 
+              margin: 20px 0 10px 0; 
+              text-align: center;
+            }
+            .period-info { 
+              font-size: 14px; 
+              color: #666; 
+              margin-bottom: 20px; 
+              text-align: center;
+            }
+            .section-title { 
+              font-size: 16px; 
+              font-weight: bold; 
+              margin: 30px 0 15px 0; 
+              padding-bottom: 5px; 
+              border-bottom: 1px solid #667eea; 
+            }
+            table { 
+              width: 100%; 
+              border-collapse: collapse; 
+              margin: 20px 0; 
+              font-size: 12px;
+            }
+            th { 
+              background: #667eea; 
+              color: white; 
+              padding: 10px; 
+              text-align: left; 
+              border: 1px solid #ddd;
+            }
+            td { 
+              padding: 8px; 
+              border: 1px solid #ddd; 
+            }
+            .text-center { text-align: center; }
+            .text-right { text-align: right; }
+            .font-bold { font-weight: bold; }
+            .signature { 
+              margin-top: 50px; 
+              text-align: right; 
+            }
+            .signature-line { 
+              margin-top: 60px; 
+              padding-right: 50px; 
+            }
+            .signature-name { 
+              font-weight: bold; 
+              margin-top: 5px; 
+            }
+            .signature-title { 
+              font-size: 11px; 
+              color: #666; 
+            }
+            .footer { 
+              margin-top: 30px; 
+              font-size: 10px; 
+              color: #666; 
+              text-align: center; 
+              border-top: 1px solid #ddd; 
+              padding-top: 10px; 
+            }
+            .status-hadir { background-color: #10b981; color: white; padding: 2px 8px; border-radius: 12px; }
+            .status-izin { background-color: #f59e0b; color: white; padding: 2px 8px; border-radius: 12px; }
+            .status-sakit { background-color: #ef4444; color: white; padding: 2px 8px; border-radius: 12px; }
+            .status-absen { background-color: #6b7280; color: white; padding: 2px 8px; border-radius: 12px; }
+            .persentase-badge {
+              padding: 3px 8px;
+              border-radius: 12px;
+              font-weight: bold;
+            }
+            .persentase-tinggi { color: #10b981; font-weight: bold; }
+            .persentase-sedang { color: #f59e0b; font-weight: bold; }
+            .persentase-rendah { color: #ef4444; font-weight: bold; }
+            .date-header { 
+              background: #f0f0f0; 
+              font-size: 14px; 
+              font-weight: bold; 
+            }
+          </style>
+        </head>
+        <body>
+          <div class="print-header">
+            ${logoSrc ? 
+              `<img src="${logoSrc}" alt="Logo Sekolah" class="logo-print">` : 
+              `<div class="logo-emoji">${config.logo_sekolah || defaultConfig.logo_sekolah}</div>`
+            }
+            <div class="school-name">${config.nama_sekolah || defaultConfig.nama_sekolah}</div>
+            <div class="school-address">${config.alamat || defaultConfig.alamat}</div>
+            <div class="school-address">${config.kelurahan || defaultConfig.kelurahan}, ${config.kecamatan || defaultConfig.kecamatan}, ${config.kota || defaultConfig.kota}</div>
+            <div class="school-address">NPSN: ${config.npsn || defaultConfig.npsn}</div>
+          </div>
+          
+          <div class="report-title">RINCIAN DATA REKAP ABSENSI GURU</div>
+          <div class="period-info">Periode: ${periodInfo}</div>
+          
+          <!-- REKAPITULASI PER GURU -->
+          <div class="section-title">A. REKAPITULASI KEHADIRAN PER GURU</div>
+          <table>
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>No. Induk</th>
+                <th>Nama Guru</th>
+                <th>Mata Pelajaran</th>
+                <th class="text-center">Hadir</th>
+                <th class="text-center">Izin</th>
+                <th class="text-center">Sakit</th>
+                <th class="text-center">Alpha</th>
+                <th class="text-center">Total</th>
+                <th class="text-center">Persentase</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${Object.values(teacherStats).map((teacher, index) => {
+                const persentase = teacher.total > 0 ? ((teacher.hadir / teacher.total) * 100).toFixed(1) : '0.0';
+                const persentaseClass = parseFloat(persentase) >= 80 ? 'persentase-tinggi' : (parseFloat(persentase) >= 60 ? 'persentase-sedang' : 'persentase-rendah');
+                return `
+                  <tr>
+                    <td>${index + 1}</td>
+                    <td>${teacher.induk || ''}</td>
+                    <td>${teacher.nama || ''}</td>
+                    <td>${teacher.mapel || ''}</td>
+                    <td class="text-center">${teacher.hadir}</td>
+                    <td class="text-center">${teacher.izin}</td>
+                    <td class="text-center">${teacher.sakit}</td>
+                    <td class="text-center">${teacher.absen}</td>
+                    <td class="text-center font-bold">${teacher.total}</td>
+                    <td class="text-center ${persentaseClass}">${persentase}%</td>
+                  </tr>
+                `;
+              }).join('')}
+            </tbody>
+          </table>
+          
+          <!-- RINCIAN DETAIL PER TANGGAL -->
+          <div class="section-title">B. RINCIAN KEHADIRAN PER TANGGAL</div>
+          
+          ${Object.keys(recordsByDate).sort((a, b) => new Date(b) - new Date(a)).map(date => {
+            const records = recordsByDate[date];
+            const dateObj = new Date(date);
+            const dayName = dateObj.toLocaleDateString('id-ID', { weekday: 'long' });
+            const formattedDate = dateObj.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+            
+            return `
+              <div style="margin-top: 20px;">
+                <div class="date-header" style="padding: 8px; background: #e0e7ff; border-radius: 5px; margin-bottom: 10px;">
+                  📅 ${dayName}, ${formattedDate}
+                </div>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>No</th>
+                      <th>No. Induk</th>
+                      <th>Nama Guru</th>
+                      <th>Mata Pelajaran</th>
+                      <th class="text-center">Status</th>
+                      <th>Keterangan</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    ${records.map((record, idx) => `
+                      <tr>
+                        <td>${idx + 1}</td>
+                        <td>${record.teacher_induk || ''}</td>
+                        <td>${record.teacher_nama || ''}</td>
+                        <td>${record.teacher_mapel || ''}</td>
+                        <td class="text-center">
+                          <span class="status-${record.status || ''}" style="padding: 2px 8px; border-radius: 12px;">
+                            ${record.status === 'hadir' ? '✅ HADIR' : 
+                              record.status === 'izin' ? '📝 IZIN' : 
+                              record.status === 'sakit' ? '🏥 SAKIT' : 
+                              record.status === 'absen' ? '❌ ABSEN' : '-'}
+                          </span>
+                        </td>
+                        <td>${record.keterangan || '-'}</td>
+                      </tr>
+                    `).join('')}
+                  </tbody>
+                </table>
+              </div>
+            `;
+          }).join('')}
+          
+          <div style="margin-top: 40px; page-break-before: avoid;">
+            <div class="section-title">C. RINGKASAN STATISTIK</div>
+            <table style="width: 50%; margin: 0 auto;">
+              <tr>
+                <th colspan="2" class="text-center">STATISTIK KESELURUHAN</th>
+              </tr>
+              <tr>
+                <td>Total Guru Aktif</td>
+                <td class="text-center font-bold">${Object.keys(teacherStats).length}</td>
+              </tr>
+              <tr>
+                <td>Total Hari</td>
+                <td class="text-center font-bold">${Object.keys(recordsByDate).length}</td>
+              </tr>
+              <tr>
+                <td>Total Kehadiran</td>
+                <td class="text-center font-bold">${Object.values(teacherStats).reduce((sum, t) => sum + t.hadir, 0)}</td>
+              </tr>
+              <tr>
+                <td>Total Izin</td>
+                <td class="text-center font-bold">${Object.values(teacherStats).reduce((sum, t) => sum + t.izin, 0)}</td>
+              </tr>
+              <tr>
+                <td>Total Sakit</td>
+                <td class="text-center font-bold">${Object.values(teacherStats).reduce((sum, t) => sum + t.sakit, 0)}</td>
+              </tr>
+              <tr>
+                <td>Total Alpha</td>
+                <td class="text-center font-bold">${Object.values(teacherStats).reduce((sum, t) => sum + t.absen, 0)}</td>
+              </tr>
+              <tr>
+                <td>Rata-rata Kehadiran</td>
+                <td class="text-center font-bold">
+                  ${(() => {
+                    const totalHadir = Object.values(teacherStats).reduce((sum, t) => sum + t.hadir, 0);
+                    const totalHari = Object.keys(recordsByDate).length;
+                    const rataRata = totalHari > 0 ? (totalHadir / Object.keys(teacherStats).length / totalHari * 100).toFixed(1) : 0;
+                    return `${rataRata}%`;
+                  })()}
+                </td>
+              </tr>
+            </table>
+          </div>
+          
+          <div class="signature">
+            <p>${config.kota || defaultConfig.kota}, ${new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
+            <p>Kepala Sekolah,</p>
+            <div class="signature-line">
+              <p class="signature-name">Muhammad Saidi, S.E., M.M.</p>
+              <p class="signature-title">NIP. - </p>
+            </div>
+          </div>
+          
+          <div class="footer">
+            Dokumen ini dicetak secara otomatis dari Sistem Absensi Digital MAS IBNU HUSAIN<br>
+            Dicetak pada: ${new Date().toLocaleString('id-ID')}
+          </div>
+        </body>
+        </html>
+      `;
+      
+      printWindow.document.write(printContent);
+      printWindow.document.close();
+      printWindow.focus();
+    }
+
+    // Render guru management table
+    function renderGuruManagementTable() {
+      const tbody = document.getElementById('guruManagementTableBody');
+      if (!tbody) return;
+      
+      if (!masterTeachers || masterTeachers.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="8" class="px-4 py-12 text-center">
+              <div class="text-5xl mb-4 text-gray-400">👥</div>
+              <div class="text-lg text-gray-600 mb-2">Belum ada data guru</div>
+              <div class="text-sm text-gray-500">Silakan tambah guru baru atau import dari Excel/CSV</div>
+            </td>
+          </tr>
+        `;
+        return;
+      }
+      
+      tbody.innerHTML = masterTeachers.map((teacher, index) => {
+        if (!teacher) return '';
+        
+        const hasSchedule = (scheduleRecords || []).some(schedule => schedule && schedule.teacher_id === teacher.id);
+        const schedule = (scheduleRecords || []).find(s => s && s.teacher_id === teacher.id);
+        let scheduleDays = [];
+        if (schedule) {
+          const days = ['senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu', 'minggu'];
+          scheduleDays = days.filter(day => schedule[day]);
+        }
+        
+        return `
+          <tr class="hover:bg-gray-50">
+            <td class="px-4 py-4 text-sm text-gray-900 text-center">${index + 1}</td>
+            <td class="px-4 py-4">
+              <input type="text" value="${teacher.induk || ''}" 
+                     class="modern-input w-full"
+                     onchange="updateTeacherInduk('${teacher.id}', this.value)">
+            </td>
+            <td class="px-4 py-4">
+              <input type="text" value="${teacher.nama || ''}" 
+                     class="modern-input w-full"
+                     onchange="updateTeacherNama('${teacher.id}', this.value)">
+            </td>
+            <td class="px-4 py-4">
+              <input type="text" value="${teacher.mapel || ''}" 
+                     class="modern-input w-full"
+                     onchange="updateTeacherMapel('${teacher.id}', this.value)">
+            </td>
+            <td class="px-4 py-4">
+              <input type="text" value="${teacher.mapel_tambahan || ''}" 
+                     class="modern-input w-full"
+                     onchange="updateTeacherMapelTambahan('${teacher.id}', this.value)"
+                     placeholder="Opsional">
+            </td>
+            <td class="px-4 py-4 text-center">
+              ${hasSchedule ? 
+                `<span class="px-3 py-1 bg-gradient-to-r from-green-500 to-emerald-500 text-white text-xs font-semibold rounded-xl shadow-md">
+                  <i class="fas fa-check-circle mr-1"></i>
+                  Terjadwal<br>
+                  <span class="text-[10px]">${scheduleDays.join(', ')}</span>
+                </span>` :
+                `<span class="px-3 py-1 bg-gradient-to-r from-gray-500 to-gray-600 text-white text-xs font-semibold rounded-xl shadow-md">
+                  <i class="fas fa-clock mr-1"></i>
+                  Belum Dijadwal
+                </span>`
+              }
+            </td>
+            <td class="px-4 py-4 text-center text-sm text-gray-500">
+              ${teacher.timestamp ? new Date(teacher.timestamp).toLocaleDateString('id-ID') : '-'}
+            </td>
+            <td class="px-4 py-4 text-center">
+              <button onclick="deleteTeacher('${teacher.id}')" 
+                      class="px-4 py-2 bg-gradient-to-r from-red-600 to-pink-600 text-white text-sm rounded-xl hover:from-red-700 hover:to-pink-700 transition-all duration-300 shadow-md btn-modern">
+                <i class="fas fa-trash-alt mr-1"></i>
+                Hapus
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    // Update teacher induk
+    async function updateTeacherInduk(teacherId, induk) {
+      if (isLoading || !teacherId) return;
+      
+      const teacher = masterTeachers.find(t => t && t.id === teacherId);
+      if (teacher) {
+        teacher.induk = induk;
+        if (window.dataSdk && sdkInitialized) {
+          await window.dataSdk.update(teacher);
+        }
+        showSaveIndicator();
+      }
+    }
+
+    // Update teacher nama
+    async function updateTeacherNama(teacherId, nama) {
+      if (isLoading || !teacherId) return;
+      
+      const teacher = masterTeachers.find(t => t && t.id === teacherId);
+      if (teacher) {
+        teacher.nama = nama;
+        if (window.dataSdk && sdkInitialized) {
+          await window.dataSdk.update(teacher);
+        }
+        showSaveIndicator();
+      }
+    }
+
+    // Update teacher mapel tambahan
+    async function updateTeacherMapelTambahan(teacherId, mapelTambahan) {
+      if (isLoading || !teacherId) return;
+      
+      const teacher = masterTeachers.find(t => t && t.id === teacherId);
+      if (teacher) {
+        teacher.mapel_tambahan = mapelTambahan;
+        if (window.dataSdk && sdkInitialized) {
+          await window.dataSdk.update(teacher);
+        }
+        showSaveIndicator();
+      }
+    }
+
+    // Update guru statistics
+    function updateGuruStatistics() {
+      const totalGuru = (masterTeachers || []).length;
+      const guruTerjadwal = (scheduleRecords || []).length;
+      
+      const currentDayName = getDayName(currentDate);
+      const guruAktif = getScheduledTeachers(currentDayName).length;
+      
+      const totalGuruCount = document.getElementById('totalGuruCount');
+      const guruTerjadwalCount = document.getElementById('guruTerjadwalCount');
+      const guruAktifCount = document.getElementById('guruAktifCount');
+      
+      if (totalGuruCount) totalGuruCount.textContent = totalGuru;
+      if (guruTerjadwalCount) guruTerjadwalCount.textContent = guruTerjadwal;
+      if (guruAktifCount) guruAktifCount.textContent = guruAktif;
+    }
+
+    // Delete all teachers
+    async function deleteAllTeachers() {
+      if (!masterTeachers || masterTeachers.length === 0) {
+        showCustomAlert("Tidak ada data guru untuk dihapus.");
+        return;
+      }
+      
+      const userConfirmed = await showCustomConfirm(
+        `Apakah Anda yakin ingin menghapus semua ${masterTeachers.length} data guru?`,
+        'Tindakan ini akan menghapus semua data guru, jadwal, dan riwayat absensi.'
+      );
+      
+      if (!userConfirmed) return;
+      
+      if (isLoading) return;
+      isLoading = true;
+      
+      const btn = document.getElementById('btnHapusSemuaGuru');
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Menghapus...';
+      }
+      
+      try {
+        for (const teacher of masterTeachers) {
+          if (teacher && window.dataSdk && sdkInitialized) {
+            await window.dataSdk.delete(teacher);
+          }
+        }
+        
+        for (const schedule of scheduleRecords) {
+          if (schedule && window.dataSdk && sdkInitialized) {
+            await window.dataSdk.delete(schedule);
+          }
+        }
+        
+        for (const attendance of attendanceRecords) {
+          if (attendance && window.dataSdk && sdkInitialized) {
+            await window.dataSdk.delete(attendance);
+          }
+        }
+        
+        masterTeachers = [];
+        scheduleRecords = [];
+        attendanceRecords = [];
+        
+        renderTeacherTable();
+        renderScheduleTable();
+        renderRekapTable();
+        renderGuruManagementTable();
+        updateGuruStatistics();
+        updateStatistics();
+        
+        showSaveIndicator();
+        showCustomAlert('Berhasil menghapus semua data.');
+      } catch (error) {
+        console.error('Error deleting all data:', error);
+        showCustomAlert('Gagal menghapus data. Silakan coba lagi.');
+      }
+      
+      if (btn) {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-trash-alt mr-2"></i>Hapus Semua Data';
+      }
+      isLoading = false;
+    }
+
+    // Custom confirmation modal
+    function showCustomConfirm(title, message) {
+      return new Promise((resolve) => {
+        const modalHTML = `
+          <div id="customConfirmModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+            <div class="modal-content w-full max-w-md">
+              <div class="p-8">
+                <div class="text-center mb-6">
+                  <div class="w-16 h-16 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-exclamation-triangle text-white text-2xl"></i>
+                  </div>
+                  <h3 class="text-xl font-bold text-gray-800 mb-2">${title}</h3>
+                  <p class="text-gray-600">${message}</p>
+                </div>
+                <div class="flex gap-3">
+                  <button id="customConfirmYes" class="flex-1 px-6 py-3 bg-gradient-to-r from-red-600 to-pink-600 text-white rounded-xl hover:from-red-700 hover:to-pink-700 transition-all duration-300 font-semibold shadow-lg btn-modern">
+                    <i class="fas fa-check mr-2"></i>
+                    Ya, Hapus
+                  </button>
+                  <button id="customConfirmNo" class="flex-1 px-6 py-3 bg-gradient-to-r from-gray-600 to-gray-700 text-white rounded-xl hover:from-gray-700 hover:to-gray-800 transition-all duration-300 font-semibold shadow-lg btn-modern">
+                    <i class="fas fa-times mr-2"></i>
+                    Batal
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+        
+        document.body.insertAdjacentHTML('beforeend', modalHTML);
+        
+        document.getElementById('customConfirmYes')?.addEventListener('click', () => {
+          document.getElementById('customConfirmModal')?.remove();
+          resolve(true);
+        });
+        
+        document.getElementById('customConfirmNo')?.addEventListener('click', () => {
+          document.getElementById('customConfirmModal')?.remove();
+          resolve(false);
+        });
+      });
+    }
+
+    // Delete all attendance records
+    async function deleteAllAttendanceRecords() {
+      if (!attendanceRecords || attendanceRecords.length === 0) {
+        showCustomAlert("Tidak ada data kehadiran untuk dihapus.");
+        return;
+      }
+      
+      const userConfirmed = await showCustomConfirm(
+        `Apakah Anda yakin ingin menghapus semua ${attendanceRecords.length} data kehadiran?`,
+        'Tindakan ini akan menghapus semua riwayat absensi guru.'
+      );
+      
+      if (!userConfirmed) return;
+      
+      if (isLoading) return;
+      isLoading = true;
+      
+      const btn = document.getElementById('btnHapusSemuaKehadiran');
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Menghapus...';
+      }
+      
+      try {
+        for (const attendance of attendanceRecords) {
+          if (attendance && window.dataSdk && sdkInitialized) {
+            await window.dataSdk.delete(attendance);
+          }
+        }
+        
+        attendanceRecords = [];
+        renderRekapTable();
+        updateStatistics();
+        showSaveIndicator();
+        showCustomAlert('Berhasil menghapus semua data kehadiran.');
+      } catch (error) {
+        console.error('Error deleting all attendance records:', error);
+        showCustomAlert('Gagal menghapus data kehadiran. Silakan coba lagi.');
+      }
+      
+      if (btn) {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-trash-alt mr-2"></i>Hapus Semua';
+      }
+      isLoading = false;
+    }
+
+    // Custom alert modal
+    function showCustomAlert(message) {
+      return new Promise((resolve) => {
+        const modalHTML = `
+          <div id="customAlertModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+            <div class="modal-content w-full max-w-md">
+              <div class="p-8">
+                <div class="text-center mb-6">
+                  <div class="w-16 h-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-info-circle text-white text-2xl"></i>
+                  </div>
+                  <h3 class="text-xl font-bold text-gray-800 mb-2">Informasi</h3>
+                  <p class="text-gray-600">${message}</p>
+                </div>
+                <div class="flex justify-center">
+                  <button id="customAlertOk" class="px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 font-semibold shadow-lg btn-modern">
+                    <i class="fas fa-check mr-2"></i>
+                    OK
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+        
+        document.body.insertAdjacentHTML('beforeend', modalHTML);
+        
+        document.getElementById('customAlertOk')?.addEventListener('click', () => {
+          document.getElementById('customAlertModal')?.remove();
+          resolve();
+        });
+      });
+    }
+
+    // Initialize app when page loads
+    document.addEventListener('DOMContentLoaded', () => {
+      // Set timeout to force hide loading after 5 seconds even if SDK fails
+      setTimeout(() => {
+        if (!sdkInitialized) {
+          console.warn('Forcing app load after timeout');
+          loadLocalData();
+        }
+      }, 5000);
+      
+      initApp();
+    });
+
+    // Make functions available globally
+    window.goToDay = goToDay;
+    window.updateTeacherMapel = updateTeacherMapel;
+    window.updateAttendanceStatus = updateAttendanceStatus;
+    window.updateAttendanceKeterangan = updateAttendanceKeterangan;
+    window.deleteTeacher = deleteTeacher;
+    window.updateScheduleDay = updateScheduleDay;
+    window.deleteSchedule = deleteSchedule;
+    window.updateTeacherInduk = updateTeacherInduk;
+    window.updateTeacherNama = updateTeacherNama;
+    window.updateTeacherMapelTambahan = updateTeacherMapelTambahan;
+  </script>
+</body>
+</html>

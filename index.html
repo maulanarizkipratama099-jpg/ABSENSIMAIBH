@@ -1045,22 +1045,306 @@
     let sdkInitialized = false;
 
 // ============================================
-// KONFIGURASI JSONBIN.IO YANG SUDAH DIPERBAIKI
+// KONFIGURASI JSONBIN.IO - VERSI FINAL
 // ============================================
 const JSONBIN_CONFIG = {
     API_KEY: "$2a$10$uIB7UH1hUV6kFv7v4l21puJBjd.1.r9SYqT8XT94RkJyHCyzGQQFm",
     BINS: {
-        TEACHERS: "699fce8aae596e708f4adbb4",
+        TEACHERS: "699fd21dae596e708f4ae189",
         ATTENDANCE: "699fcee543b1c97be99f0f29",
         SCHEDULE: "699fbaf0ae596e708f4ab665"
     },
-    BASE_URL: "https://api.jsonbin.io/v3/b", // DIPERBAIKI: tanpa trailing slash
-    HEADERS: {
-        "Content-Type": "application/json",
-        "X-Master-Key": "$2a$10$uIB7UH1hUV6kFv7v4l21puJBjd.1.r9SYqT8XT94RkJyHCyzGQQFm",
-        "X-Bin-Meta": "false" // Tambahkan header ini
-    }
+    BASE_URL: "https://api.jsonbin.io/v3/b"
 };
+
+// ============================================
+// FUNGSI SIMPAN DATA
+// ============================================
+
+// Simpan data guru
+async function saveTeachersToJSONBin() {
+    try {
+        console.log('📤 Menyimpan', masterTeachers.length, 'guru ke JSONBin...');
+        
+        const response = await fetch(`${JSONBIN_CONFIG.BASE_URL}/${JSONBIN_CONFIG.BINS.TEACHERS}`, {
+            method: 'PUT',
+            headers: {
+                'X-Master-Key': JSONBIN_CONFIG.API_KEY,
+                'Content-Type': 'application/json',
+                'X-Bin-Meta': 'false'
+            },
+            body: JSON.stringify(masterTeachers)
+        });
+        
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        
+        console.log('✅ Guru berhasil disimpan!');
+        return true;
+    } catch (error) {
+        console.error('❌ Gagal simpan guru:', error);
+        return false;
+    }
+}
+
+// Simpan data absensi
+async function saveAttendanceToJSONBin() {
+    try {
+        console.log('📤 Menyimpan', attendanceRecords.length, 'absensi ke JSONBin...');
+        
+        const response = await fetch(`${JSONBIN_CONFIG.BASE_URL}/${JSONBIN_CONFIG.BINS.ATTENDANCE}`, {
+            method: 'PUT',
+            headers: {
+                'X-Master-Key': JSONBIN_CONFIG.API_KEY,
+                'Content-Type': 'application/json',
+                'X-Bin-Meta': 'false'
+            },
+            body: JSON.stringify(attendanceRecords)
+        });
+        
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        
+        console.log('✅ Absensi berhasil disimpan!');
+        return true;
+    } catch (error) {
+        console.error('❌ Gagal simpan absensi:', error);
+        return false;
+    }
+}
+
+// Simpan data jadwal
+async function saveScheduleToJSONBin() {
+    try {
+        console.log('📤 Menyimpan', scheduleRecords.length, 'jadwal ke JSONBin...');
+        
+        const response = await fetch(`${JSONBIN_CONFIG.BASE_URL}/${JSONBIN_CONFIG.BINS.SCHEDULE}`, {
+            method: 'PUT',
+            headers: {
+                'X-Master-Key': JSONBIN_CONFIG.API_KEY,
+                'Content-Type': 'application/json',
+                'X-Bin-Meta': 'false'
+            },
+            body: JSON.stringify(scheduleRecords)
+        });
+        
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        
+        console.log('✅ Jadwal berhasil disimpan!');
+        return true;
+    } catch (error) {
+        console.error('❌ Gagal simpan jadwal:', error);
+        return false;
+    }
+}
+
+// ============================================
+// FUNGSI LOAD DATA
+// ============================================
+
+// Load data guru
+async function loadTeachersFromJSONBin() {
+    try {
+        console.log('📥 Membaca data guru dari JSONBin...');
+        
+        const response = await fetch(`${JSONBIN_CONFIG.BASE_URL}/${JSONBIN_CONFIG.BINS.TEACHERS}/latest`, {
+            method: 'GET',
+            headers: {
+                'X-Master-Key': JSONBIN_CONFIG.API_KEY
+                // JANGAN pakai X-Bin-Meta: false
+            }
+        });
+        
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        
+        const data = await response.json();
+        console.log('✅ Data mentah:', data);
+        
+        // AMBIL data.record (ARRAY)
+        const teachers = data.record || [];
+        console.log('✅ Data guru (array):', teachers);
+        console.log('✅ Jumlah guru:', teachers.length);
+        
+        return teachers; // LANGSUNG return array
+    } catch (error) {
+        console.error('❌ Gagal load guru:', error);
+        return [];
+    }
+}
+
+// Load data absensi
+async function loadAttendanceFromJSONBin() {
+    try {
+        console.log('📥 Membaca data absensi dari JSONBin...');
+        
+        const response = await fetch(`${JSONBIN_CONFIG.BASE_URL}/${JSONBIN_CONFIG.BINS.ATTENDANCE}/latest`, {
+            method: 'GET',
+            headers: {
+                'X-Master-Key': JSONBIN_CONFIG.API_KEY,
+                'X-Bin-Meta': 'false'
+            }
+        });
+        
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        
+        const data = await response.json();
+        console.log('✅ Data absensi:', Array.isArray(data) ? data.length : '0', 'item');
+        return Array.isArray(data) ? data : [];
+    } catch (error) {
+        console.error('❌ Gagal load absensi:', error);
+        return [];
+    }
+}
+
+// Load data jadwal
+async function loadScheduleFromJSONBin() {
+    try {
+        console.log('📥 Membaca data jadwal dari JSONBin...');
+        
+        const response = await fetch(`${JSONBIN_CONFIG.BASE_URL}/${JSONBIN_CONFIG.BINS.SCHEDULE}/latest`, {
+            method: 'GET',
+            headers: {
+                'X-Master-Key': JSONBIN_CONFIG.API_KEY,
+                'X-Bin-Meta': 'false'
+            }
+        });
+        
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        
+        const data = await response.json();
+        console.log('✅ Data jadwal:', Array.isArray(data) ? data.length : '0', 'item');
+        return Array.isArray(data) ? data : [];
+    } catch (error) {
+        console.error('❌ Gagal load jadwal:', error);
+        return [];
+    }
+}
+
+// ============================================
+// LOAD ALL DATA
+// ============================================
+async function loadAllData() {
+    try {
+        document.getElementById('loadingStatus').textContent = 'Memuat data dari server...';
+        
+// Load semua data
+const teachers = await loadTeachersFromJSONBin();
+const attendance = await loadAttendanceFromJSONBin();
+const schedule = await loadScheduleFromJSONBin();
+
+// PASTIKAN ini ARRAY
+masterTeachers = Array.isArray(teachers) ? teachers : [];
+attendanceRecords = Array.isArray(attendance) ? attendance : [];
+scheduleRecords = Array.isArray(schedule) ? schedule : [];
+
+console.log('📊 RINGKASAN DATA:', {
+    guru: masterTeachers.length,  // HARUSNYA 27
+    absensi: attendanceRecords.length,
+    jadwal: scheduleRecords.length
+});
+        
+// HANYA pakai default jika BENAR-BENAR kosong
+if (masterTeachers.length === 0) {
+    console.log('📝 Menggunakan data default...');
+    masterTeachers = defaultTeachers.map((teacher, index) => ({
+        id: generateId(),
+        type: 'teacher',
+        induk: teacher.induk,
+        nama: teacher.nama,
+        mapel: teacher.mapel,
+        timestamp: Date.now() - index * 1000
+    }));
+    await saveTeachersToJSONBin();
+}
+        
+        // Render semua tabel
+        renderTeacherTable();
+        renderScheduleTable();
+        renderRekapTable();
+        updateStatistics();
+        updateGuruSelect();
+        
+        if (currentPage === 'guru') {
+            renderGuruManagementTable();
+            updateGuruStatistics();
+        }
+        
+        // Sembunyikan loading
+        setTimeout(() => {
+            document.getElementById('loading').classList.add('hidden');
+            document.getElementById('mainApp').classList.remove('hidden');
+        }, 500);
+        
+        sdkInitialized = true;
+        
+    } catch (error) {
+        console.error('❌ Error loading all data:', error);
+        useLocalData();
+    }
+}
+
+// Fallback function
+function useLocalData() {
+    document.getElementById('loadingStatus').textContent = 'Menggunakan data lokal...';
+    
+    masterTeachers = defaultTeachers.map((teacher, index) => ({
+        id: generateId(),
+        type: 'teacher',
+        induk: teacher.induk,
+        nama: teacher.nama,
+        mapel: teacher.mapel,
+        timestamp: Date.now() - index * 1000
+    }));
+    
+    attendanceRecords = [];
+    scheduleRecords = [];
+    
+    renderTeacherTable();
+    renderScheduleTable();
+    renderRekapTable();
+    updateStatistics();
+    updateGuruSelect();
+    
+    if (currentPage === 'guru') {
+        renderGuruManagementTable();
+        updateGuruStatistics();
+    }
+    
+    setTimeout(() => {
+        document.getElementById('loading').classList.add('hidden');
+        document.getElementById('mainApp').classList.remove('hidden');
+    }, 500);
+    
+    sdkInitialized = true;
+}
+
+// ============================================
+// FUNGSI TEST
+// ============================================
+window.testJSONBin = async function() {
+    console.log('🔍 TEST KONEKSI KE JSONBIN');
+    
+    try {
+        // Test baca guru
+        let res = await fetch(`${JSONBIN_CONFIG.BASE_URL}/${JSONBIN_CONFIG.BINS.TEACHERS}/latest`, {
+            headers: { 'X-Master-Key': JSONBIN_CONFIG.API_KEY }
+        });
+        console.log('📡 Status guru:', res.status);
+        
+        if (res.ok) {
+            let data = await res.json();
+            console.log('✅ Data guru:', data);
+        }
+    } catch (e) {
+        console.error('❌ Gagal:', e);
+    }
+}
+
+window.cekData = function() {
+    console.log('📊 DATA DI MEMORI:', {
+        guru: masterTeachers,
+        absensi: attendanceRecords,
+        jadwal: scheduleRecords
+    });
+}
 
     // Default configuration
     const defaultConfig = {
@@ -1173,332 +1457,6 @@ async function initApp() {
         useLocalData();
     }
 }
-
-        // ============================================
-    // FUNGSI SIMPAN DATA KE JSONBIN.IO
-    // ============================================
-
-// Simpan data guru - VERSI LENGKAP DENGAN HEADER
-async function saveTeachersToJSONBin() {
-    try {
-        console.log('Menyimpan data guru ke JSONBin...', masterTeachers);
-        
-        const response = await fetch(`${JSONBIN_CONFIG.BASE_URL}/${JSONBIN_CONFIG.BINS.TEACHERS}`, {
-            method: 'PUT',
-            headers: {
-                'X-Master-Key': JSONBIN_CONFIG.API_KEY,  // WAJIB: API Key untuk autentikasi
-                'X-Bin-Meta': 'false',                    // WAJIB: agar response hanya data
-                'Content-Type': 'application/json'        // WAJIB: memberi tahu server kita kirim JSON
-            },
-            body: JSON.stringify(masterTeachers)           // Data yang dikirim
-        });
-        
-        if (!response.ok) {
-            const errorText = await response.text();
-            throw new Error(`Gagal menyimpan: ${response.status} - ${errorText}`);
-        }
-        
-        const result = await response.json();
-        console.log('✅ Data guru berhasil disimpan:', result);
-        showCustomAlert('Data guru berhasil disimpan ke server!');
-        return true;
-    } catch (error) {
-        console.error('❌ Error saving teachers:', error);
-        showCustomAlert('Gagal menyimpan data: ' + error.message);
-        return false;
-    }
-}
-
- // Simpan data absensi - VERSI LENGKAP DENGAN HEADER
-async function saveAttendanceToJSONBin() {
-    try {
-        console.log('Menyimpan data absensi ke JSONBin...', attendanceRecords);
-        
-        const response = await fetch(`${JSONBIN_CONFIG.BASE_URL}/${JSONBIN_CONFIG.BINS.ATTENDANCE}`, {
-            method: 'PUT',
-            headers: {
-                'X-Master-Key': JSONBIN_CONFIG.API_KEY,  // WAJIB
-                'X-Bin-Meta': 'false',                    // WAJIB
-                'Content-Type': 'application/json'        // WAJIB
-            },
-            body: JSON.stringify(attendanceRecords)
-        });
-        
-        if (!response.ok) {
-            const errorText = await response.text();
-            throw new Error(`Gagal menyimpan: ${response.status} - ${errorText}`);
-        }
-        
-        const result = await response.json();
-        console.log('✅ Data absensi berhasil disimpan:', result);
-        return true;
-    } catch (error) {
-        console.error('❌ Error saving attendance:', error);
-        showCustomAlert('Gagal menyimpan data absensi: ' + error.message);
-        return false;
-    }
-}
-
-// Load data absensi - VERSI LENGKAP DENGAN HEADER
-async function loadAttendanceFromJSONBin() {
-    try {
-        console.log('Mencoba load data absensi dari JSONBin...');
-        
-        const response = await fetch(`${JSONBIN_CONFIG.BASE_URL}/${JSONBIN_CONFIG.BINS.ATTENDANCE}/latest`, {
-            method: 'GET',
-            headers: {
-                'X-Master-Key': JSONBIN_CONFIG.API_KEY,  // WAJIB
-                'X-Bin-Meta': 'false'                     // WAJIB
-            }
-        });
-        
-        if (!response.ok) {
-            if (response.status === 404) {
-                return [];
-            }
-            throw new Error(`Gagal load: ${response.status}`);
-        }
-        
-        const data = await response.json();
-        console.log('✅ Data absensi berhasil di-load:', data);
-        return data || [];
-    } catch (error) {
-        console.error('❌ Error loading attendance:', error);
-        return [];
-    }
-}
-
-// Simpan data jadwal - VERSI LENGKAP DENGAN HEADER
-async function saveScheduleToJSONBin() {
-    try {
-        console.log('Menyimpan data jadwal ke JSONBin...', scheduleRecords);
-        
-        const response = await fetch(`${JSONBIN_CONFIG.BASE_URL}/${JSONBIN_CONFIG.BINS.SCHEDULE}`, {
-            method: 'PUT',
-            headers: {
-                'X-Master-Key': JSONBIN_CONFIG.API_KEY,  // WAJIB
-                'X-Bin-Meta': 'false',                    // WAJIB
-                'Content-Type': 'application/json'        // WAJIB
-            },
-            body: JSON.stringify(scheduleRecords)
-        });
-        
-        if (!response.ok) {
-            const errorText = await response.text();
-            throw new Error(`Gagal menyimpan: ${response.status} - ${errorText}`);
-        }
-        
-        const result = await response.json();
-        console.log('✅ Data jadwal berhasil disimpan:', result);
-        return true;
-    } catch (error) {
-        console.error('❌ Error saving schedule:', error);
-        showCustomAlert('Gagal menyimpan data jadwal: ' + error.message);
-        return false;
-    }
-}
-
-// Load data jadwal - VERSI LENGKAP DENGAN HEADER
-async function loadScheduleFromJSONBin() {
-    try {
-        console.log('Mencoba load data jadwal dari JSONBin...');
-        
-        const response = await fetch(`${JSONBIN_CONFIG.BASE_URL}/${JSONBIN_CONFIG.BINS.SCHEDULE}/latest`, {
-            method: 'GET',
-            headers: {
-                'X-Master-Key': JSONBIN_CONFIG.API_KEY,  // WAJIB
-                'X-Bin-Meta': 'false'                     // WAJIB
-            }
-        });
-        
-        if (!response.ok) {
-            if (response.status === 404) {
-                return [];
-            }
-            throw new Error(`Gagal load: ${response.status}`);
-        }
-        
-        const data = await response.json();
-        console.log('✅ Data jadwal berhasil di-load:', data);
-        return data || [];
-    } catch (error) {
-        console.error('❌ Error loading schedule:', error);
-        return [];
-    }
-}
-
-    // ============================================
-    // FUNGSI LOAD DATA DARI JSONBIN.IO
-    // ============================================
-
-// Load data guru - VERSI LENGKAP DENGAN HEADER
-async function loadTeachersFromJSONBin() {
-    try {
-        console.log('Mencoba load data guru dari JSONBin...');
-        
-        const response = await fetch(`${JSONBIN_CONFIG.BASE_URL}/${JSONBIN_CONFIG.BINS.TEACHERS}/latest`, {
-            method: 'GET',
-            headers: {
-                'X-Master-Key': JSONBIN_CONFIG.API_KEY,  // WAJIB: API Key untuk autentikasi
-                'X-Bin-Meta': 'false'                     // WAJIB: agar response hanya data (tanpa metadata)
-                // GET tidak perlu Content-Type
-            }
-        });
-        
-        if (!response.ok) {
-            if (response.status === 404) {
-                console.log('Bin TEACHERS belum ada data, akan dibuat nanti');
-                return [];
-            }
-            throw new Error(`Gagal load: ${response.status}`);
-        }
-        
-        const data = await response.json();
-        console.log('✅ Data guru berhasil di-load:', data);
-        return data || [];
-    } catch (error) {
-        console.error('❌ Error loading teachers:', error);
-        return [];
-    }
-}
-
-    // Load data absensi
-    async function loadAttendanceFromJSONBin() {
-        try {
-            const response = await fetch(`${JSONBIN_CONFIG.BASE_URL}/${JSONBIN_CONFIG.BINS.ATTENDANCE}/latest`, {
-                method: 'GET',
-                headers: {
-                    'X-Master-Key': JSONBIN_CONFIG.API_KEY
-                }
-            });
-            
-            if (!response.ok) {
-                throw new Error('Gagal memuat data absensi');
-            }
-            
-            const data = await response.json();
-            return data.record || [];
-        } catch (error) {
-            console.error('Error loading attendance:', error);
-            return [];
-        }
-    }
-
-    // Load data jadwal
-    async function loadScheduleFromJSONBin() {
-        try {
-            const response = await fetch(`${JSONBIN_CONFIG.BASE_URL}/${JSONBIN_CONFIG.BINS.SCHEDULE}/latest`, {
-                method: 'GET',
-                headers: {
-                    'X-Master-Key': JSONBIN_CONFIG.API_KEY
-                }
-            });
-            
-            if (!response.ok) {
-                throw new Error('Gagal memuat data jadwal');
-            }
-            
-            const data = await response.json();
-            return data.record || [];
-        } catch (error) {
-            console.error('Error loading schedule:', error);
-            return [];
-        }
-    }
-
-    // ============================================
-    // LOAD ALL DATA SAAT APLIKASI START
-    // ============================================
-    async function loadAllData() {
-        try {
-            document.getElementById('loadingStatus').textContent = 'Memuat data dari server...';
-            
-            // Load semua data secara paralel
-            const [teachers, attendance, schedule] = await Promise.all([
-                loadTeachersFromJSONBin(),
-                loadAttendanceFromJSONBin(),
-                loadScheduleFromJSONBin()
-            ]);
-            
-            // Assign ke global variables
-            masterTeachers = teachers;
-            attendanceRecords = attendance;
-            scheduleRecords = schedule;
-            
-            // Jika tidak ada data, gunakan data default
-            if (masterTeachers.length === 0) {
-                masterTeachers = defaultTeachers.map((teacher, index) => ({
-                    id: generateId(),
-                    type: 'teacher',
-                    induk: teacher.induk,
-                    nama: teacher.nama,
-                    mapel: teacher.mapel,
-                    timestamp: Date.now() - index * 1000
-                }));
-                await saveTeachersToJSONBin(); // Simpan data default
-            }
-            
-            // Render semua tabel
-            renderTeacherTable();
-            renderScheduleTable();
-            renderRekapTable();
-            updateStatistics();
-            updateGuruSelect();
-            
-            if (currentPage === 'guru') {
-                renderGuruManagementTable();
-                updateGuruStatistics();
-            }
-            
-            // Sembunyikan loading
-            setTimeout(() => {
-                document.getElementById('loading').classList.add('hidden');
-                document.getElementById('mainApp').classList.remove('hidden');
-            }, 500);
-            
-            sdkInitialized = true;
-            
-        } catch (error) {
-            console.error('Error loading all data:', error);
-            // Fallback ke data lokal
-            useLocalData();
-        }
-    }
-
-    // Fallback function jika JSONBin gagal
-    function useLocalData() {
-        document.getElementById('loadingStatus').textContent = 'Menggunakan data lokal...';
-        
-        masterTeachers = defaultTeachers.map((teacher, index) => ({
-            id: generateId(),
-            type: 'teacher',
-            induk: teacher.induk,
-            nama: teacher.nama,
-            mapel: teacher.mapel,
-            timestamp: Date.now() - index * 1000
-        }));
-        
-        attendanceRecords = [];
-        scheduleRecords = [];
-        
-        renderTeacherTable();
-        renderScheduleTable();
-        renderRekapTable();
-        updateStatistics();
-        updateGuruSelect();
-        
-        if (currentPage === 'guru') {
-            renderGuruManagementTable();
-            updateGuruStatistics();
-        }
-        
-        setTimeout(() => {
-            document.getElementById('loading').classList.add('hidden');
-            document.getElementById('mainApp').classList.remove('hidden');
-        }, 500);
-        
-        sdkInitialized = true;
-    }
 
     // Generate unique ID
     function generateId() {
@@ -2173,10 +2131,8 @@ async function loadTeachersFromJSONBin() {
       e.preventDefault();
       if (isLoading) return;
       
-      if (masterTeachers.length >= 999) {
-        showCustomAlert("Maksimum 999 guru telah tercapai. Silakan hapus beberapa guru terlebih dahulu.");
-        return;
-      }
+       masterTeachers.push(teacherData);
+    await saveTeachersToJSONBin();
       
       isLoading = true;
       const btn = document.getElementById('btnSimpanGuru');
@@ -2477,42 +2433,40 @@ async function loadTeachersFromJSONBin() {
       });
     }
     
-    // Import teachers data
-    async function importTeachersData(data) {
-      if (masterTeachers.length + data.length > 999) {
+ // Import teachers data
+async function importTeachersData(data) {
+    if (masterTeachers.length + data.length > 999) {
         showCustomAlert(`Tidak dapat mengimpor ${data.length} guru. Maksimum total adalah 999 guru.`);
         return;
-      }
-      
-      let successCount = 0;
-      
-      for (const teacherData of data) {
+    }
+    
+    let successCount = 0;
+    
+    for (const teacherData of data) {
         if (!teacherData.induk || !teacherData.nama || !teacherData.mapel) continue;
         
         const newTeacher = {
-          id: generateId(),
-          type: 'teacher',
-          induk: teacherData.induk,
-          nama: teacherData.nama,
-          mapel: teacherData.mapel,
-          mapel_tambahan: teacherData.mapel_tambahan || '',
-          timestamp: Date.now()
+            id: generateId(),
+            type: 'teacher',
+            induk: teacherData.induk,
+            nama: teacherData.nama,
+            mapel: teacherData.mapel,
+            mapel_tambahan: teacherData.mapel_tambahan || '',
+            timestamp: Date.now()
         };
         
         masterTeachers.push(newTeacher);
-        
-        if (window.dataSdk && sdkInitialized) {
-          await window.dataSdk.create(newTeacher);
-        }
-        
         successCount++;
-      }
-      
-      renderTeacherTable();
-      renderGuruManagementTable();
-      updateGuruStatistics();
-      showCustomAlert(`Berhasil mengimpor ${successCount} guru.`);
     }
+    
+    // ✅ TAMBAHKAN BARIS INI UNTUK SIMPAN KE JSONBIN
+    await saveTeachersToJSONBin();
+    
+    renderTeacherTable();
+    renderGuruManagementTable();
+    updateGuruStatistics();
+    showCustomAlert(`Berhasil mengimpor ${successCount} guru.`);
+}
     
     // Show import success
     function showImportSuccess(count) {
@@ -3874,8 +3828,28 @@ async function testJSONBinConnection() {
     }
 }
 
-// Panggil fungsi test saat aplikasi dimuat (opsional)
-// testJSONBinConnection();
+// Fungsi untuk cek data tersimpan
+window.cekDataTersimpan = async function() {
+    console.log('🔍 CEK DATA DI JSONBIN:');
+    
+    // Cek TEACHERS
+    let t = await fetch(`${JSONBIN_CONFIG.BASE_URL}/${JSONBIN_CONFIG.BINS.TEACHERS}/latest`, {
+        headers: {'X-Master-Key': JSONBIN_CONFIG.API_KEY}
+    }).then(r => r.json());
+    console.log('👥 GURU:', t.record);
+    
+    // Cek ATTENDANCE
+    let a = await fetch(`${JSONBIN_CONFIG.BASE_URL}/${JSONBIN_CONFIG.BINS.ATTENDANCE}/latest`, {
+        headers: {'X-Master-Key': JSONBIN_CONFIG.API_KEY}
+    }).then(r => r.json());
+    console.log('📝 ABSENSI:', a.record);
+    
+    // Cek SCHEDULE
+    let s = await fetch(`${JSONBIN_CONFIG.BASE_URL}/${JSONBIN_CONFIG.BINS.SCHEDULE}/latest`, {
+        headers: {'X-Master-Key': JSONBIN_CONFIG.API_KEY}
+    }).then(r => r.json());
+    console.log('📅 JADWAL:', s.record);
+}
 
     // Make functions available globally
     window.goToDay = goToDay;
@@ -3891,5 +3865,3 @@ async function testJSONBinConnection() {
   </script>
 </body>
 </html>
-
-

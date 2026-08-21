@@ -312,6 +312,62 @@
     .modern-table tr:hover {
       background: #f9fafb;
     }
+
+    /* Schedule detail styles */
+    .schedule-detail-item {
+      background: #f8fafc;
+      border-radius: 8px;
+      padding: 8px 12px;
+      margin: 4px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-left: 3px solid #667eea;
+    }
+
+    .schedule-detail-item .kelas-info {
+      font-weight: 600;
+      color: #1f2937;
+    }
+
+    .schedule-detail-item .jam-info {
+      color: #6b7280;
+      font-size: 13px;
+    }
+
+    .schedule-detail-item .delete-detail-btn {
+      color: #ef4444;
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 4px;
+      transition: all 0.2s;
+    }
+
+    .schedule-detail-item .delete-detail-btn:hover {
+      background: #fee2e2;
+    }
+
+    .kelas-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 12px;
+      background: white;
+      border-radius: 20px;
+      border: 1px solid #93c5fd;
+      font-size: 13px;
+      color: #1e40af;
+    }
+
+    .kelas-tag .remove-kelas {
+      cursor: pointer;
+      color: #ef4444;
+      font-size: 12px;
+    }
+
+    .kelas-tag .remove-kelas:hover {
+      color: #dc2626;
+    }
   </style>
 </head>
 <body>
@@ -550,7 +606,7 @@
               Jadwal Pelajaran
             </h2>
           </div>
-          <p class="text-gray-600 mb-6">Atur jadwal mengajar guru untuk setiap hari dalam seminggu.</p>
+          <p class="text-gray-600 mb-6">Atur jadwal mengajar guru dengan detail kelas dan jam pelajaran.</p>
           
           <div class="flex flex-wrap gap-4">
             <button id="btnTambahJadwal" class="px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl hover:from-purple-700 hover:to-pink-700 transition-all duration-300 font-semibold shadow-lg btn-modern flex items-center">
@@ -562,8 +618,27 @@
               Hapus Semua Jadwal
             </button>
           </div>
+          
+          <!-- Daftar Kelas yang Tersedia -->
+          <div class="mt-6 bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-4 border border-blue-100">
+            <h4 class="font-semibold text-blue-800 mb-2 flex items-center">
+              <i class="fas fa-users mr-2"></i>
+              Daftar Kelas Tersedia:
+            </h4>
+            <div id="daftarKelasContainer" class="flex flex-wrap gap-2 mb-3">
+              <!-- Akan diisi dari konfigurasi -->
+            </div>
+            <div class="flex gap-2">
+              <input type="text" id="inputKelasBaru" class="modern-input flex-1" placeholder="Tambah kelas baru...">
+              <button id="btnTambahKelas" class="px-4 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 font-semibold shadow-md btn-modern">
+                <i class="fas fa-plus mr-1"></i>
+                Tambah
+              </button>
+            </div>
+          </div>
         </div>
 
+        <!-- Schedule Table dengan Detail -->
         <div class="glass-card rounded-2xl overflow-hidden fade-in">
           <div class="p-8 border-b border-gray-200 bg-gradient-to-r from-gray-50 to-white">
             <h3 class="text-xl font-bold gradient-text flex items-center">
@@ -579,13 +654,7 @@
                   <th>No. Induk</th>
                   <th>Nama Guru</th>
                   <th>Mata Pelajaran</th>
-                  <th class="text-center">Senin</th>
-                  <th class="text-center">Selasa</th>
-                  <th class="text-center">Rabu</th>
-                  <th class="text-center">Kamis</th>
-                  <th class="text-center">Jumat</th>
-                  <th class="text-center">Sabtu</th>
-                  <th class="text-center">Minggu</th>
+                  <th class="text-center">Detail Jadwal</th>
                   <th class="text-center">Aksi</th>
                 </tr>
               </thead>
@@ -889,6 +958,69 @@
       </div>
     </div>
 
+    <!-- Add Schedule Detail Modal -->
+    <div id="addScheduleDetailModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+      <div class="modal-content w-full max-w-lg">
+        <div class="p-8">
+          <h3 class="text-2xl font-bold gradient-text mb-6 flex items-center">
+            <i class="fas fa-plus-circle mr-3 text-purple-600"></i>
+            Tambah Detail Jadwal
+          </h3>
+          <form id="addScheduleDetailForm" class="space-y-4">
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-2">Hari</label>
+              <select id="detailHari" class="modern-input w-full" required>
+                <option value="senin">Senin</option>
+                <option value="selasa">Selasa</option>
+                <option value="rabu">Rabu</option>
+                <option value="kamis">Kamis</option>
+                <option value="jumat">Jumat</option>
+                <option value="sabtu">Sabtu</option>
+                <option value="minggu">Minggu</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-2">Kelas</label>
+              <select id="detailKelas" class="modern-input w-full" required>
+                <option value="">-- Pilih Kelas --</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-2">Jam Pelajaran</label>
+              <select id="detailJam" class="modern-input w-full" required>
+                <option value="">-- Pilih Jam --</option>
+                <option value="1">Jam ke-1</option>
+                <option value="2">Jam ke-2</option>
+                <option value="3">Jam ke-3</option>
+                <option value="4">Jam ke-4</option>
+                <option value="5">Jam ke-5</option>
+                <option value="6">Jam ke-6</option>
+                <option value="7">Jam ke-7</option>
+                <option value="8">Jam ke-8</option>
+                <option value="9">Jam ke-9</option>
+                <option value="10">Jam ke-10</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-2">Mata Pelajaran</label>
+              <input type="text" id="detailMapel" class="modern-input w-full" placeholder="Mata Pelajaran...">
+            </div>
+
+            <div class="flex gap-3 pt-4">
+              <button type="submit" id="btnSimpanDetailJadwal" class="flex-1 px-6 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl hover:from-purple-700 hover:to-pink-700 transition-all duration-300 font-semibold shadow-lg btn-modern">
+                <i class="fas fa-save mr-2"></i>
+                Simpan Detail
+              </button>
+              <button type="button" id="btnBatalDetailJadwal" class="flex-1 px-6 py-4 bg-gradient-to-r from-gray-600 to-gray-700 text-white rounded-xl hover:from-gray-700 hover:to-gray-800 transition-all duration-300 font-semibold shadow-lg btn-modern">
+                <i class="fas fa-times mr-2"></i>
+                Batal
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
     <!-- Add Teacher Modal -->
     <div id="addTeacherModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
       <div class="modal-content w-full max-w-md">
@@ -960,7 +1092,7 @@
     // ============================================
     // KONFIGURASI - GANTI DENGAN URL WEB APP ANDA
     // ============================================
-    const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzOIMri3CiAnB8e-zLpmBJliZq5zGZQ_d1EQu-ynCMZ5lKWBsBR8B99fSeprHUqFcwTQA/exec';
+    const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbydiaAWiQUvUHgHbtT0kkXegS1o9amOrpKM1t1N9UfDxpQd-2Qw4rn0dmkF-Q4uafDAEA/exec';
     
     // ============================================
     // VARIABEL GLOBAL
@@ -968,6 +1100,7 @@
     let masterTeachers = [];
     let attendanceRecords = [];
     let scheduleRecords = [];
+    let scheduleDetailRecords = [];
     let currentPage = 'absensi';
     let teacherToDelete = null;
     let scheduleToDelete = null;
@@ -975,6 +1108,8 @@
     let currentDate = new Date().toISOString().split('T')[0];
     let dateRangeFilter = { start: null, end: null };
     let config = {};
+    let daftarKelas = [];
+    let currentScheduleId = null;
 
     // ============================================
     // FUNGSI API CALL
@@ -1021,10 +1156,18 @@
         scheduleRecords = scheduleResult.data || [];
         console.log('✅ Jadwal dimuat:', scheduleRecords.length);
         
+        document.getElementById('loadingStatus').textContent = 'Memuat detail jadwal...';
+        const detailResult = await callAPI('getScheduleDetail');
+        scheduleDetailRecords = detailResult.data || [];
+        console.log('✅ Detail jadwal dimuat:', scheduleDetailRecords.length);
+        
         document.getElementById('loadingStatus').textContent = 'Memuat konfigurasi...';
         const configResult = await callAPI('getConfig');
         config = configResult.data || {};
         console.log('✅ Config dimuat:', config);
+        
+        // Load daftar kelas
+        loadDaftarKelas();
         
         // Update UI
         updateConfigUI();
@@ -1146,6 +1289,77 @@
         .map(schedule => schedule.teacher_id);
       
       return masterTeachers.filter(teacher => teacher && scheduledTeacherIds.includes(teacher.id));
+    }
+
+    // ============================================
+    // DAFTAR KELAS FUNCTIONS
+    // ============================================
+    function loadDaftarKelas() {
+      const kelasStr = config.daftar_kelas || '10 MIA 1,10 MIA 2,10 IIS 1,10 IIS 2,11 MIA 1,11 MIA 2,11 IIS 1,11 IIS 2,12 MIA 1,12 MIA 2,12 IIS 1,12 IIS 2';
+      daftarKelas = kelasStr.split(',').map(k => k.trim()).filter(k => k);
+      updateDaftarKelasUI();
+      updateKelasSelects();
+    }
+
+    function updateDaftarKelasUI() {
+      const container = document.getElementById('daftarKelasContainer');
+      if (!container) return;
+      
+      container.innerHTML = daftarKelas.map(kelas => `
+        <span class="kelas-tag">
+          ${kelas}
+          <span class="remove-kelas" onclick="hapusKelas('${kelas}')">
+            <i class="fas fa-times"></i>
+          </span>
+        </span>
+      `).join('');
+    }
+
+    function updateKelasSelects() {
+      const selectKelas = document.getElementById('detailKelas');
+      if (selectKelas) {
+        const currentValue = selectKelas.value;
+        selectKelas.innerHTML = '<option value="">-- Pilih Kelas --</option>' +
+          daftarKelas.map(k => `<option value="${k}">${k}</option>`).join('');
+        if (currentValue && daftarKelas.includes(currentValue)) {
+          selectKelas.value = currentValue;
+        }
+      }
+    }
+
+    async function hapusKelas(kelas) {
+      const index = daftarKelas.indexOf(kelas);
+      if (index !== -1) {
+        daftarKelas.splice(index, 1);
+        config.daftar_kelas = daftarKelas.join(',');
+        await callAPI('saveConfig', config);
+        updateDaftarKelasUI();
+        updateKelasSelects();
+        showSaveIndicator();
+      }
+    }
+
+    async function tambahKelas() {
+      const input = document.getElementById('inputKelasBaru');
+      const kelasBaru = input.value.trim();
+      if (!kelasBaru) {
+        showCustomAlert('Masukkan nama kelas terlebih dahulu.');
+        return;
+      }
+      
+      if (daftarKelas.includes(kelasBaru)) {
+        showCustomAlert('Kelas sudah ada dalam daftar.');
+        return;
+      }
+      
+      daftarKelas.push(kelasBaru);
+      config.daftar_kelas = daftarKelas.join(',');
+      await callAPI('saveConfig', config);
+      updateDaftarKelasUI();
+      updateKelasSelects();
+      input.value = '';
+      showSaveIndicator();
+      showCustomAlert(`Kelas "${kelasBaru}" berhasil ditambahkan.`);
     }
 
     // ============================================
@@ -1566,6 +1780,384 @@
     }
 
     // ============================================
+    // RENDER SCHEDULE TABLE
+    // ============================================
+    function renderScheduleTable() {
+      const tbody = document.getElementById('scheduleTableBody');
+      if (!tbody) return;
+      
+      if (!scheduleRecords || scheduleRecords.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="6" class="px-4 py-12 text-center">
+              <div class="text-5xl mb-4 text-gray-400">📅</div>
+              <div class="text-lg text-gray-600 mb-2">Belum ada jadwal mengajar</div>
+              <div class="text-sm text-gray-500">Silakan tambah jadwal baru</div>
+            </td>
+          </tr>
+        `;
+        return;
+      }
+      
+      tbody.innerHTML = scheduleRecords.map((schedule, index) => {
+        if (!schedule) return '';
+        const teacher = masterTeachers.find(t => t && t.id === schedule.teacher_id);
+        if (!teacher) return '';
+        
+        // Get schedule details for this teacher
+        const details = scheduleDetailRecords.filter(d => d && d.schedule_id === schedule.id);
+        
+        // Group details by day
+        const detailsByDay = {};
+        const days = ['senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu', 'minggu'];
+        days.forEach(day => {
+          detailsByDay[day] = details.filter(d => d.hari === day);
+        });
+        
+        // Check if teacher has schedule on any day
+        const hasSchedule = days.some(day => schedule[day] === true);
+        
+        return `
+          <tr class="hover:bg-gray-50">
+            <td class="px-4 py-4 text-sm text-gray-900 text-center">${index + 1}</td>
+            <td class="px-4 py-4 text-sm text-gray-900">${teacher.induk || ''}</td>
+            <td class="px-4 py-4 text-sm font-medium text-gray-900">${teacher.nama || ''}</td>
+            <td class="px-4 py-4 text-sm text-gray-900">${teacher.mapel || ''}</td>
+            <td class="px-4 py-4">
+              ${hasSchedule ? `
+                <div class="space-y-2 max-h-60 overflow-y-auto">
+                  ${days.map(day => {
+                    const dayDetails = detailsByDay[day] || [];
+                    if (dayDetails.length === 0) return '';
+                    return `
+                      <div class="border-l-2 border-purple-400 pl-3">
+                        <div class="text-xs font-semibold text-purple-600 capitalize">${day}:</div>
+                        ${dayDetails.map(d => `
+                          <div class="schedule-detail-item text-sm">
+                            <span class="kelas-info">${d.kelas || ''}</span>
+                            <span class="jam-info">Jam ${d.jam || ''} - ${d.mapel || teacher.mapel || ''}</span>
+                            <button onclick="deleteScheduleDetail('${d.id}')" class="delete-detail-btn">
+                              <i class="fas fa-times"></i>
+                            </button>
+                          </div>
+                        `).join('')}
+                      </div>
+                    `;
+                  }).join('')}
+                </div>
+              ` : `
+                <span class="text-sm text-gray-400">Belum ada jadwal detail</span>
+              `}
+            </td>
+            <td class="px-4 py-4 text-center">
+              <div class="flex flex-col gap-2">
+                <button onclick="showAddScheduleDetail('${schedule.id}')" 
+                        class="px-4 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-sm rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 shadow-md btn-modern">
+                  <i class="fas fa-plus mr-1"></i>
+                  Tambah Detail
+                </button>
+                <button onclick="deleteSchedule('${schedule.id}')" 
+                        class="px-4 py-2 bg-gradient-to-r from-red-600 to-pink-600 text-white text-sm rounded-xl hover:from-red-700 hover:to-pink-700 transition-all duration-300 shadow-md btn-modern">
+                  <i class="fas fa-trash-alt mr-1"></i>
+                  Hapus Jadwal
+                </button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    // ============================================
+    // SCHEDULE FUNCTIONS
+    // ============================================
+    function updateGuruSelect() {
+      const select = document.getElementById('selectGuru');
+      if (!select) return;
+      
+      const scheduledTeacherIds = (scheduleRecords || [])
+        .map(s => s && s.teacher_id)
+        .filter(id => id);
+      
+      const availableTeachers = (masterTeachers || [])
+        .filter(t => t && !scheduledTeacherIds.includes(t.id));
+      
+      select.innerHTML = '<option value="">-- Pilih Guru --</option>' +
+        availableTeachers.map(teacher => 
+          `<option value="${teacher.id}">${teacher.nama || ''} - ${teacher.mapel || ''}</option>`
+        ).join('');
+    }
+
+    function showAddScheduleModal() {
+      updateGuruSelect();
+      
+      if (!masterTeachers || masterTeachers.length === 0) {
+        showCustomAlert("Belum ada data guru. Silakan tambah guru terlebih dahulu.");
+        return;
+      }
+      
+      const availableTeachers = (masterTeachers || []).filter(t => 
+        t && !(scheduleRecords || []).some(s => s && s.teacher_id === t.id)
+      );
+      
+      if (availableTeachers.length === 0) {
+        showCustomAlert("Semua guru sudah memiliki jadwal.");
+        return;
+      }
+      
+      const modal = document.getElementById('addScheduleModal');
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function hideAddScheduleModal() {
+      const modal = document.getElementById('addScheduleModal');
+      const form = document.getElementById('addScheduleForm');
+      if (modal) modal.classList.add('hidden');
+      if (form) form.reset();
+    }
+
+    async function handleAddSchedule(e) {
+      e.preventDefault();
+      if (isLoading) return;
+      
+      const teacherId = document.getElementById('selectGuru')?.value;
+      const selectedDays = Array.from(document.querySelectorAll('input[name="hari"]:checked'))
+        .map(cb => cb.value);
+      
+      if (!teacherId) {
+        showCustomAlert("Silakan pilih guru terlebih dahulu.");
+        return;
+      }
+      
+      if (selectedDays.length === 0) {
+        showCustomAlert("Silakan pilih minimal satu hari mengajar.");
+        return;
+      }
+      
+      if (scheduleRecords.length >= 999) {
+        showCustomAlert("Maksimum 999 jadwal telah tercapai.");
+        return;
+      }
+      
+      isLoading = true;
+      const btn = document.getElementById('btnSimpanJadwal');
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Menyimpan...';
+      }
+      
+      const teacher = masterTeachers.find(t => t && t.id === teacherId);
+      if (!teacher) {
+        showCustomAlert("Guru tidak ditemukan.");
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = '<i class="fas fa-save mr-2"></i>Simpan Jadwal';
+        }
+        isLoading = false;
+        return;
+      }
+      
+      const scheduleData = {
+        id: generateId(),
+        teacher_id: teacherId,
+        teacher_induk: teacher.induk,
+        teacher_nama: teacher.nama,
+        teacher_mapel: teacher.mapel,
+        senin: selectedDays.includes('senin'),
+        selasa: selectedDays.includes('selasa'),
+        rabu: selectedDays.includes('rabu'),
+        kamis: selectedDays.includes('kamis'),
+        jumat: selectedDays.includes('jumat'),
+        sabtu: selectedDays.includes('sabtu'),
+        minggu: selectedDays.includes('minggu')
+      };
+      
+      scheduleRecords.push(scheduleData);
+      await callAPI('saveSchedule', scheduleRecords);
+      
+      hideAddScheduleModal();
+      renderScheduleTable();
+      renderTeacherTable();
+      updateGuruStatistics();
+      showSaveIndicator();
+      
+      // Tawarkan untuk menambah detail
+      const tambahDetail = await showCustomConfirm(
+        'Jadwal berhasil ditambahkan!',
+        'Apakah Anda ingin menambahkan detail kelas dan jam untuk jadwal ini sekarang?'
+      );
+      
+      if (tambahDetail) {
+        showAddScheduleDetail(scheduleData.id);
+      } else {
+        showCustomAlert('Jadwal berhasil ditambahkan! Anda dapat menambahkan detail nanti.');
+      }
+      
+      if (btn) {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-save mr-2"></i>Simpan Jadwal';
+      }
+      isLoading = false;
+    }
+
+    function deleteSchedule(scheduleId) {
+      scheduleToDelete = scheduleId;
+      const modal = document.getElementById('deleteModal');
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    async function deleteAllSchedules() {
+      if (!scheduleRecords || scheduleRecords.length === 0) {
+        showCustomAlert("Tidak ada jadwal untuk dihapus.");
+        return;
+      }
+      
+      const userConfirmed = await showCustomConfirm(
+        `Apakah Anda yakin ingin menghapus semua ${scheduleRecords.length} jadwal?`
+      );
+      
+      if (!userConfirmed) return;
+      
+      if (isLoading) return;
+      isLoading = true;
+      
+      const btn = document.getElementById('btnHapusSemuaJadwal');
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Menghapus...';
+      }
+      
+      scheduleRecords = [];
+      scheduleDetailRecords = [];
+      await callAPI('saveSchedule', scheduleRecords);
+      await callAPI('saveScheduleDetail', scheduleDetailRecords);
+      
+      renderScheduleTable();
+      renderTeacherTable();
+      showSaveIndicator();
+      showCustomAlert('Berhasil menghapus semua jadwal.');
+      
+      if (btn) {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-trash-alt mr-2"></i>Hapus Semua Jadwal';
+      }
+      isLoading = false;
+    }
+
+    // ============================================
+    // SCHEDULE DETAIL FUNCTIONS
+    // ============================================
+    function showAddScheduleDetail(scheduleId) {
+      currentScheduleId = scheduleId;
+      const modal = document.getElementById('addScheduleDetailModal');
+      const form = document.getElementById('addScheduleDetailForm');
+      if (modal) {
+        modal.classList.remove('hidden');
+        updateKelasSelects();
+        if (form) form.reset();
+        // Set default hari based on schedule
+        const schedule = scheduleRecords.find(s => s && s.id === scheduleId);
+        if (schedule) {
+          const days = ['senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu', 'minggu'];
+          for (const day of days) {
+            if (schedule[day] === true) {
+              document.getElementById('detailHari').value = day;
+              break;
+            }
+          }
+        }
+      }
+    }
+
+    function hideAddScheduleDetailModal() {
+      const modal = document.getElementById('addScheduleDetailModal');
+      const form = document.getElementById('addScheduleDetailForm');
+      if (modal) modal.classList.add('hidden');
+      if (form) form.reset();
+      currentScheduleId = null;
+    }
+
+    async function handleAddScheduleDetail(e) {
+      e.preventDefault();
+      if (isLoading || !currentScheduleId) return;
+      
+      const hari = document.getElementById('detailHari')?.value;
+      const kelas = document.getElementById('detailKelas')?.value;
+      const jam = document.getElementById('detailJam')?.value;
+      const mapel = document.getElementById('detailMapel')?.value;
+      
+      if (!hari || !kelas || !jam) {
+        showCustomAlert('Harap isi semua field yang wajib diisi.');
+        return;
+      }
+      
+      isLoading = true;
+      const btn = document.getElementById('btnSimpanDetailJadwal');
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Menyimpan...';
+      }
+      
+      const schedule = scheduleRecords.find(s => s && s.id === currentScheduleId);
+      if (!schedule) {
+        showCustomAlert('Jadwal tidak ditemukan.');
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = '<i class="fas fa-save mr-2"></i>Simpan Detail';
+        }
+        isLoading = false;
+        return;
+      }
+      
+      const detailData = {
+        id: generateId(),
+        schedule_id: currentScheduleId,
+        teacher_id: schedule.teacher_id,
+        hari: hari,
+        kelas: kelas,
+        jam: jam,
+        mapel: mapel || schedule.teacher_mapel || ''
+      };
+      
+      scheduleDetailRecords.push(detailData);
+      await callAPI('saveScheduleDetail', scheduleDetailRecords);
+      
+      hideAddScheduleDetailModal();
+      renderScheduleTable();
+      showSaveIndicator();
+      showCustomAlert('Detail jadwal berhasil ditambahkan!');
+      
+      if (btn) {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-save mr-2"></i>Simpan Detail';
+      }
+      isLoading = false;
+    }
+
+    async function deleteScheduleDetail(detailId) {
+      if (isLoading) return;
+      
+      const userConfirmed = await showCustomConfirm(
+        'Apakah Anda yakin ingin menghapus detail jadwal ini?'
+      );
+      
+      if (!userConfirmed) return;
+      
+      isLoading = true;
+      
+      const index = scheduleDetailRecords.findIndex(d => d && d.id === detailId);
+      if (index !== -1) {
+        scheduleDetailRecords.splice(index, 1);
+        await callAPI('saveScheduleDetail', scheduleDetailRecords);
+        renderScheduleTable();
+        showSaveIndicator();
+        showCustomAlert('Detail jadwal berhasil dihapus!');
+      }
+      
+      isLoading = false;
+    }
+
+    // ============================================
     // TEACHER MANAGEMENT
     // ============================================
     function showAddTeacherModal() {
@@ -1663,6 +2255,9 @@
           scheduleRecords = scheduleRecords.filter(schedule => schedule.teacher_id !== teacherToDelete);
           await callAPI('saveSchedule', scheduleRecords);
           
+          scheduleDetailRecords = scheduleDetailRecords.filter(detail => detail.teacher_id !== teacherToDelete);
+          await callAPI('saveScheduleDetail', scheduleDetailRecords);
+          
           hideDeleteModal();
           renderTeacherTable();
           renderScheduleTable();
@@ -1674,8 +2269,13 @@
       } else if (scheduleToDelete) {
         const scheduleIndex = scheduleRecords.findIndex(s => s && s.id === scheduleToDelete);
         if (scheduleIndex !== -1) {
+          const scheduleId = scheduleRecords[scheduleIndex].id;
           scheduleRecords.splice(scheduleIndex, 1);
           await callAPI('saveSchedule', scheduleRecords);
+          
+          // Hapus juga detail jadwal
+          scheduleDetailRecords = scheduleDetailRecords.filter(d => d.schedule_id !== scheduleId);
+          await callAPI('saveScheduleDetail', scheduleDetailRecords);
           
           hideDeleteModal();
           renderScheduleTable();
@@ -1868,231 +2468,6 @@
     }
 
     // ============================================
-    // SCHEDULE FUNCTIONS
-    // ============================================
-    function renderScheduleTable() {
-      const tbody = document.getElementById('scheduleTableBody');
-      if (!tbody) return;
-      
-      if (!scheduleRecords || scheduleRecords.length === 0) {
-        tbody.innerHTML = `
-          <tr>
-            <td colspan="12" class="px-4 py-12 text-center">
-              <div class="text-5xl mb-4 text-gray-400">📅</div>
-              <div class="text-lg text-gray-600 mb-2">Belum ada jadwal mengajar</div>
-              <div class="text-sm text-gray-500">Silakan tambah jadwal baru</div>
-            </td>
-          </tr>
-        `;
-        return;
-      }
-      
-      tbody.innerHTML = scheduleRecords.map((schedule, index) => {
-        if (!schedule) return '';
-        const teacher = masterTeachers.find(t => t && t.id === schedule.teacher_id);
-        if (!teacher) return '';
-        
-        const days = ['senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu', 'minggu'];
-        
-        return `
-          <tr class="hover:bg-gray-50">
-            <td class="px-4 py-4 text-sm text-gray-900 text-center">${index + 1}</td>
-            <td class="px-4 py-4 text-sm text-gray-900">${teacher.induk || ''}</td>
-            <td class="px-4 py-4 text-sm font-medium text-gray-900">${teacher.nama || ''}</td>
-            <td class="px-4 py-4 text-sm text-gray-900">${teacher.mapel || ''}</td>
-            ${days.map(day => `
-              <td class="px-4 py-4 text-center">
-                <input type="checkbox" ${schedule[day] ? 'checked' : ''} 
-                       onchange="updateScheduleDay('${schedule.id}', '${day}', this.checked)"
-                       class="w-5 h-5 text-purple-600 bg-gray-100 border-gray-300 rounded-xl focus:ring-purple-500 cursor-pointer">
-              </td>
-            `).join('')}
-            <td class="px-4 py-4 text-center">
-              <button onclick="deleteSchedule('${schedule.id}')" 
-                      class="px-4 py-2 bg-gradient-to-r from-red-600 to-pink-600 text-white text-sm rounded-xl hover:from-red-700 hover:to-pink-700 transition-all duration-300 shadow-md btn-modern">
-                <i class="fas fa-trash-alt mr-1"></i>
-                Hapus
-              </button>
-            </td>
-          </tr>
-        `;
-      }).join('');
-    }
-
-    function updateGuruSelect() {
-      const select = document.getElementById('selectGuru');
-      if (!select) return;
-      
-      const scheduledTeacherIds = (scheduleRecords || [])
-        .map(s => s && s.teacher_id)
-        .filter(id => id);
-      
-      const availableTeachers = (masterTeachers || [])
-        .filter(t => t && !scheduledTeacherIds.includes(t.id));
-      
-      select.innerHTML = '<option value="">-- Pilih Guru --</option>' +
-        availableTeachers.map(teacher => 
-          `<option value="${teacher.id}">${teacher.nama || ''} - ${teacher.mapel || ''}</option>`
-        ).join('');
-    }
-
-    function showAddScheduleModal() {
-      updateGuruSelect();
-      
-      if (!masterTeachers || masterTeachers.length === 0) {
-        showCustomAlert("Belum ada data guru. Silakan tambah guru terlebih dahulu.");
-        return;
-      }
-      
-      const availableTeachers = (masterTeachers || []).filter(t => 
-        t && !(scheduleRecords || []).some(s => s && s.teacher_id === t.id)
-      );
-      
-      if (availableTeachers.length === 0) {
-        showCustomAlert("Semua guru sudah memiliki jadwal.");
-        return;
-      }
-      
-      const modal = document.getElementById('addScheduleModal');
-      if (modal) modal.classList.remove('hidden');
-    }
-
-    function hideAddScheduleModal() {
-      const modal = document.getElementById('addScheduleModal');
-      const form = document.getElementById('addScheduleForm');
-      if (modal) modal.classList.add('hidden');
-      if (form) form.reset();
-    }
-
-    async function handleAddSchedule(e) {
-      e.preventDefault();
-      if (isLoading) return;
-      
-      const teacherId = document.getElementById('selectGuru')?.value;
-      const selectedDays = Array.from(document.querySelectorAll('input[name="hari"]:checked'))
-        .map(cb => cb.value);
-      
-      if (!teacherId) {
-        showCustomAlert("Silakan pilih guru terlebih dahulu.");
-        return;
-      }
-      
-      if (selectedDays.length === 0) {
-        showCustomAlert("Silakan pilih minimal satu hari mengajar.");
-        return;
-      }
-      
-      if (scheduleRecords.length >= 999) {
-        showCustomAlert("Maksimum 999 jadwal telah tercapai.");
-        return;
-      }
-      
-      isLoading = true;
-      const btn = document.getElementById('btnSimpanJadwal');
-      if (btn) {
-        btn.disabled = true;
-        btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Menyimpan...';
-      }
-      
-      const teacher = masterTeachers.find(t => t && t.id === teacherId);
-      if (!teacher) {
-        showCustomAlert("Guru tidak ditemukan.");
-        if (btn) {
-          btn.disabled = false;
-          btn.innerHTML = '<i class="fas fa-save mr-2"></i>Simpan Jadwal';
-        }
-        isLoading = false;
-        return;
-      }
-      
-      const scheduleData = {
-        id: generateId(),
-        teacher_id: teacherId,
-        teacher_induk: teacher.induk,
-        teacher_nama: teacher.nama,
-        teacher_mapel: teacher.mapel,
-        senin: selectedDays.includes('senin'),
-        selasa: selectedDays.includes('selasa'),
-        rabu: selectedDays.includes('rabu'),
-        kamis: selectedDays.includes('kamis'),
-        jumat: selectedDays.includes('jumat'),
-        sabtu: selectedDays.includes('sabtu'),
-        minggu: selectedDays.includes('minggu')
-      };
-      
-      scheduleRecords.push(scheduleData);
-      await callAPI('saveSchedule', scheduleRecords);
-      
-      hideAddScheduleModal();
-      renderScheduleTable();
-      renderTeacherTable();
-      updateGuruStatistics();
-      showSaveIndicator();
-      showCustomAlert('Jadwal berhasil ditambahkan!');
-      
-      if (btn) {
-        btn.disabled = false;
-        btn.innerHTML = '<i class="fas fa-save mr-2"></i>Simpan Jadwal';
-      }
-      isLoading = false;
-    }
-
-    async function updateScheduleDay(scheduleId, day, checked) {
-      if (isLoading || !scheduleId) return;
-      isLoading = true;
-      
-      const schedule = scheduleRecords.find(s => s && s.id === scheduleId);
-      if (schedule) {
-        schedule[day] = checked;
-        await callAPI('saveSchedule', scheduleRecords);
-        showSaveIndicator();
-      }
-      isLoading = false;
-    }
-
-    function deleteSchedule(scheduleId) {
-      scheduleToDelete = scheduleId;
-      const modal = document.getElementById('deleteModal');
-      if (modal) modal.classList.remove('hidden');
-    }
-
-    async function deleteAllSchedules() {
-      if (!scheduleRecords || scheduleRecords.length === 0) {
-        showCustomAlert("Tidak ada jadwal untuk dihapus.");
-        return;
-      }
-      
-      const userConfirmed = await showCustomConfirm(
-        `Apakah Anda yakin ingin menghapus semua ${scheduleRecords.length} jadwal?`
-      );
-      
-      if (!userConfirmed) return;
-      
-      if (isLoading) return;
-      isLoading = true;
-      
-      const btn = document.getElementById('btnHapusSemuaJadwal');
-      if (btn) {
-        btn.disabled = true;
-        btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Menghapus...';
-      }
-      
-      scheduleRecords = [];
-      await callAPI('saveSchedule', scheduleRecords);
-      
-      renderScheduleTable();
-      renderTeacherTable();
-      showSaveIndicator();
-      showCustomAlert('Berhasil menghapus semua jadwal.');
-      
-      if (btn) {
-        btn.disabled = false;
-        btn.innerHTML = '<i class="fas fa-trash-alt mr-2"></i>Hapus Semua Jadwal';
-      }
-      isLoading = false;
-    }
-
-    // ============================================
     // GURU MANAGEMENT TABLE
     // ============================================
     function renderGuruManagementTable() {
@@ -2245,10 +2620,12 @@
       
       masterTeachers = [];
       scheduleRecords = [];
+      scheduleDetailRecords = [];
       attendanceRecords = [];
       
       await callAPI('saveTeachers', masterTeachers);
       await callAPI('saveSchedule', scheduleRecords);
+      await callAPI('saveScheduleDetail', scheduleDetailRecords);
       await callAPI('saveAttendance', attendanceRecords);
       
       renderTeacherTable();
@@ -2530,7 +2907,6 @@
     }
 
     function printDetailedReport() {
-      // Sama seperti printReport tapi dengan detail lebih lengkap
       showCustomAlert('Fitur Rincian Data Rekap akan segera hadir.');
     }
 
@@ -2677,6 +3053,10 @@
       document.getElementById('btnBatalJadwal').addEventListener('click', hideAddScheduleModal);
       document.getElementById('addScheduleForm').addEventListener('submit', handleAddSchedule);
 
+      // Schedule Detail
+      document.getElementById('btnBatalDetailJadwal').addEventListener('click', hideAddScheduleDetailModal);
+      document.getElementById('addScheduleDetailForm').addEventListener('submit', handleAddScheduleDetail);
+
       document.getElementById('btnBatalTambah').addEventListener('click', hideAddTeacherModal);
       document.getElementById('addTeacherForm').addEventListener('submit', handleAddTeacher);
 
@@ -2696,6 +3076,12 @@
       document.getElementById('btnHapusSemuaKehadiran').addEventListener('click', deleteAllAttendanceRecords);
 
       document.getElementById('logoUpload').addEventListener('change', handleLogoUpload);
+
+      // Kelas
+      document.getElementById('btnTambahKelas').addEventListener('click', tambahKelas);
+      document.getElementById('inputKelasBaru').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') tambahKelas();
+      });
     }
 
     // ============================================
@@ -2735,13 +3121,16 @@
     window.updateAttendanceStatus = updateAttendanceStatus;
     window.updateAttendanceKeterangan = updateAttendanceKeterangan;
     window.deleteTeacher = deleteTeacher;
-    window.updateScheduleDay = updateScheduleDay;
     window.deleteSchedule = deleteSchedule;
     window.updateTeacherInduk = updateTeacherInduk;
     window.updateTeacherNama = updateTeacherNama;
     window.updateTeacherMapelTambahan = updateTeacherMapelTambahan;
     window.deleteAllTeachers = deleteAllTeachers;
     window.deleteAllSchedules = deleteAllSchedules;
+    window.showAddScheduleDetail = showAddScheduleDetail;
+    window.deleteScheduleDetail = deleteScheduleDetail;
+    window.hapusKelas = hapusKelas;
+    window.tambahKelas = tambahKelas;
 
     // Start app
     document.addEventListener('DOMContentLoaded', initApp);

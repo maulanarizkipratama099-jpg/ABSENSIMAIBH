@@ -10,97 +10,129 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
     
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
       font-family: 'Inter', sans-serif;
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       min-height: 100vh;
       position: relative;
     }
+
     .bg-animated {
       position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       z-index: -1;
       overflow: hidden;
     }
+
     .bg-circle {
       position: absolute;
       border-radius: 50%;
-      background: rgba(255,255,255,0.05);
+      background: rgba(255, 255, 255, 0.05);
       animation: float 20s infinite;
     }
+
     .bg-circle:nth-child(1) {
-      width: 300px; height: 300px;
-      top: -150px; right: -150px;
+      width: 300px;
+      height: 300px;
+      top: -150px;
+      right: -150px;
       background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
     }
+
     .bg-circle:nth-child(2) {
-      width: 400px; height: 400px;
-      bottom: -200px; left: -200px;
+      width: 400px;
+      height: 400px;
+      bottom: -200px;
+      left: -200px;
       background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.03) 100%);
       animation-delay: -5s;
     }
+
     .bg-circle:nth-child(3) {
-      width: 200px; height: 200px;
-      top: 50%; left: 50%;
+      width: 200px;
+      height: 200px;
+      top: 50%;
+      left: 50%;
       transform: translate(-50%, -50%);
       background: linear-gradient(135deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%);
       animation: pulse 10s infinite;
     }
+
     @keyframes float {
       0%, 100% { transform: translateY(0) rotate(0deg); }
       50% { transform: translateY(-20px) rotate(5deg); }
     }
+
     @keyframes pulse {
       0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.3; }
       50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.5; }
     }
+
     .glass {
-      background: rgba(255,255,255,0.95);
+      background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(255,255,255,0.2);
-      box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     }
+
     .glass-card {
-      background: rgba(255,255,255,0.95);
+      background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(255,255,255,0.3);
-      box-shadow: 0 8px 32px rgba(31,38,135,0.15);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
       transition: all 0.3s ease;
     }
+
     .glass-card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 12px 48px rgba(31,38,135,0.25);
+      box-shadow: 0 12px 48px rgba(31, 38, 135, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.5);
     }
+
     .btn-modern {
       position: relative;
       overflow: hidden;
       transition: all 0.3s ease;
       z-index: 1;
     }
+
     .btn-modern::before {
       content: '';
       position: absolute;
-      top: 50%; left: 50%;
-      width: 0; height: 0;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
       border-radius: 50%;
-      background: rgba(255,255,255,0.2);
+      background: rgba(255, 255, 255, 0.2);
       transform: translate(-50%, -50%);
       transition: width 0.6s, height 0.6s;
       z-index: -1;
     }
+
     .btn-modern:hover::before {
-      width: 300px; height: 300px;
+      width: 300px;
+      height: 300px;
     }
+
     .gradient-text {
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
+
     .status-badge {
       padding: 6px 12px;
       border-radius: 20px;
@@ -111,40 +143,47 @@
       gap: 4px;
       transition: all 0.3s ease;
     }
+
     .status-badge.hadir {
       background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
       color: white;
-      box-shadow: 0 4px 10px rgba(16,185,129,0.3);
+      box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);
     }
+
     .status-badge.izin {
       background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
       color: white;
-      box-shadow: 0 4px 10px rgba(245,158,11,0.3);
+      box-shadow: 0 4px 10px rgba(245, 158, 11, 0.3);
     }
+
     .status-badge.sakit {
       background: linear-gradient(135deg, #ef4444 0%, #f87171 100%);
       color: white;
-      box-shadow: 0 4px 10px rgba(239,68,68,0.3);
+      box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3);
     }
+
     .status-badge.absen {
       background: linear-gradient(135deg, #6b7280 0%, #9ca3af 100%);
       color: white;
-      box-shadow: 0 4px 10px rgba(107,114,128,0.3);
+      box-shadow: 0 4px 10px rgba(107, 114, 128, 0.3);
     }
+
     .modern-input {
-      background: rgba(255,255,255,0.9);
+      background: rgba(255, 255, 255, 0.9);
       border: 2px solid transparent;
       border-radius: 12px;
       padding: 10px 16px;
       transition: all 0.3s ease;
       font-size: 14px;
     }
+
     .modern-input:focus {
       outline: none;
       border-color: #667eea;
-      box-shadow: 0 0 0 3px rgba(102,126,234,0.2);
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
       background: white;
     }
+
     .nav-btn {
       position: relative;
       padding: 12px 24px;
@@ -154,11 +193,13 @@
       overflow: hidden;
       z-index: 1;
     }
+
     .nav-btn.active {
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       color: white;
-      box-shadow: 0 8px 20px rgba(102,126,234,0.4);
+      box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
     }
+
     .stat-card {
       background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.9) 100%);
       backdrop-filter: blur(10px);
@@ -167,53 +208,90 @@
       padding: 24px;
       transition: all 0.3s ease;
     }
+
     .stat-card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
     }
+
     .loader {
-      width: 48px; height: 48px;
-      border: 3px solid rgba(255,255,255,0.3);
+      width: 48px;
+      height: 48px;
+      border: 3px solid rgba(255, 255, 255, 0.3);
       border-radius: 50%;
       border-top-color: #667eea;
       animation: spin 1s ease-in-out infinite;
     }
+
     @keyframes spin {
       to { transform: rotate(360deg); }
     }
+
     .fade-in {
       animation: fadeIn 0.5s ease-out;
     }
+
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
+
     .modal-content {
-      background: rgba(255,255,255,0.98);
+      background: rgba(255, 255, 255, 0.98);
       backdrop-filter: blur(20px);
-      border: 1px solid rgba(255,255,255,0.3);
+      border: 1px solid rgba(255, 255, 255, 0.3);
       border-radius: 24px;
-      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
       animation: modalSlideIn 0.3s ease-out;
     }
+
     @keyframes modalSlideIn {
-      from { opacity: 0; transform: translateY(-50px) scale(0.95); }
-      to { opacity: 1; transform: translateY(0) scale(1); }
+      from {
+        opacity: 0;
+        transform: translateY(-50px) scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
     }
+
     @media print {
       .no-print { display: none !important; }
       body { background: white !important; }
       .glass-card { box-shadow: none !important; border: 1px solid #ddd !important; }
     }
-    ::-webkit-scrollbar { width: 8px; height: 8px; }
-    ::-webkit-scrollbar-track { background: rgba(0,0,0,0.05); border-radius: 10px; }
-    ::-webkit-scrollbar-thumb { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 10px; }
-    ::-webkit-scrollbar-thumb:hover { background: linear-gradient(135deg, #764ba2 0%, #667eea 100%); }
-    
+
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.05);
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+    }
+
     .modern-table {
       width: 100%;
       border-collapse: collapse;
     }
+
     .modern-table th {
       background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
       padding: 12px 16px;
@@ -223,14 +301,18 @@
       color: #374151;
       border-bottom: 2px solid #e5e7eb;
     }
+
     .modern-table td {
       padding: 12px 16px;
       border-bottom: 1px solid #f3f4f6;
       font-size: 14px;
       color: #1f2937;
     }
-    .modern-table tr:hover { background: #f9fafb; }
-    
+
+    .modern-table tr:hover {
+      background: #f9fafb;
+    }
+
     .schedule-detail-item {
       background: #f8fafc;
       border-radius: 8px;
@@ -241,8 +323,17 @@
       align-items: center;
       border-left: 3px solid #667eea;
     }
-    .schedule-detail-item .kelas-info { font-weight: 600; color: #1f2937; }
-    .schedule-detail-item .jam-info { color: #6b7280; font-size: 13px; }
+
+    .schedule-detail-item .kelas-info {
+      font-weight: 600;
+      color: #1f2937;
+    }
+
+    .schedule-detail-item .jam-info {
+      color: #6b7280;
+      font-size: 13px;
+    }
+
     .schedule-detail-item .delete-detail-btn {
       color: #ef4444;
       cursor: pointer;
@@ -250,8 +341,11 @@
       border-radius: 4px;
       transition: all 0.2s;
     }
-    .schedule-detail-item .delete-detail-btn:hover { background: #fee2e2; }
-    
+
+    .schedule-detail-item .delete-detail-btn:hover {
+      background: #fee2e2;
+    }
+
     .kelas-tag {
       display: inline-flex;
       align-items: center;
@@ -263,31 +357,70 @@
       font-size: 13px;
       color: #1e40af;
     }
+
     .kelas-tag .remove-kelas {
       cursor: pointer;
       color: #ef4444;
       font-size: 12px;
     }
-    .kelas-tag .remove-kelas:hover { color: #dc2626; }
-    
-    .rekap-detail-row {
-      border-left: 4px solid #667eea;
-      margin-bottom: 4px;
-      padding: 6px 12px;
-      background: #f8fafc;
-      border-radius: 6px;
-      font-size: 13px;
+
+    .kelas-tag .remove-kelas:hover {
+      color: #dc2626;
     }
-    .rekap-detail-row .rekap-status {
-      font-weight: 600;
-      padding: 2px 10px;
-      border-radius: 12px;
-      font-size: 11px;
+
+    /* Print styles untuk Rincian Rekap */
+    @media print {
+      .print-header {
+        text-align: center;
+        margin-bottom: 30px;
+        border-bottom: 2px solid #667eea;
+        padding-bottom: 20px;
+      }
+      .print-title {
+        font-size: 20px;
+        font-weight: bold;
+        text-align: center;
+        margin: 20px 0;
+      }
+      .print-period {
+        text-align: center;
+        font-size: 14px;
+        color: #666;
+        margin-bottom: 20px;
+      }
+      .print-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 11px;
+      }
+      .print-table th {
+        background: #667eea !important;
+        color: white !important;
+        padding: 8px;
+        border: 1px solid #000;
+      }
+      .print-table td {
+        padding: 6px;
+        border: 1px solid #000;
+      }
+      .print-table .text-center { text-align: center; }
+      .print-signature {
+        margin-top: 50px;
+        text-align: right;
+      }
+      .print-signature-line {
+        margin-top: 60px;
+        padding-right: 50px;
+      }
+      .print-footer {
+        margin-top: 30px;
+        font-size: 10px;
+        color: #666;
+        text-align: center;
+        border-top: 1px solid #ddd;
+        padding-top: 10px;
+      }
     }
-    .rekap-detail-row .rekap-status.hadir { background: #10b981; color: white; }
-    .rekap-detail-row .rekap-status.izin { background: #f59e0b; color: white; }
-    .rekap-detail-row .rekap-status.sakit { background: #ef4444; color: white; }
-    .rekap-detail-row .rekap-status.absen { background: #6b7280; color: white; }
   </style>
 </head>
 <body>
@@ -299,7 +432,7 @@
   </div>
 
   <div id="app" class="min-h-full relative">
-    <!-- Loading -->
+    <!-- Loading State -->
     <div id="loading" class="fixed inset-0 flex items-center justify-center z-50 bg-opacity-90" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
       <div class="text-center">
         <div class="loader mx-auto mb-4"></div>
@@ -315,7 +448,9 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div class="flex justify-between items-center h-20">
             <div class="flex items-center space-x-4">
-              <div id="logoNav" class="w-12 h-12 bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl flex items-center justify-center cursor-pointer hover:from-blue-700 hover:to-purple-700 transition-all duration-300 relative group shadow-lg" onclick="document.getElementById('logoUpload').click()">
+              <div id="logoNav" 
+                   class="w-12 h-12 bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl flex items-center justify-center cursor-pointer hover:from-blue-700 hover:to-purple-700 transition-all duration-300 relative group shadow-lg"
+                   onclick="document.getElementById('logoUpload').click()">
                 <span class="text-white font-bold text-xl">🏫</span>
                 <div class="absolute inset-0 bg-black bg-opacity-40 rounded-xl flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                   <i class="fas fa-camera text-white text-sm"></i>
@@ -327,18 +462,23 @@
                 <p class="text-sm text-gray-600">Sistem Absensi Digital</p>
               </div>
             </div>
+
             <div class="flex space-x-2">
               <button id="btnAbsensi" class="nav-btn flex items-center space-x-2 px-6 py-3 rounded-xl font-semibold transition-all duration-300 bg-white text-gray-700 hover:bg-gray-50">
-                <i class="fas fa-clipboard-list"></i><span>Absensi</span>
+                <i class="fas fa-clipboard-list"></i>
+                <span>Absensi</span>
               </button>
               <button id="btnJadwal" class="nav-btn flex items-center space-x-2 px-6 py-3 rounded-xl font-semibold transition-all duration-300 bg-white text-gray-700 hover:bg-gray-50">
-                <i class="fas fa-calendar-alt"></i><span>Jadwal</span>
+                <i class="fas fa-calendar-alt"></i>
+                <span>Jadwal</span>
               </button>
               <button id="btnRekap" class="nav-btn flex items-center space-x-2 px-6 py-3 rounded-xl font-semibold transition-all duration-300 bg-white text-gray-700 hover:bg-gray-50">
-                <i class="fas fa-chart-bar"></i><span>Rekap</span>
+                <i class="fas fa-chart-bar"></i>
+                <span>Rekap</span>
               </button>
               <button id="btnGuru" class="nav-btn flex items-center space-x-2 px-6 py-3 rounded-xl font-semibold transition-all duration-300 bg-white text-gray-700 hover:bg-gray-50">
-                <i class="fas fa-chalkboard-teacher"></i><span>Data Guru</span>
+                <i class="fas fa-chalkboard-teacher"></i>
+                <span>Data Guru</span>
               </button>
             </div>
           </div>
@@ -351,14 +491,18 @@
         <div class="glass-card rounded-2xl p-8 mb-8 fade-in">
           <div class="text-center mb-8">
             <div class="flex justify-center mb-6">
-              <div id="logoMain" class="w-24 h-24 bg-gradient-to-br from-blue-600 to-purple-600 rounded-2xl flex items-center justify-center cursor-pointer hover:from-blue-700 hover:to-purple-700 transition-all duration-300 relative group shadow-xl" onclick="document.getElementById('logoUpload').click()">
+              <div id="logoMain" 
+                   class="w-24 h-24 bg-gradient-to-br from-blue-600 to-purple-600 rounded-2xl flex items-center justify-center cursor-pointer hover:from-blue-700 hover:to-purple-700 transition-all duration-300 relative group shadow-xl"
+                   onclick="document.getElementById('logoUpload').click()">
                 <span class="text-white text-4xl">🏫</span>
                 <div class="absolute inset-0 bg-black bg-opacity-40 rounded-2xl flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                   <i class="fas fa-camera text-white"></i>
                 </div>
               </div>
             </div>
+            
             <h1 id="namaSekolah" class="text-4xl font-bold gradient-text mb-4">MAS IBNU HUSAIN</h1>
+            
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
               <div class="space-y-3 text-left">
                 <div class="flex items-center space-x-2">
@@ -395,8 +539,10 @@
         <!-- Date Settings -->
         <div class="glass-card rounded-2xl p-8 mb-8 no-print fade-in">
           <h3 class="text-xl font-bold gradient-text mb-6 flex items-center">
-            <i class="fas fa-calendar-alt mr-3 text-2xl"></i> Pengaturan Tanggal Absensi
+            <i class="fas fa-calendar-alt mr-3 text-2xl"></i>
+            Pengaturan Tanggal Absensi
           </h3>
+
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <div class="space-y-4">
               <div class="flex items-center gap-4">
@@ -411,14 +557,18 @@
                   </button>
                 </div>
               </div>
+
               <div class="flex flex-wrap gap-3">
                 <button id="btnSetTanggal" class="flex-1 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 font-semibold shadow-lg btn-modern">
-                  <i class="fas fa-calendar-check mr-2"></i> Set Tanggal
+                  <i class="fas fa-calendar-check mr-2"></i>
+                  Set Tanggal
                 </button>
                 <button id="btnHariIni" class="flex-1 px-6 py-3 bg-gradient-to-r from-gray-600 to-gray-700 text-white rounded-xl hover:from-gray-700 hover:to-gray-800 transition-all duration-300 font-semibold shadow-lg btn-modern">
-                  <i class="fas fa-calendar-day mr-2"></i> Hari Ini
+                  <i class="fas fa-calendar-day mr-2"></i>
+                  Hari Ini
                 </button>
               </div>
+
               <div class="bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-4">
                 <p class="text-sm">
                   <span class="font-semibold text-gray-700">Tanggal Aktif:</span>
@@ -426,9 +576,11 @@
                 </p>
               </div>
             </div>
+
             <div>
               <h4 class="text-sm font-semibold text-gray-700 mb-4 flex items-center">
-                <i class="fas fa-chevron-circle-right text-blue-600 mr-2"></i> Navigasi Berdasarkan Hari:
+                <i class="fas fa-chevron-circle-right text-blue-600 mr-2"></i>
+                Navigasi Berdasarkan Hari:
               </h4>
               <div class="grid grid-cols-4 gap-2">
                 <button class="px-3 py-3 bg-white text-purple-700 rounded-xl hover:bg-purple-50 transition-all duration-300 text-sm font-medium border border-purple-200 shadow-sm" onclick="goToDay('senin')">Senin</button>
@@ -440,7 +592,8 @@
                 <button class="px-3 py-3 bg-white text-purple-700 rounded-xl hover:bg-purple-50 transition-all duration-300 text-sm font-medium border border-purple-200 shadow-sm" onclick="goToDay('minggu')">Minggu</button>
               </div>
               <p class="mt-3 text-xs text-gray-500 flex items-center">
-                <i class="fas fa-info-circle text-blue-500 mr-1"></i> Klik hari untuk navigasi cepat.
+                <i class="fas fa-info-circle text-blue-500 mr-1"></i>
+                Klik hari untuk navigasi cepat.
               </p>
             </div>
           </div>
@@ -451,15 +604,18 @@
           <div class="flex flex-wrap items-center justify-between gap-4">
             <div class="flex gap-3">
               <button id="btnHadirSemua" class="px-8 py-4 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-xl hover:from-green-600 hover:to-emerald-600 transition-all duration-300 font-semibold shadow-lg btn-modern flex items-center">
-                <i class="fas fa-check-circle mr-2 text-xl"></i> Hadir Semua
+                <i class="fas fa-check-circle mr-2 text-xl"></i>
+                Hadir Semua
               </button>
             </div>
             <div class="flex gap-3">
               <button id="btnKirim" class="px-8 py-4 bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-xl hover:from-orange-600 hover:to-red-600 transition-all duration-300 font-semibold shadow-lg btn-modern flex items-center">
-                <i class="fas fa-paper-plane mr-2 text-xl"></i> Kirim
+                <i class="fas fa-paper-plane mr-2 text-xl"></i>
+                Kirim
               </button>
             </div>
           </div>
+
           <div id="saveIndicator" class="hidden mt-4 p-4 bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 text-green-700 rounded-xl saved-indicator flex items-center">
             <i class="fas fa-check-circle text-green-500 mr-3 text-xl"></i>
             <span class="font-medium">✅ Data telah disimpan ke Google Spreadsheet</span>
@@ -470,7 +626,8 @@
         <div class="glass-card rounded-2xl overflow-hidden fade-in">
           <div class="p-8 border-b border-gray-200 bg-gradient-to-r from-gray-50 to-white">
             <h2 class="text-2xl font-bold gradient-text flex items-center">
-              <i class="fas fa-chalkboard-teacher mr-3"></i> Daftar Absensi Guru
+              <i class="fas fa-chalkboard-teacher mr-3"></i>
+              Daftar Absensi Guru
             </h2>
           </div>
           <div class="overflow-x-auto">
@@ -486,7 +643,8 @@
                   <th class="text-center no-print">Aksi</th>
                 </tr>
               </thead>
-              <tbody id="teacherTableBody"></tbody>
+              <tbody id="teacherTableBody">
+              </tbody>
             </table>
           </div>
         </div>
@@ -497,46 +655,52 @@
         <div class="glass-card rounded-2xl p-8 mb-8 fade-in">
           <div class="flex items-center justify-between mb-6">
             <h2 class="text-3xl font-bold gradient-text flex items-center">
-              <i class="fas fa-calendar-alt mr-3"></i> Jadwal Pelajaran
+              <i class="fas fa-calendar-alt mr-3"></i>
+              Jadwal Pelajaran
             </h2>
           </div>
-          <p class="text-gray-600 mb-6">Atur jadwal mengajar guru dengan detail kelas, jam, dan mata pelajaran.</p>
+          <p class="text-gray-600 mb-6">Atur jadwal mengajar guru dengan detail kelas dan jam pelajaran.</p>
           
           <div class="flex flex-wrap gap-4">
             <button id="btnTambahJadwal" class="px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl hover:from-purple-700 hover:to-pink-700 transition-all duration-300 font-semibold shadow-lg btn-modern flex items-center">
-              <i class="fas fa-plus-circle mr-2"></i> Tambah Jadwal
+              <i class="fas fa-plus-circle mr-2"></i>
+              Tambah Jadwal
             </button>
-            <button id="btnTambahJadwalMulti" class="px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 font-semibold shadow-lg btn-modern flex items-center">
-              <i class="fas fa-layer-group mr-2"></i> Tambah Multi Jadwal
-            </button>
-            <button id="btnImportJadwal" class="px-8 py-4 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-xl hover:from-green-700 hover:to-emerald-700 transition-all duration-300 font-semibold shadow-lg btn-modern flex items-center">
-              <i class="fas fa-file-import mr-2"></i> Import Excel
+            <input type="file" id="importScheduleExcel" accept=".xlsx,.xls,.csv" class="hidden">
+            <button id="btnImportSchedule" class="px-8 py-4 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-xl hover:from-green-700 hover:to-emerald-700 transition-all duration-300 font-semibold shadow-lg btn-modern flex items-center">
+              <i class="fas fa-file-import mr-2"></i>
+              Import Jadwal Excel
             </button>
             <button id="btnHapusSemuaJadwal" class="px-8 py-4 bg-gradient-to-r from-red-600 to-pink-600 text-white rounded-xl hover:from-red-700 hover:to-pink-700 transition-all duration-300 font-semibold shadow-lg btn-modern flex items-center">
-              <i class="fas fa-trash-alt mr-2"></i> Hapus Semua
+              <i class="fas fa-trash-alt mr-2"></i>
+              Hapus Semua Jadwal
             </button>
           </div>
-          <input type="file" id="importJadwalExcel" accept=".xlsx,.xls,.csv" class="hidden">
           
+          <!-- Daftar Kelas yang Tersedia -->
           <div class="mt-6 bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-4 border border-blue-100">
             <h4 class="font-semibold text-blue-800 mb-2 flex items-center">
-              <i class="fas fa-users mr-2"></i> Daftar Kelas Tersedia:
+              <i class="fas fa-users mr-2"></i>
+              Daftar Kelas Tersedia:
             </h4>
-            <div id="daftarKelasContainer" class="flex flex-wrap gap-2 mb-3"></div>
+            <div id="daftarKelasContainer" class="flex flex-wrap gap-2 mb-3">
+            </div>
             <div class="flex gap-2">
               <input type="text" id="inputKelasBaru" class="modern-input flex-1" placeholder="Tambah kelas baru...">
               <button id="btnTambahKelas" class="px-4 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 font-semibold shadow-md btn-modern">
-                <i class="fas fa-plus mr-1"></i> Tambah
+                <i class="fas fa-plus mr-1"></i>
+                Tambah
               </button>
             </div>
           </div>
         </div>
 
-        <!-- Schedule Table -->
+        <!-- Schedule Table dengan Detail -->
         <div class="glass-card rounded-2xl overflow-hidden fade-in">
           <div class="p-8 border-b border-gray-200 bg-gradient-to-r from-gray-50 to-white">
             <h3 class="text-xl font-bold gradient-text flex items-center">
-              <i class="fas fa-list-alt mr-3"></i> Daftar Jadwal Mengajar
+              <i class="fas fa-list-alt mr-3"></i>
+              Daftar Jadwal Mengajar
             </h3>
           </div>
           <div class="overflow-x-auto">
@@ -551,7 +715,8 @@
                   <th class="text-center">Aksi</th>
                 </tr>
               </thead>
-              <tbody id="scheduleTableBody"></tbody>
+              <tbody id="scheduleTableBody">
+              </tbody>
             </table>
           </div>
         </div>
@@ -561,24 +726,31 @@
       <div id="pageGuru" class="hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div class="glass-card rounded-2xl p-8 mb-8 fade-in">
           <h2 class="text-3xl font-bold gradient-text mb-4 flex items-center">
-            <i class="fas fa-chalkboard-teacher mr-3"></i> Manajemen Data Guru
+            <i class="fas fa-chalkboard-teacher mr-3"></i>
+            Manajemen Data Guru
           </h2>
           <p class="text-gray-600 mb-6">Kelola data guru, tambah guru baru, import data dari Excel/CSV.</p>
+
           <div class="flex flex-wrap gap-4 mb-6">
             <button id="btnTambahGuru" class="px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 font-semibold shadow-lg btn-modern flex items-center">
-              <i class="fas fa-user-plus mr-2"></i> Tambah Guru
+              <i class="fas fa-user-plus mr-2"></i>
+              Tambah Guru
             </button>
             <input type="file" id="importExcel" accept=".xlsx,.xls,.csv" class="hidden">
             <button id="btnImport" class="px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl hover:from-purple-700 hover:to-pink-700 transition-all duration-300 font-semibold shadow-lg btn-modern flex items-center">
-              <i class="fas fa-file-import mr-2"></i> Import Excel/CSV
+              <i class="fas fa-file-import mr-2"></i>
+              Import Excel/CSV
             </button>
             <button id="btnHapusSemuaGuru" class="px-8 py-4 bg-gradient-to-r from-red-600 to-pink-600 text-white rounded-xl hover:from-red-700 hover:to-pink-700 transition-all duration-300 font-semibold shadow-lg btn-modern flex items-center">
-              <i class="fas fa-trash-alt mr-2"></i> Hapus Semua Data
+              <i class="fas fa-trash-alt mr-2"></i>
+              Hapus Semua Data
             </button>
           </div>
+
           <div class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-6 border border-blue-100">
             <h4 class="font-semibold text-blue-800 mb-3 flex items-center">
-              <i class="fas fa-info-circle mr-2"></i> Petunjuk Import Data:
+              <i class="fas fa-info-circle mr-2"></i>
+              Petunjuk Import Data:
             </h4>
             <ul class="text-sm text-blue-700 space-y-2">
               <li class="flex items-center"><i class="fas fa-file-excel mr-2 w-4"></i>Format file: Excel (.xlsx, .xls) atau CSV (.csv)</li>
@@ -594,17 +766,23 @@
         <!-- Statistics -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           <div class="stat-card hover:shadow-2xl transition-all duration-300">
-            <div class="text-4xl mb-3 text-blue-600"><i class="fas fa-users"></i></div>
+            <div class="text-4xl mb-3 text-blue-600">
+              <i class="fas fa-users"></i>
+            </div>
             <div class="text-3xl font-bold text-blue-600" id="totalGuruCount">0</div>
             <div class="text-sm text-gray-600 font-medium">Total Guru</div>
           </div>
           <div class="stat-card hover:shadow-2xl transition-all duration-300">
-            <div class="text-4xl mb-3 text-purple-600"><i class="fas fa-calendar-check"></i></div>
+            <div class="text-4xl mb-3 text-purple-600">
+              <i class="fas fa-calendar-check"></i>
+            </div>
             <div class="text-3xl font-bold text-purple-600" id="guruTerjadwalCount">0</div>
             <div class="text-sm text-gray-600 font-medium">Guru Terjadwal</div>
           </div>
           <div class="stat-card hover:shadow-2xl transition-all duration-300">
-            <div class="text-4xl mb-3 text-green-600"><i class="fas fa-user-check"></i></div>
+            <div class="text-4xl mb-3 text-green-600">
+              <i class="fas fa-user-check"></i>
+            </div>
             <div class="text-3xl font-bold text-green-600" id="guruAktifCount">0</div>
             <div class="text-sm text-gray-600 font-medium">Guru Aktif Hari Ini</div>
           </div>
@@ -614,7 +792,8 @@
         <div class="glass-card rounded-2xl overflow-hidden fade-in">
           <div class="p-8 border-b border-gray-200 bg-gradient-to-r from-gray-50 to-white">
             <h3 class="text-xl font-bold gradient-text flex items-center">
-              <i class="fas fa-list-alt mr-3"></i> Daftar Data Guru
+              <i class="fas fa-list-alt mr-3"></i>
+              Daftar Data Guru
             </h3>
           </div>
           <div class="overflow-x-auto">
@@ -631,7 +810,8 @@
                   <th class="text-center">Aksi</th>
                 </tr>
               </thead>
-              <tbody id="guruManagementTableBody"></tbody>
+              <tbody id="guruManagementTableBody">
+              </tbody>
             </table>
           </div>
         </div>
@@ -641,13 +821,15 @@
       <div id="pageRekap" class="hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div class="glass-card rounded-2xl p-8 mb-8 fade-in">
           <h2 class="text-3xl font-bold gradient-text mb-6 flex items-center">
-            <i class="fas fa-chart-pie mr-3"></i> Rekapitulasi Kehadiran
+            <i class="fas fa-chart-pie mr-3"></i>
+            Rekapitulasi Kehadiran
           </h2>
 
           <!-- Date Range Filter -->
           <div class="bg-gradient-to-r from-gray-50 to-white rounded-xl p-6 mb-6 border border-gray-200">
             <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
-              <i class="fas fa-calendar-range mr-2 text-blue-600"></i> Filter Periode Tanggal
+              <i class="fas fa-calendar-range mr-2 text-blue-600"></i>
+              Filter Periode Tanggal
             </h3>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
               <div class="flex flex-col">
@@ -661,10 +843,12 @@
             </div>
             <div class="flex flex-wrap gap-3">
               <button id="btnFilterTanggal" class="px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-xl hover:from-green-700 hover:to-emerald-700 transition-all duration-300 font-semibold shadow-md btn-modern flex items-center">
-                <i class="fas fa-search mr-2"></i> Filter
+                <i class="fas fa-search mr-2"></i>
+                Filter
               </button>
               <button id="btnResetFilter" class="px-6 py-3 bg-gradient-to-r from-gray-600 to-gray-700 text-white rounded-xl hover:from-gray-700 hover:to-gray-800 transition-all duration-300 font-semibold shadow-md btn-modern flex items-center">
-                <i class="fas fa-undo mr-2"></i> Reset
+                <i class="fas fa-undo mr-2"></i>
+                Reset
               </button>
             </div>
             <div class="mt-4 p-3 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg">
@@ -678,18 +862,26 @@
           <div class="flex flex-wrap gap-4 items-center">
             <select id="filterBulan" class="modern-input min-w-[200px]">
               <option value="">Semua Bulan</option>
-              <option value="01">Januari</option><option value="02">Februari</option>
-              <option value="03">Maret</option><option value="04">April</option>
-              <option value="05">Mei</option><option value="06">Juni</option>
-              <option value="07">Juli</option><option value="08">Agustus</option>
-              <option value="09">September</option><option value="10">Oktober</option>
-              <option value="11">November</option><option value="12">Desember</option>
+              <option value="01">Januari</option>
+              <option value="02">Februari</option>
+              <option value="03">Maret</option>
+              <option value="04">April</option>
+              <option value="05">Mei</option>
+              <option value="06">Juni</option>
+              <option value="07">Juli</option>
+              <option value="08">Agustus</option>
+              <option value="09">September</option>
+              <option value="10">Oktober</option>
+              <option value="11">November</option>
+              <option value="12">Desember</option>
             </select>
             <button id="btnCetak" class="px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 font-semibold shadow-md btn-modern flex items-center no-print">
-              <i class="fas fa-print mr-2"></i> Cetak
+              <i class="fas fa-print mr-2"></i>
+              Cetak
             </button>
             <button id="btnRincianRekap" class="px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl hover:from-purple-700 hover:to-pink-700 transition-all duration-300 font-semibold shadow-md btn-modern flex items-center no-print">
-              <i class="fas fa-table mr-2"></i> Rincian Data Rekap
+              <i class="fas fa-table mr-2"></i>
+              Rincian Data Rekap
             </button>
           </div>
         </div>
@@ -697,22 +889,30 @@
         <!-- Statistics -->
         <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
           <div class="stat-card">
-            <div class="text-4xl mb-3 text-gray-800"><i class="fas fa-users"></i></div>
+            <div class="text-4xl mb-3 text-gray-800">
+              <i class="fas fa-users"></i>
+            </div>
             <div class="text-3xl font-bold text-gray-800" id="totalGuru">0</div>
             <div class="text-sm text-gray-600 font-medium">Total Guru</div>
           </div>
           <div class="stat-card">
-            <div class="text-4xl mb-3 text-green-600"><i class="fas fa-check-circle"></i></div>
+            <div class="text-4xl mb-3 text-green-600">
+              <i class="fas fa-check-circle"></i>
+            </div>
             <div class="text-3xl font-bold text-green-600" id="totalHadir">0</div>
             <div class="text-sm text-gray-600 font-medium">Total Hadir</div>
           </div>
           <div class="stat-card">
-            <div class="text-4xl mb-3 text-yellow-600"><i class="fas fa-pen"></i></div>
+            <div class="text-4xl mb-3 text-yellow-600">
+              <i class="fas fa-pen"></i>
+            </div>
             <div class="text-3xl font-bold text-yellow-600" id="totalIzin">0</div>
             <div class="text-sm text-gray-600 font-medium">Total Izin</div>
           </div>
           <div class="stat-card">
-            <div class="text-4xl mb-3 text-red-600"><i class="fas fa-hospital"></i></div>
+            <div class="text-4xl mb-3 text-red-600">
+              <i class="fas fa-hospital"></i>
+            </div>
             <div class="text-3xl font-bold text-red-600" id="totalSakit">0</div>
             <div class="text-sm text-gray-600 font-medium">Total Sakit</div>
           </div>
@@ -722,10 +922,12 @@
         <div class="glass-card rounded-2xl overflow-hidden fade-in">
           <div class="p-8 border-b border-gray-200 bg-gradient-to-r from-gray-50 to-white flex justify-between items-center">
             <h3 class="text-xl font-bold gradient-text flex items-center">
-              <i class="fas fa-history mr-3"></i> Detail Kehadiran
+              <i class="fas fa-history mr-3"></i>
+              Detail Kehadiran
             </h3>
             <button id="btnHapusSemuaKehadiran" class="px-6 py-3 bg-gradient-to-r from-red-600 to-pink-600 text-white rounded-xl hover:from-red-700 hover:to-pink-700 transition-all duration-300 font-semibold shadow-md btn-modern flex items-center">
-              <i class="fas fa-trash-alt mr-2"></i> Hapus Semua
+              <i class="fas fa-trash-alt mr-2"></i>
+              Hapus Semua
             </button>
           </div>
           <div class="overflow-x-auto">
@@ -742,25 +944,9 @@
                   <th>Keterangan</th>
                 </tr>
               </thead>
-              <tbody id="rekapTableBody"></tbody>
+              <tbody id="rekapTableBody">
+              </tbody>
             </table>
-          </div>
-        </div>
-
-        <!-- Rekap Detail Modal -->
-        <div id="rekapDetailModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div class="modal-content w-full max-w-5xl max-h-[90vh] overflow-y-auto">
-            <div class="p-8">
-              <div class="flex justify-between items-center mb-6">
-                <h3 class="text-2xl font-bold gradient-text flex items-center">
-                  <i class="fas fa-table mr-3 text-purple-600"></i> Rincian Data Rekap
-                </h3>
-                <button id="btnTutupRekapDetail" class="px-4 py-2 bg-gray-200 rounded-xl hover:bg-gray-300 transition-all">
-                  <i class="fas fa-times"></i> Tutup
-                </button>
-              </div>
-              <div id="rekapDetailContent" class="space-y-4"></div>
-            </div>
           </div>
         </div>
       </div>
@@ -772,7 +958,8 @@
       <div class="modal-content w-full max-w-2xl max-h-[90vh] overflow-y-auto">
         <div class="p-8">
           <h3 class="text-2xl font-bold gradient-text mb-6 flex items-center">
-            <i class="fas fa-plus-circle mr-3 text-purple-600"></i> Tambah Jadwal Mengajar
+            <i class="fas fa-plus-circle mr-3 text-purple-600"></i>
+            Tambah Jadwal Mengajar
           </h3>
           <form id="addScheduleForm" class="space-y-6">
             <div>
@@ -781,6 +968,7 @@
                 <option value="">-- Pilih Guru --</option>
               </select>
             </div>
+            
             <div>
               <label class="block text-sm font-semibold text-gray-700 mb-3">Hari Mengajar</label>
               <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -814,12 +1002,15 @@
                 </label>
               </div>
             </div>
+
             <div class="flex gap-3 pt-4">
               <button type="submit" id="btnSimpanJadwal" class="flex-1 px-6 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl hover:from-purple-700 hover:to-pink-700 transition-all duration-300 font-semibold shadow-lg btn-modern">
-                <i class="fas fa-save mr-2"></i> Simpan Jadwal
+                <i class="fas fa-save mr-2"></i>
+                Simpan Jadwal
               </button>
               <button type="button" id="btnBatalJadwal" class="flex-1 px-6 py-4 bg-gradient-to-r from-gray-600 to-gray-700 text-white rounded-xl hover:from-gray-700 hover:to-gray-800 transition-all duration-300 font-semibold shadow-lg btn-modern">
-                <i class="fas fa-times mr-2"></i> Batal
+                <i class="fas fa-times mr-2"></i>
+                Batal
               </button>
             </div>
           </form>
@@ -832,15 +1023,19 @@
       <div class="modal-content w-full max-w-lg">
         <div class="p-8">
           <h3 class="text-2xl font-bold gradient-text mb-6 flex items-center">
-            <i class="fas fa-plus-circle mr-3 text-purple-600"></i> Tambah Detail Jadwal
+            <i class="fas fa-plus-circle mr-3 text-purple-600"></i>
+            Tambah Detail Jadwal
           </h3>
           <form id="addScheduleDetailForm" class="space-y-4">
             <div>
               <label class="block text-sm font-semibold text-gray-700 mb-2">Hari</label>
               <select id="detailHari" class="modern-input w-full" required>
-                <option value="senin">Senin</option><option value="selasa">Selasa</option>
-                <option value="rabu">Rabu</option><option value="kamis">Kamis</option>
-                <option value="jumat">Jumat</option><option value="sabtu">Sabtu</option>
+                <option value="senin">Senin</option>
+                <option value="selasa">Selasa</option>
+                <option value="rabu">Rabu</option>
+                <option value="kamis">Kamis</option>
+                <option value="jumat">Jumat</option>
+                <option value="sabtu">Sabtu</option>
                 <option value="minggu">Minggu</option>
               </select>
             </div>
@@ -854,69 +1049,31 @@
               <label class="block text-sm font-semibold text-gray-700 mb-2">Jam Pelajaran</label>
               <select id="detailJam" class="modern-input w-full" required>
                 <option value="">-- Pilih Jam --</option>
-                <option value="1">Jam ke-1</option><option value="2">Jam ke-2</option>
-                <option value="3">Jam ke-3</option><option value="4">Jam ke-4</option>
-                <option value="5">Jam ke-5</option><option value="6">Jam ke-6</option>
-                <option value="7">Jam ke-7</option><option value="8">Jam ke-8</option>
-                <option value="9">Jam ke-9</option><option value="10">Jam ke-10</option>
+                <option value="1">Jam ke-1</option>
+                <option value="2">Jam ke-2</option>
+                <option value="3">Jam ke-3</option>
+                <option value="4">Jam ke-4</option>
+                <option value="5">Jam ke-5</option>
+                <option value="6">Jam ke-6</option>
+                <option value="7">Jam ke-7</option>
+                <option value="8">Jam ke-8</option>
+                <option value="9">Jam ke-9</option>
+                <option value="10">Jam ke-10</option>
               </select>
             </div>
             <div>
               <label class="block text-sm font-semibold text-gray-700 mb-2">Mata Pelajaran</label>
               <input type="text" id="detailMapel" class="modern-input w-full" placeholder="Mata Pelajaran...">
             </div>
+
             <div class="flex gap-3 pt-4">
               <button type="submit" id="btnSimpanDetailJadwal" class="flex-1 px-6 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl hover:from-purple-700 hover:to-pink-700 transition-all duration-300 font-semibold shadow-lg btn-modern">
-                <i class="fas fa-save mr-2"></i> Simpan Detail
+                <i class="fas fa-save mr-2"></i>
+                Simpan Detail
               </button>
               <button type="button" id="btnBatalDetailJadwal" class="flex-1 px-6 py-4 bg-gradient-to-r from-gray-600 to-gray-700 text-white rounded-xl hover:from-gray-700 hover:to-gray-800 transition-all duration-300 font-semibold shadow-lg btn-modern">
-                <i class="fas fa-times mr-2"></i> Batal
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-
-    <!-- Add Multi Schedule Modal -->
-    <div id="addMultiScheduleModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div class="modal-content w-full max-w-2xl max-h-[90vh] overflow-y-auto">
-        <div class="p-8">
-          <h3 class="text-2xl font-bold gradient-text mb-6 flex items-center">
-            <i class="fas fa-layer-group mr-3 text-blue-600"></i> Tambah Multi Jadwal
-          </h3>
-          <form id="addMultiScheduleForm" class="space-y-6">
-            <div>
-              <label class="block text-sm font-semibold text-gray-700 mb-2">Pilih Guru</label>
-              <select id="selectGuruMulti" class="modern-input w-full" required>
-                <option value="">-- Pilih Guru --</option>
-              </select>
-            </div>
-            <div>
-              <label class="block text-sm font-semibold text-gray-700 mb-2">Hari (pisahkan dengan koma)</label>
-              <input type="text" id="multiHari" class="modern-input w-full" placeholder="senin, selasa, rabu" required>
-              <p class="text-xs text-gray-500 mt-1">Contoh: senin, selasa, rabu</p>
-            </div>
-            <div>
-              <label class="block text-sm font-semibold text-gray-700 mb-2">Kelas (pisahkan dengan koma)</label>
-              <input type="text" id="multiKelas" class="modern-input w-full" placeholder="10 MIA 1, 10 MIA 2, 12 MIA 1" required>
-              <p class="text-xs text-gray-500 mt-1">Contoh: 10 MIA 1, 10 MIA 2, 12 MIA 1</p>
-            </div>
-            <div>
-              <label class="block text-sm font-semibold text-gray-700 mb-2">Jam (pisahkan dengan koma)</label>
-              <input type="text" id="multiJam" class="modern-input w-full" placeholder="1, 2, 3" required>
-              <p class="text-xs text-gray-500 mt-1">Contoh: 1, 2, 3</p>
-            </div>
-            <div>
-              <label class="block text-sm font-semibold text-gray-700 mb-2">Mata Pelajaran</label>
-              <input type="text" id="multiMapel" class="modern-input w-full" placeholder="Matematika">
-            </div>
-            <div class="flex gap-3 pt-4">
-              <button type="submit" id="btnSimpanMultiJadwal" class="flex-1 px-6 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 font-semibold shadow-lg btn-modern">
-                <i class="fas fa-save mr-2"></i> Simpan Semua
-              </button>
-              <button type="button" id="btnBatalMultiJadwal" class="flex-1 px-6 py-4 bg-gradient-to-r from-gray-600 to-gray-700 text-white rounded-xl hover:from-gray-700 hover:to-gray-800 transition-all duration-300 font-semibold shadow-lg btn-modern">
-                <i class="fas fa-times mr-2"></i> Batal
+                <i class="fas fa-times mr-2"></i>
+                Batal
               </button>
             </div>
           </form>
@@ -929,7 +1086,8 @@
       <div class="modal-content w-full max-w-md">
         <div class="p-8">
           <h3 class="text-2xl font-bold gradient-text mb-6 flex items-center">
-            <i class="fas fa-user-plus mr-3 text-blue-600"></i> Tambah Guru Baru
+            <i class="fas fa-user-plus mr-3 text-blue-600"></i>
+            Tambah Guru Baru
           </h3>
           <form id="addTeacherForm" class="space-y-4">
             <div>
@@ -948,12 +1106,15 @@
               <label class="block text-sm font-semibold text-gray-700 mb-2">Mata Pelajaran Tambahan</label>
               <input type="text" id="newMapelTambahan" class="modern-input w-full" placeholder="Opsional - pisahkan dengan koma">
             </div>
+
             <div class="flex gap-3 pt-4">
               <button type="submit" id="btnSimpanGuru" class="flex-1 px-6 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 font-semibold shadow-lg btn-modern">
-                <i class="fas fa-save mr-2"></i> Simpan
+                <i class="fas fa-save mr-2"></i>
+                Simpan
               </button>
               <button type="button" id="btnBatalTambah" class="flex-1 px-6 py-4 bg-gradient-to-r from-gray-600 to-gray-700 text-white rounded-xl hover:from-gray-700 hover:to-gray-800 transition-all duration-300 font-semibold shadow-lg btn-modern">
-                <i class="fas fa-times mr-2"></i> Batal
+                <i class="fas fa-times mr-2"></i>
+                Batal
               </button>
             </div>
           </form>
@@ -961,7 +1122,7 @@
       </div>
     </div>
 
-    <!-- Delete Modal -->
+    <!-- Delete Confirmation Modal -->
     <div id="deleteModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
       <div class="modal-content w-full max-w-md">
         <div class="p-8">
@@ -974,10 +1135,12 @@
           </div>
           <div class="flex gap-3">
             <button id="btnKonfirmasiHapus" class="flex-1 px-6 py-4 bg-gradient-to-r from-red-600 to-pink-600 text-white rounded-xl hover:from-red-700 hover:to-pink-700 transition-all duration-300 font-semibold shadow-lg btn-modern">
-              <i class="fas fa-trash-alt mr-2"></i> Hapus
+              <i class="fas fa-trash-alt mr-2"></i>
+              Hapus
             </button>
             <button id="btnBatalHapus" class="flex-1 px-6 py-4 bg-gradient-to-r from-gray-600 to-gray-700 text-white rounded-xl hover:from-gray-700 hover:to-gray-800 transition-all duration-300 font-semibold shadow-lg btn-modern">
-              <i class="fas fa-times mr-2"></i> Batal
+              <i class="fas fa-times mr-2"></i>
+              Batal
             </button>
           </div>
         </div>
@@ -989,7 +1152,7 @@
     // ============================================
     // KONFIGURASI - GANTI DENGAN URL WEB APP ANDA
     // ============================================
-    const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzbzZE2bLEbheVJQ_nCA4wc21ILneyaRxKhpH9MVVWG3Da0vRBq52jOmWBGBeaLnYz3/exec';
+    const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbw5ewOjs4habCE7xtNv8wukT8mQQ5abXcLTveqY5kedTWpNBO_uszCKd1EP3f83Iyp4dw/exec';
     
     // ============================================
     // VARIABEL GLOBAL
@@ -998,7 +1161,6 @@
     let attendanceRecords = [];
     let scheduleRecords = [];
     let scheduleDetailRecords = [];
-    let rekapDetailRecords = [];
     let currentPage = 'absensi';
     let teacherToDelete = null;
     let scheduleToDelete = null;
@@ -1026,6 +1188,7 @@
         if (!result.success) {
           throw new Error(result.error || 'Gagal memproses data');
         }
+        
         return result;
       } catch (error) {
         console.error('API Error:', error);
@@ -1034,7 +1197,7 @@
     }
 
     // ============================================
-    // LOAD ALL DATA
+    // LOAD DATA
     // ============================================
     async function loadAllData() {
       try {
@@ -1058,24 +1221,19 @@
         scheduleDetailRecords = detailResult.data || [];
         console.log('✅ Detail jadwal dimuat:', scheduleDetailRecords.length);
         
-        document.getElementById('loadingStatus').textContent = 'Memuat rekap detail...';
-        const rekapResult = await callAPI('getRekapDetail');
-        rekapDetailRecords = rekapResult.data || [];
-        console.log('✅ Rekap detail dimuat:', rekapDetailRecords.length);
-        
         document.getElementById('loadingStatus').textContent = 'Memuat konfigurasi...';
         const configResult = await callAPI('getConfig');
         config = configResult.data || {};
         console.log('✅ Config dimuat:', config);
         
         loadDaftarKelas();
+        
         updateConfigUI();
         renderTeacherTable();
         renderScheduleTable();
         renderRekapTable();
         updateStatistics();
         updateGuruSelect();
-        updateGuruSelectMulti();
         
         if (currentPage === 'guru') {
           renderGuruManagementTable();
@@ -1090,12 +1248,117 @@
       } catch (error) {
         console.error('Error loading data:', error);
         document.getElementById('loadingStatus').textContent = 'Gagal memuat data: ' + error.message;
-        showCustomAlert('Gagal terhubung ke server.');
+        showCustomAlert('Gagal terhubung ke server. Pastikan Web App sudah di-deploy dan URL benar.');
       }
     }
 
     // ============================================
-    // KELAS FUNCTIONS
+    // UPDATE CONFIG UI
+    // ============================================
+    function updateConfigUI() {
+      const logo = config.logo || '🏫';
+      updateLogo(logo);
+      
+      document.getElementById('namaSekolah').textContent = config.nama_sekolah || 'MAS IBNU HUSAIN';
+      document.getElementById('namaSekolahNav').textContent = config.nama_sekolah || 'MAS IBNU HUSAIN';
+      document.getElementById('npsn').textContent = config.npsn || '60728117';
+      document.getElementById('alamat').textContent = config.alamat || 'JL. Irawati 1 No. 15-17';
+      document.getElementById('kelurahan').textContent = config.kelurahan || 'SIDOTOPO';
+      document.getElementById('kecamatan').textContent = config.kecamatan || 'KEC. SEMAMPIR';
+      document.getElementById('kota').textContent = config.kota || 'KOTA SURABAYA';
+    }
+
+    // ============================================
+    // UPDATE LOGO
+    // ============================================
+    function updateLogo(logoValue) {
+      const logoNav = document.getElementById('logoNav');
+      const logoMain = document.getElementById('logoMain');
+      
+      if (logoValue && logoValue.startsWith('data:image/')) {
+        logoNav.innerHTML = `<img src="${logoValue}" alt="Logo" class="w-full h-full object-cover rounded-xl">`;
+        logoMain.innerHTML = `<img src="${logoValue}" alt="Logo" class="w-full h-full object-cover rounded-2xl">`;
+      } else {
+        const displayLogo = logoValue || '🏫';
+        logoNav.innerHTML = `<span class="text-white font-bold text-xl">${displayLogo}</span>`;
+        logoMain.innerHTML = `<span class="text-white text-4xl">${displayLogo}</span>`;
+      }
+    }
+
+    // ============================================
+    // HANDLE LOGO UPLOAD
+    // ============================================
+    function handleLogoUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      
+      if (!file.type.startsWith('image/')) {
+        showCustomAlert('Silakan pilih file gambar yang valid');
+        return;
+      }
+      
+      if (file.size > 2 * 1024 * 1024) {
+        showCustomAlert('Ukuran file terlalu besar. Maksimal 2MB.');
+        return;
+      }
+      
+      fileToBase64(file).then(async base64 => {
+        config.logo = base64;
+        await callAPI('saveConfig', config);
+        updateLogo(base64);
+        showSaveIndicator();
+      }).catch(error => {
+        console.error('Error converting file:', error);
+        showCustomAlert('Gagal memproses gambar.');
+      });
+    }
+
+    function fileToBase64(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    }
+
+    // ============================================
+    // UTILITY FUNCTIONS
+    // ============================================
+    function generateId() {
+      return Date.now().toString(36) + Math.random().toString(36).substr(2, 9);
+    }
+
+    function getDayName(dateString) {
+      try {
+        const date = new Date(dateString);
+        const days = ['minggu', 'senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu'];
+        return days[date.getDay()];
+      } catch (e) {
+        return 'senin';
+      }
+    }
+
+    function getDayNameIndonesian(dayName) {
+      const map = {
+        'senin': 'Senin', 'selasa': 'Selasa', 'rabu': 'Rabu', 
+        'kamis': 'Kamis', 'jumat': 'Jumat', 'sabtu': 'Sabtu', 'minggu': 'Minggu'
+      };
+      return map[dayName] || dayName;
+    }
+
+    function getScheduledTeachers(dayName) {
+      if (!scheduleRecords || !masterTeachers) return [];
+      
+      const scheduledTeacherIds = scheduleRecords
+        .filter(schedule => schedule && schedule[dayName] === true)
+        .map(schedule => schedule.teacher_id);
+      
+      return masterTeachers.filter(teacher => teacher && scheduledTeacherIds.includes(teacher.id));
+    }
+
+    // ============================================
+    // DAFTAR KELAS FUNCTIONS
     // ============================================
     function loadDaftarKelas() {
       const kelasStr = config.daftar_kelas || '10 MIA 1,10 MIA 2,10 IIS 1,10 IIS 2,11 MIA 1,11 MIA 2,11 IIS 1,11 IIS 2,12 MIA 1,12 MIA 2,12 IIS 1,12 IIS 2';
@@ -1107,6 +1370,7 @@
     function updateDaftarKelasUI() {
       const container = document.getElementById('daftarKelasContainer');
       if (!container) return;
+      
       container.innerHTML = daftarKelas.map(kelas => `
         <span class="kelas-tag">
           ${kelas}
@@ -1118,17 +1382,15 @@
     }
 
     function updateKelasSelects() {
-      ['detailKelas'].forEach(id => {
-        const select = document.getElementById(id);
-        if (select) {
-          const currentValue = select.value;
-          select.innerHTML = '<option value="">-- Pilih Kelas --</option>' +
-            daftarKelas.map(k => `<option value="${k}">${k}</option>`).join('');
-          if (currentValue && daftarKelas.includes(currentValue)) {
-            select.value = currentValue;
-          }
+      const selectKelas = document.getElementById('detailKelas');
+      if (selectKelas) {
+        const currentValue = selectKelas.value;
+        selectKelas.innerHTML = '<option value="">-- Pilih Kelas --</option>' +
+          daftarKelas.map(k => `<option value="${k}">${k}</option>`).join('');
+        if (currentValue && daftarKelas.includes(currentValue)) {
+          selectKelas.value = currentValue;
         }
-      });
+      }
     }
 
     async function hapusKelas(kelas) {
@@ -1150,10 +1412,12 @@
         showCustomAlert('Masukkan nama kelas terlebih dahulu.');
         return;
       }
+      
       if (daftarKelas.includes(kelasBaru)) {
         showCustomAlert('Kelas sudah ada dalam daftar.');
         return;
       }
+      
       daftarKelas.push(kelasBaru);
       config.daftar_kelas = daftarKelas.join(',');
       await callAPI('saveConfig', config);
@@ -1165,7 +1429,188 @@
     }
 
     // ============================================
-    // RENDER FUNCTIONS
+    // DATE FUNCTIONS
+    // ============================================
+    function updateDateDisplay() {
+      try {
+        const dateObj = new Date(currentDate);
+        document.getElementById('tanggalHari').textContent = dateObj.toLocaleDateString('id-ID', {
+          weekday: 'long',
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        });
+        document.getElementById('tanggalAktif').textContent = dateObj.toLocaleDateString('id-ID', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        });
+      } catch (e) {
+        console.warn('Date error:', e);
+      }
+    }
+
+    function setCustomDate() {
+      const selectedDate = document.getElementById('inputTanggal').value;
+      if (selectedDate) {
+        currentDate = selectedDate;
+        updateDateDisplay();
+        renderTeacherTable();
+        showSaveIndicator();
+      } else {
+        showCustomAlert("Silakan pilih tanggal terlebih dahulu.");
+      }
+    }
+
+    function setTodayDate() {
+      currentDate = new Date().toISOString().split('T')[0];
+      document.getElementById('inputTanggal').value = currentDate;
+      updateDateDisplay();
+      renderTeacherTable();
+      showSaveIndicator();
+    }
+
+    function goToPreviousDate() {
+      const currentDateObj = new Date(currentDate);
+      currentDateObj.setDate(currentDateObj.getDate() - 1);
+      currentDate = currentDateObj.toISOString().split('T')[0];
+      document.getElementById('inputTanggal').value = currentDate;
+      updateDateDisplay();
+      renderTeacherTable();
+      showSaveIndicator();
+    }
+
+    function goToNextDate() {
+      const currentDateObj = new Date(currentDate);
+      currentDateObj.setDate(currentDateObj.getDate() + 1);
+      currentDate = currentDateObj.toISOString().split('T')[0];
+      document.getElementById('inputTanggal').value = currentDate;
+      updateDateDisplay();
+      renderTeacherTable();
+      showSaveIndicator();
+    }
+
+    function goToDay(targetDay) {
+      try {
+        const currentDateObj = new Date(currentDate);
+        const currentDayIndex = currentDateObj.getDay();
+        
+        const dayIndices = {
+          'minggu': 0,
+          'senin': 1,
+          'selasa': 2,
+          'rabu': 3,
+          'kamis': 4,
+          'jumat': 5,
+          'sabtu': 6
+        };
+        
+        const targetDayIndex = dayIndices[targetDay];
+        const dayDifference = targetDayIndex - currentDayIndex;
+        
+        const targetDateObj = new Date(currentDateObj);
+        targetDateObj.setDate(currentDateObj.getDate() + dayDifference);
+        
+        currentDate = targetDateObj.toISOString().split('T')[0];
+        document.getElementById('inputTanggal').value = currentDate;
+        
+        updateDateDisplay();
+        renderTeacherTable();
+        showSaveIndicator();
+      } catch (e) {
+        console.warn('Go to day error:', e);
+      }
+    }
+
+    // ============================================
+    // DATE RANGE FILTER
+    // ============================================
+    function initializeDateRangeFilter() {
+      try {
+        const today = new Date();
+        const firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
+        const lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+        
+        document.getElementById('tanggalMulai').value = firstDay.toISOString().split('T')[0];
+        document.getElementById('tanggalSelesai').value = lastDay.toISOString().split('T')[0];
+        
+        dateRangeFilter.start = firstDay.toISOString().split('T')[0];
+        dateRangeFilter.end = lastDay.toISOString().split('T')[0];
+        
+        updatePeriodeAktif();
+      } catch (e) {
+        console.warn('Date range init error:', e);
+      }
+    }
+
+    function applyDateRangeFilter() {
+      const startDate = document.getElementById('tanggalMulai').value;
+      const endDate = document.getElementById('tanggalSelesai').value;
+      
+      if (!startDate || !endDate) {
+        showCustomAlert("Silakan pilih tanggal mulai dan tanggal selesai.");
+        return;
+      }
+      
+      if (startDate > endDate) {
+        showCustomAlert("Tanggal mulai tidak boleh lebih besar dari tanggal selesai.");
+        return;
+      }
+      
+      dateRangeFilter.start = startDate;
+      dateRangeFilter.end = endDate;
+      
+      document.getElementById('filterBulan').value = '';
+      
+      updatePeriodeAktif();
+      renderRekapTable();
+      updateStatistics();
+    }
+
+    function resetDateRangeFilter() {
+      dateRangeFilter.start = null;
+      dateRangeFilter.end = null;
+      
+      document.getElementById('tanggalMulai').value = '';
+      document.getElementById('tanggalSelesai').value = '';
+      document.getElementById('filterBulan').value = '';
+      
+      updatePeriodeAktif();
+      renderRekapTable();
+      updateStatistics();
+    }
+
+    function updatePeriodeAktif() {
+      const periodeElement = document.getElementById('periodeAktif');
+      
+      if (dateRangeFilter.start && dateRangeFilter.end) {
+        try {
+          const startDate = new Date(dateRangeFilter.start);
+          const endDate = new Date(dateRangeFilter.end);
+          
+          const startFormatted = startDate.toLocaleDateString('id-ID', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric'
+          });
+          
+          const endFormatted = endDate.toLocaleDateString('id-ID', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric'
+          });
+          
+          periodeElement.textContent = `${startFormatted} - ${endFormatted}`;
+        } catch (e) {
+          periodeElement.textContent = 'Semua Data';
+        }
+      } else {
+        periodeElement.textContent = 'Semua Data';
+      }
+    }
+
+    // ============================================
+    // RENDER TEACHER TABLE
     // ============================================
     function renderTeacherTable() {
       const tbody = document.getElementById('teacherTableBody');
@@ -1221,257 +1666,13 @@
             <td class="px-4 py-4 text-center no-print">
               <button onclick="deleteTeacher('${teacher.id}')" 
                       class="px-4 py-2 bg-gradient-to-r from-red-600 to-pink-600 text-white text-sm rounded-xl hover:from-red-700 hover:to-pink-700 transition-all duration-300 shadow-md btn-modern">
-                <i class="fas fa-trash-alt mr-1"></i> Hapus
+                <i class="fas fa-trash-alt mr-1"></i>
+                Hapus
               </button>
             </td>
           </tr>
         `;
       }).join('');
-    }
-
-    function renderScheduleTable() {
-      const tbody = document.getElementById('scheduleTableBody');
-      if (!tbody) return;
-      
-      if (!scheduleRecords || scheduleRecords.length === 0) {
-        tbody.innerHTML = `
-          <tr>
-            <td colspan="6" class="px-4 py-12 text-center">
-              <div class="text-5xl mb-4 text-gray-400">📅</div>
-              <div class="text-lg text-gray-600 mb-2">Belum ada jadwal mengajar</div>
-              <div class="text-sm text-gray-500">Silakan tambah jadwal baru</div>
-            </td>
-          </tr>
-        `;
-        return;
-      }
-      
-      tbody.innerHTML = scheduleRecords.map((schedule, index) => {
-        if (!schedule) return '';
-        const teacher = masterTeachers.find(t => t && t.id === schedule.teacher_id);
-        if (!teacher) return '';
-        
-        const details = scheduleDetailRecords.filter(d => d && d.schedule_id === schedule.id);
-        const detailsByDay = {};
-        const days = ['senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu', 'minggu'];
-        days.forEach(day => {
-          detailsByDay[day] = details.filter(d => d.hari === day);
-        });
-        
-        const hasSchedule = days.some(day => schedule[day] === true);
-        
-        return `
-          <tr class="hover:bg-gray-50">
-            <td class="px-4 py-4 text-sm text-gray-900 text-center">${index + 1}</td>
-            <td class="px-4 py-4 text-sm text-gray-900">${teacher.induk || ''}</td>
-            <td class="px-4 py-4 text-sm font-medium text-gray-900">${teacher.nama || ''}</td>
-            <td class="px-4 py-4 text-sm text-gray-900">${teacher.mapel || ''}</td>
-            <td class="px-4 py-4">
-              ${hasSchedule ? `
-                <div class="space-y-2 max-h-60 overflow-y-auto">
-                  ${days.map(day => {
-                    const dayDetails = detailsByDay[day] || [];
-                    if (dayDetails.length === 0) return '';
-                    return `
-                      <div class="border-l-2 border-purple-400 pl-3">
-                        <div class="text-xs font-semibold text-purple-600 capitalize">${day}:</div>
-                        ${dayDetails.map(d => `
-                          <div class="schedule-detail-item text-sm">
-                            <span class="kelas-info">${d.kelas || ''}</span>
-                            <span class="jam-info">Jam ${d.jam || ''} - ${d.mapel || teacher.mapel || ''}</span>
-                            <button onclick="deleteScheduleDetail('${d.id}')" class="delete-detail-btn">
-                              <i class="fas fa-times"></i>
-                            </button>
-                          </div>
-                        `).join('')}
-                      </div>
-                    `;
-                  }).join('')}
-                </div>
-              ` : `
-                <span class="text-sm text-gray-400">Belum ada jadwal detail</span>
-              `}
-            </td>
-            <td class="px-4 py-4 text-center">
-              <div class="flex flex-col gap-2">
-                <button onclick="showAddScheduleDetail('${schedule.id}')" 
-                        class="px-4 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-sm rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 shadow-md btn-modern">
-                  <i class="fas fa-plus mr-1"></i> Tambah Detail
-                </button>
-                <button onclick="deleteSchedule('${schedule.id}')" 
-                        class="px-4 py-2 bg-gradient-to-r from-red-600 to-pink-600 text-white text-sm rounded-xl hover:from-red-700 hover:to-pink-700 transition-all duration-300 shadow-md btn-modern">
-                  <i class="fas fa-trash-alt mr-1"></i> Hapus Jadwal
-                </button>
-              </div>
-            </td>
-          </tr>
-        `;
-      }).join('');
-    }
-
-    function renderRekapTable() {
-      const tbody = document.getElementById('rekapTableBody');
-      if (!tbody) return;
-      
-      let filteredData = [...rekapDetailRecords];
-      
-      if (dateRangeFilter.start && dateRangeFilter.end) {
-        filteredData = filteredData.filter(r => {
-          return r.tanggal >= dateRangeFilter.start && r.tanggal <= dateRangeFilter.end;
-        });
-      }
-      
-      const filterBulan = document.getElementById('filterBulan')?.value || '';
-      if (filterBulan) {
-        filteredData = filteredData.filter(r => {
-          return r.tanggal && r.tanggal.split('-')[1] === filterBulan;
-        });
-      }
-      
-      filteredData.sort((a, b) => new Date(b.tanggal) - new Date(a.tanggal));
-      
-      if (filteredData.length === 0) {
-        tbody.innerHTML = `
-          <tr>
-            <td colspan="8" class="px-4 py-12 text-center">
-              <div class="text-5xl mb-4 text-gray-400">📊</div>
-              <div class="text-lg text-gray-600">Tidak ada data kehadiran untuk periode ini</div>
-            </td>
-          </tr>
-        `;
-      } else {
-        tbody.innerHTML = filteredData.map(record => {
-          if (!record) return '';
-          const hariMap = { senin:'Senin', selasa:'Selasa', rabu:'Rabu', kamis:'Kamis', jumat:'Jumat', sabtu:'Sabtu', minggu:'Minggu' };
-          return `
-            <tr class="hover:bg-gray-50">
-              <td class="px-4 py-4 text-sm text-gray-900">${record.tanggal ? new Date(record.tanggal).toLocaleDateString('id-ID') : '-'}</td>
-              <td class="px-4 py-4 text-sm text-gray-900">${hariMap[record.hari] || record.hari || '-'}</td>
-              <td class="px-4 py-4 text-sm font-medium text-gray-900">${record.teacher_nama || ''}</td>
-              <td class="px-4 py-4 text-sm text-gray-900">${record.mapel || ''}</td>
-              <td class="px-4 py-4 text-sm text-gray-900">${record.kelas || ''}</td>
-              <td class="px-4 py-4 text-sm text-gray-900">${record.jam ? 'Jam '+record.jam : ''}</td>
-              <td class="px-4 py-4 text-center">
-                <span class="status-badge ${record.status || ''}">
-                  ${record.status === 'hadir' ? '✅' : record.status === 'izin' ? '📝' : record.status === 'sakit' ? '🏥' : '❌'} ${(record.status || '').toUpperCase()}
-                </span>
-              </td>
-              <td class="px-4 py-4 text-sm text-gray-900">${record.keterangan || '-'}</td>
-            </tr>
-          `;
-        }).join('');
-      }
-    }
-
-    // ============================================
-    // REKAP DETAIL - RINCIAN
-    // ============================================
-    function showRekapDetail() {
-      const modal = document.getElementById('rekapDetailModal');
-      const content = document.getElementById('rekapDetailContent');
-      if (!modal || !content) return;
-      
-      let filteredData = [...rekapDetailRecords];
-      
-      if (dateRangeFilter.start && dateRangeFilter.end) {
-        filteredData = filteredData.filter(r => {
-          return r.tanggal >= dateRangeFilter.start && r.tanggal <= dateRangeFilter.end;
-        });
-      }
-      
-      const filterBulan = document.getElementById('filterBulan')?.value || '';
-      if (filterBulan) {
-        filteredData = filteredData.filter(r => {
-          return r.tanggal && r.tanggal.split('-')[1] === filterBulan;
-        });
-      }
-      
-      filteredData.sort((a, b) => new Date(b.tanggal) - new Date(a.tanggal));
-      
-      if (filteredData.length === 0) {
-        content.innerHTML = `
-          <div class="text-center py-12">
-            <div class="text-5xl mb-4 text-gray-400">📊</div>
-            <div class="text-lg text-gray-600">Tidak ada data untuk periode ini</div>
-          </div>
-        `;
-      } else {
-        // Group by date
-        const grouped = {};
-        filteredData.forEach(record => {
-          if (!grouped[record.tanggal]) {
-            grouped[record.tanggal] = [];
-          }
-          grouped[record.tanggal].push(record);
-        });
-        
-        const hariMap = { senin:'Senin', selasa:'Selasa', rabu:'Rabu', kamis:'Kamis', jumat:'Jumat', sabtu:'Sabtu', minggu:'Minggu' };
-        
-        content.innerHTML = Object.keys(grouped).sort((a, b) => new Date(b) - new Date(a)).map(date => {
-          const records = grouped[date];
-          const dateObj = new Date(date);
-          const dayName = dateObj.toLocaleDateString('id-ID', { weekday: 'long' });
-          const dateFormatted = dateObj.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
-          
-          const statusCount = {
-            hadir: records.filter(r => r.status === 'hadir').length,
-            izin: records.filter(r => r.status === 'izin').length,
-            sakit: records.filter(r => r.status === 'sakit').length,
-            absen: records.filter(r => r.status === 'absen').length
-          };
-          
-          return `
-            <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-              <div class="bg-gradient-to-r from-blue-50 to-purple-50 px-6 py-4 border-b border-gray-200 flex justify-between items-center">
-                <div>
-                  <h4 class="font-bold text-gray-800">📅 ${dayName}, ${dateFormatted}</h4>
-                </div>
-                <div class="flex gap-3 text-sm">
-                  <span class="text-green-600">✅ Hadir: ${statusCount.hadir}</span>
-                  <span class="text-yellow-600">📝 Izin: ${statusCount.izin}</span>
-                  <span class="text-red-600">🏥 Sakit: ${statusCount.sakit}</span>
-                  <span class="text-gray-600">❌ Absen: ${statusCount.absen}</span>
-                  <span class="font-bold text-blue-600">Total: ${records.length}</span>
-                </div>
-              </div>
-              <div class="p-4">
-                ${records.map((record, idx) => `
-                  <div class="rekap-detail-row flex items-center gap-4 hover:bg-gray-100 transition-colors">
-                    <span class="text-gray-500 text-sm w-6">${idx + 1}</span>
-                    <span class="font-medium w-32">${record.teacher_nama || ''}</span>
-                    <span class="text-gray-600 w-28">${record.mapel || ''}</span>
-                    <span class="text-blue-600 w-24">${record.kelas || ''}</span>
-                    <span class="text-gray-500 w-20">${record.jam ? 'Jam '+record.jam : ''}</span>
-                    <span class="rekap-status ${record.status || ''}">${(record.status || '').toUpperCase()}</span>
-                    <span class="text-gray-500 flex-1">${record.keterangan || '-'}</span>
-                  </div>
-                `).join('')}
-              </div>
-            </div>
-          `;
-        }).join('');
-      }
-      
-      modal.classList.remove('hidden');
-    }
-
-    // ============================================
-    // UPDATE FUNCTIONS
-    // ============================================
-    function getDayName(dateString) {
-      try {
-        const date = new Date(dateString);
-        const days = ['minggu', 'senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu'];
-        return days[date.getDay()];
-      } catch (e) { return 'senin'; }
-    }
-
-    function getScheduledTeachers(dayName) {
-      if (!scheduleRecords || !masterTeachers) return [];
-      const scheduledTeacherIds = scheduleRecords
-        .filter(schedule => schedule && schedule[dayName] === true)
-        .map(schedule => schedule.teacher_id);
-      return masterTeachers.filter(teacher => teacher && scheduledTeacherIds.includes(teacher.id));
     }
 
     function getStatusColor(status) {
@@ -1484,24 +1685,13 @@
       }
     }
 
-    function generateId() {
-      return Date.now().toString(36) + Math.random().toString(36).substr(2, 9);
-    }
-
-    function showSaveIndicator() {
-      const indicator = document.getElementById('saveIndicator');
-      if (indicator) {
-        indicator.classList.remove('hidden');
-        setTimeout(() => indicator.classList.add('hidden'), 3000);
-      }
-    }
-
     // ============================================
-    // ATTENDANCE FUNCTIONS
+    // UPDATE FUNCTIONS
     // ============================================
     async function updateTeacherMapel(teacherId, mapel) {
       if (isLoading || !teacherId) return;
       isLoading = true;
+      
       const teacher = masterTeachers.find(t => t && t.id === teacherId);
       if (teacher) {
         teacher.mapel = mapel;
@@ -1516,7 +1706,10 @@
       isLoading = true;
       
       const teacher = masterTeachers.find(t => t && t.id === teacherId);
-      if (!teacher) { isLoading = false; return; }
+      if (!teacher) {
+        isLoading = false;
+        return;
+      }
       
       let attendance = attendanceRecords.find(record => 
         record && record.teacher_id === teacherId && record.tanggal === currentDate
@@ -1541,36 +1734,6 @@
       }
       
       await callAPI('saveAttendance', attendanceRecords);
-      
-      // Simpan ke rekap detail
-      const dayName = getDayName(currentDate);
-      const rekapData = {
-        id: generateId(),
-        tanggal: currentDate,
-        hari: dayName,
-        teacher_id: teacherId,
-        teacher_nama: teacher.nama,
-        mapel: teacher.mapel,
-        kelas: '',
-        jam: '',
-        status: status,
-        keterangan: attendanceData.keterangan || '',
-        timestamp: Date.now()
-      };
-      
-      // Cek apakah sudah ada
-      const existingRekap = rekapDetailRecords.find(r => 
-        r.tanggal === currentDate && r.teacher_id === teacherId
-      );
-      
-      if (existingRekap) {
-        Object.assign(existingRekap, rekapData);
-      } else {
-        rekapDetailRecords.push(rekapData);
-      }
-      
-      await callAPI('saveRekapDetail', rekapDetailRecords);
-      
       showSaveIndicator();
       isLoading = false;
     }
@@ -1580,7 +1743,10 @@
       isLoading = true;
       
       const teacher = masterTeachers.find(t => t && t.id === teacherId);
-      if (!teacher) { isLoading = false; return; }
+      if (!teacher) {
+        isLoading = false;
+        return;
+      }
       
       let attendance = attendanceRecords.find(record => 
         record && record.teacher_id === teacherId && record.tanggal === currentDate
@@ -1604,16 +1770,6 @@
       }
       
       await callAPI('saveAttendance', attendanceRecords);
-      
-      // Update rekap detail
-      const existingRekap = rekapDetailRecords.find(r => 
-        r.tanggal === currentDate && r.teacher_id === teacherId
-      );
-      if (existingRekap) {
-        existingRekap.keterangan = keterangan;
-        await callAPI('saveRekapDetail', rekapDetailRecords);
-      }
-      
       showSaveIndicator();
       isLoading = false;
     }
@@ -1633,7 +1789,10 @@
       
       if (!scheduledTeachers || scheduledTeachers.length === 0) {
         await showCustomAlert(`Tidak ada guru yang dijadwalkan mengajar pada hari ini.`);
-        if (btn) { btn.disabled = false; btn.innerHTML = '<i class="fas fa-check-circle mr-2"></i>Hadir Semua'; }
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = '<i class="fas fa-check-circle mr-2"></i>Hadir Semua';
+        }
         isLoading = false;
         return;
       }
@@ -1662,34 +1821,9 @@
         } else {
           attendanceRecords.push(attendanceData);
         }
-        
-        // Rekap detail
-        const rekapData = {
-          id: generateId(),
-          tanggal: currentDate,
-          hari: currentDayName,
-          teacher_id: teacher.id,
-          teacher_nama: teacher.nama,
-          mapel: teacher.mapel,
-          kelas: '',
-          jam: '',
-          status: 'hadir',
-          keterangan: attendanceData.keterangan || '',
-          timestamp: Date.now()
-        };
-        
-        const existingRekap = rekapDetailRecords.find(r => 
-          r.tanggal === currentDate && r.teacher_id === teacher.id
-        );
-        if (existingRekap) {
-          Object.assign(existingRekap, rekapData);
-        } else {
-          rekapDetailRecords.push(rekapData);
-        }
       }
       
       await callAPI('saveAttendance', attendanceRecords);
-      await callAPI('saveRekapDetail', rekapDetailRecords);
       
       if (btn) {
         btn.disabled = false;
@@ -1701,25 +1835,116 @@
       isLoading = false;
     }
 
+    function showSaveIndicator() {
+      const indicator = document.getElementById('saveIndicator');
+      if (indicator) {
+        indicator.classList.remove('hidden');
+        setTimeout(() => {
+          indicator.classList.add('hidden');
+        }, 3000);
+      }
+    }
+
+    // ============================================
+    // RENDER SCHEDULE TABLE
+    // ============================================
+    function renderScheduleTable() {
+      const tbody = document.getElementById('scheduleTableBody');
+      if (!tbody) return;
+      
+      if (!scheduleRecords || scheduleRecords.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="6" class="px-4 py-12 text-center">
+              <div class="text-5xl mb-4 text-gray-400">📅</div>
+              <div class="text-lg text-gray-600 mb-2">Belum ada jadwal mengajar</div>
+              <div class="text-sm text-gray-500">Silakan tambah jadwal baru atau import dari Excel</div>
+            </td>
+          </tr>
+        `;
+        return;
+      }
+      
+      tbody.innerHTML = scheduleRecords.map((schedule, index) => {
+        if (!schedule) return '';
+        const teacher = masterTeachers.find(t => t && t.id === schedule.teacher_id);
+        if (!teacher) return '';
+        
+        const details = scheduleDetailRecords.filter(d => d && d.schedule_id === schedule.id);
+        
+        const detailsByDay = {};
+        const days = ['senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu', 'minggu'];
+        days.forEach(day => {
+          detailsByDay[day] = details.filter(d => d.hari === day);
+        });
+        
+        const hasSchedule = days.some(day => schedule[day] === true);
+        
+        return `
+          <tr class="hover:bg-gray-50">
+            <td class="px-4 py-4 text-sm text-gray-900 text-center">${index + 1}</td>
+            <td class="px-4 py-4 text-sm text-gray-900">${teacher.induk || ''}</td>
+            <td class="px-4 py-4 text-sm font-medium text-gray-900">${teacher.nama || ''}</td>
+            <td class="px-4 py-4 text-sm text-gray-900">${teacher.mapel || ''}</td>
+            <td class="px-4 py-4">
+              ${hasSchedule ? `
+                <div class="space-y-2 max-h-60 overflow-y-auto">
+                  ${days.map(day => {
+                    const dayDetails = detailsByDay[day] || [];
+                    if (dayDetails.length === 0) return '';
+                    return `
+                      <div class="border-l-2 border-purple-400 pl-3">
+                        <div class="text-xs font-semibold text-purple-600 capitalize">${getDayNameIndonesian(day)}:</div>
+                        ${dayDetails.map(d => `
+                          <div class="schedule-detail-item text-sm">
+                            <span class="kelas-info">${d.kelas || ''}</span>
+                            <span class="jam-info">Jam ${d.jam || ''} - ${d.mapel || teacher.mapel || ''}</span>
+                            <button onclick="deleteScheduleDetail('${d.id}')" class="delete-detail-btn">
+                              <i class="fas fa-times"></i>
+                            </button>
+                          </div>
+                        `).join('')}
+                      </div>
+                    `;
+                  }).join('')}
+                </div>
+              ` : `
+                <span class="text-sm text-gray-400">Belum ada jadwal detail</span>
+              `}
+            </td>
+            <td class="px-4 py-4 text-center">
+              <div class="flex flex-col gap-2">
+                <button onclick="showAddScheduleDetail('${schedule.id}')" 
+                        class="px-4 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-sm rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 shadow-md btn-modern">
+                  <i class="fas fa-plus mr-1"></i>
+                  Tambah Detail
+                </button>
+                <button onclick="deleteSchedule('${schedule.id}')" 
+                        class="px-4 py-2 bg-gradient-to-r from-red-600 to-pink-600 text-white text-sm rounded-xl hover:from-red-700 hover:to-pink-700 transition-all duration-300 shadow-md btn-modern">
+                  <i class="fas fa-trash-alt mr-1"></i>
+                  Hapus Jadwal
+                </button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
     // ============================================
     // SCHEDULE FUNCTIONS
     // ============================================
     function updateGuruSelect() {
       const select = document.getElementById('selectGuru');
       if (!select) return;
-      const scheduledTeacherIds = (scheduleRecords || []).map(s => s && s.teacher_id).filter(id => id);
-      const availableTeachers = (masterTeachers || []).filter(t => t && !scheduledTeacherIds.includes(t.id));
-      select.innerHTML = '<option value="">-- Pilih Guru --</option>' +
-        availableTeachers.map(teacher => 
-          `<option value="${teacher.id}">${teacher.nama || ''} - ${teacher.mapel || ''}</option>`
-        ).join('');
-    }
-
-    function updateGuruSelectMulti() {
-      const select = document.getElementById('selectGuruMulti');
-      if (!select) return;
-      const scheduledTeacherIds = (scheduleRecords || []).map(s => s && s.teacher_id).filter(id => id);
-      const availableTeachers = (masterTeachers || []).filter(t => t && !scheduledTeacherIds.includes(t.id));
+      
+      const scheduledTeacherIds = (scheduleRecords || [])
+        .map(s => s && s.teacher_id)
+        .filter(id => id);
+      
+      const availableTeachers = (masterTeachers || [])
+        .filter(t => t && !scheduledTeacherIds.includes(t.id));
+      
       select.innerHTML = '<option value="">-- Pilih Guru --</option>' +
         availableTeachers.map(teacher => 
           `<option value="${teacher.id}">${teacher.nama || ''} - ${teacher.mapel || ''}</option>`
@@ -1728,23 +1953,30 @@
 
     function showAddScheduleModal() {
       updateGuruSelect();
+      
       if (!masterTeachers || masterTeachers.length === 0) {
         showCustomAlert("Belum ada data guru. Silakan tambah guru terlebih dahulu.");
         return;
       }
+      
       const availableTeachers = (masterTeachers || []).filter(t => 
         t && !(scheduleRecords || []).some(s => s && s.teacher_id === t.id)
       );
+      
       if (availableTeachers.length === 0) {
         showCustomAlert("Semua guru sudah memiliki jadwal.");
         return;
       }
-      document.getElementById('addScheduleModal').classList.remove('hidden');
+      
+      const modal = document.getElementById('addScheduleModal');
+      if (modal) modal.classList.remove('hidden');
     }
 
     function hideAddScheduleModal() {
-      document.getElementById('addScheduleModal').classList.add('hidden');
-      document.getElementById('addScheduleForm').reset();
+      const modal = document.getElementById('addScheduleModal');
+      const form = document.getElementById('addScheduleForm');
+      if (modal) modal.classList.add('hidden');
+      if (form) form.reset();
     }
 
     async function handleAddSchedule(e) {
@@ -1752,19 +1984,38 @@
       if (isLoading) return;
       
       const teacherId = document.getElementById('selectGuru')?.value;
-      const selectedDays = Array.from(document.querySelectorAll('input[name="hari"]:checked')).map(cb => cb.value);
+      const selectedDays = Array.from(document.querySelectorAll('input[name="hari"]:checked'))
+        .map(cb => cb.value);
       
-      if (!teacherId) { showCustomAlert("Silakan pilih guru terlebih dahulu."); return; }
-      if (selectedDays.length === 0) { showCustomAlert("Silakan pilih minimal satu hari mengajar."); return; }
+      if (!teacherId) {
+        showCustomAlert("Silakan pilih guru terlebih dahulu.");
+        return;
+      }
+      
+      if (selectedDays.length === 0) {
+        showCustomAlert("Silakan pilih minimal satu hari mengajar.");
+        return;
+      }
+      
+      if (scheduleRecords.length >= 999) {
+        showCustomAlert("Maksimum 999 jadwal telah tercapai.");
+        return;
+      }
       
       isLoading = true;
       const btn = document.getElementById('btnSimpanJadwal');
-      if (btn) { btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Menyimpan...'; }
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Menyimpan...';
+      }
       
       const teacher = masterTeachers.find(t => t && t.id === teacherId);
       if (!teacher) {
         showCustomAlert("Guru tidak ditemukan.");
-        if (btn) { btn.disabled = false; btn.innerHTML = '<i class="fas fa-save mr-2"></i>Simpan Jadwal'; }
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = '<i class="fas fa-save mr-2"></i>Simpan Jadwal';
+        }
         isLoading = false;
         return;
       }
@@ -1791,8 +2042,6 @@
       renderScheduleTable();
       renderTeacherTable();
       updateGuruStatistics();
-      updateGuruSelect();
-      updateGuruSelectMulti();
       showSaveIndicator();
       
       const tambahDetail = await showCustomConfirm(
@@ -1804,31 +2053,86 @@
         showAddScheduleDetail(scheduleData.id);
       }
       
-      if (btn) { btn.disabled = false; btn.innerHTML = '<i class="fas fa-save mr-2"></i>Simpan Jadwal'; }
+      if (btn) {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-save mr-2"></i>Simpan Jadwal';
+      }
       isLoading = false;
     }
 
+    function deleteSchedule(scheduleId) {
+      scheduleToDelete = scheduleId;
+      const modal = document.getElementById('deleteModal');
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    async function deleteAllSchedules() {
+      if (!scheduleRecords || scheduleRecords.length === 0) {
+        showCustomAlert("Tidak ada jadwal untuk dihapus.");
+        return;
+      }
+      
+      const userConfirmed = await showCustomConfirm(
+        `Apakah Anda yakin ingin menghapus semua ${scheduleRecords.length} jadwal?`
+      );
+      
+      if (!userConfirmed) return;
+      
+      if (isLoading) return;
+      isLoading = true;
+      
+      const btn = document.getElementById('btnHapusSemuaJadwal');
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Menghapus...';
+      }
+      
+      scheduleRecords = [];
+      scheduleDetailRecords = [];
+      await callAPI('saveSchedule', scheduleRecords);
+      await callAPI('saveScheduleDetail', scheduleDetailRecords);
+      
+      renderScheduleTable();
+      renderTeacherTable();
+      showSaveIndicator();
+      showCustomAlert('Berhasil menghapus semua jadwal.');
+      
+      if (btn) {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-trash-alt mr-2"></i>Hapus Semua Jadwal';
+      }
+      isLoading = false;
+    }
+
+    // ============================================
+    // SCHEDULE DETAIL FUNCTIONS
+    // ============================================
     function showAddScheduleDetail(scheduleId) {
       currentScheduleId = scheduleId;
-      updateKelasSelects();
-      document.getElementById('addScheduleDetailModal').classList.remove('hidden');
-      document.getElementById('addScheduleDetailForm').reset();
-      
-      const schedule = scheduleRecords.find(s => s && s.id === scheduleId);
-      if (schedule) {
-        const days = ['senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu', 'minggu'];
-        for (const day of days) {
-          if (schedule[day] === true) {
-            document.getElementById('detailHari').value = day;
-            break;
+      const modal = document.getElementById('addScheduleDetailModal');
+      const form = document.getElementById('addScheduleDetailForm');
+      if (modal) {
+        modal.classList.remove('hidden');
+        updateKelasSelects();
+        if (form) form.reset();
+        const schedule = scheduleRecords.find(s => s && s.id === scheduleId);
+        if (schedule) {
+          const days = ['senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu', 'minggu'];
+          for (const day of days) {
+            if (schedule[day] === true) {
+              document.getElementById('detailHari').value = day;
+              break;
+            }
           }
         }
       }
     }
 
     function hideAddScheduleDetailModal() {
-      document.getElementById('addScheduleDetailModal').classList.add('hidden');
-      document.getElementById('addScheduleDetailForm').reset();
+      const modal = document.getElementById('addScheduleDetailModal');
+      const form = document.getElementById('addScheduleDetailForm');
+      if (modal) modal.classList.add('hidden');
+      if (form) form.reset();
       currentScheduleId = null;
     }
 
@@ -1848,12 +2152,18 @@
       
       isLoading = true;
       const btn = document.getElementById('btnSimpanDetailJadwal');
-      if (btn) { btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Menyimpan...'; }
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Menyimpan...';
+      }
       
       const schedule = scheduleRecords.find(s => s && s.id === currentScheduleId);
       if (!schedule) {
         showCustomAlert('Jadwal tidak ditemukan.');
-        if (btn) { btn.disabled = false; btn.innerHTML = '<i class="fas fa-save mr-2"></i>Simpan Detail'; }
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = '<i class="fas fa-save mr-2"></i>Simpan Detail';
+        }
         isLoading = false;
         return;
       }
@@ -1865,8 +2175,7 @@
         hari: hari,
         kelas: kelas,
         jam: jam,
-        mapel: mapel || schedule.teacher_mapel || '',
-        timestamp: Date.now()
+        mapel: mapel || schedule.teacher_mapel || ''
       };
       
       scheduleDetailRecords.push(detailData);
@@ -1877,16 +2186,24 @@
       showSaveIndicator();
       showCustomAlert('Detail jadwal berhasil ditambahkan!');
       
-      if (btn) { btn.disabled = false; btn.innerHTML = '<i class="fas fa-save mr-2"></i>Simpan Detail'; }
+      if (btn) {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-save mr-2"></i>Simpan Detail';
+      }
       isLoading = false;
     }
 
     async function deleteScheduleDetail(detailId) {
       if (isLoading) return;
-      const userConfirmed = await showCustomConfirm('Apakah Anda yakin ingin menghapus detail jadwal ini?');
+      
+      const userConfirmed = await showCustomConfirm(
+        'Apakah Anda yakin ingin menghapus detail jadwal ini?'
+      );
+      
       if (!userConfirmed) return;
       
       isLoading = true;
+      
       const index = scheduleDetailRecords.findIndex(d => d && d.id === detailId);
       if (index !== -1) {
         scheduleDetailRecords.splice(index, 1);
@@ -1895,172 +2212,24 @@
         showSaveIndicator();
         showCustomAlert('Detail jadwal berhasil dihapus!');
       }
-      isLoading = false;
-    }
-
-    function deleteSchedule(scheduleId) {
-      scheduleToDelete = scheduleId;
-      document.getElementById('deleteModal').classList.remove('hidden');
-    }
-
-    async function deleteAllSchedules() {
-      if (!scheduleRecords || scheduleRecords.length === 0) {
-        showCustomAlert("Tidak ada jadwal untuk dihapus.");
-        return;
-      }
-      const userConfirmed = await showCustomConfirm(`Apakah Anda yakin ingin menghapus semua ${scheduleRecords.length} jadwal?`);
-      if (!userConfirmed) return;
       
-      isLoading = true;
-      const btn = document.getElementById('btnHapusSemuaJadwal');
-      if (btn) { btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Menghapus...'; }
-      
-      scheduleRecords = [];
-      scheduleDetailRecords = [];
-      await callAPI('saveSchedule', scheduleRecords);
-      await callAPI('saveScheduleDetail', scheduleDetailRecords);
-      
-      renderScheduleTable();
-      renderTeacherTable();
-      updateGuruSelect();
-      updateGuruSelectMulti();
-      showSaveIndicator();
-      showCustomAlert('Berhasil menghapus semua jadwal.');
-      
-      if (btn) { btn.disabled = false; btn.innerHTML = '<i class="fas fa-trash-alt mr-2"></i>Hapus Semua Jadwal'; }
       isLoading = false;
     }
 
     // ============================================
-    // MULTI SCHEDULE FUNCTIONS
+    // IMPORT SCHEDULE FROM EXCEL
     // ============================================
-    function showAddMultiScheduleModal() {
-      updateGuruSelectMulti();
-      if (!masterTeachers || masterTeachers.length === 0) {
-        showCustomAlert("Belum ada data guru. Silakan tambah guru terlebih dahulu.");
-        return;
-      }
-      document.getElementById('addMultiScheduleModal').classList.remove('hidden');
-      document.getElementById('addMultiScheduleForm').reset();
-    }
-
-    function hideAddMultiScheduleModal() {
-      document.getElementById('addMultiScheduleModal').classList.add('hidden');
-      document.getElementById('addMultiScheduleForm').reset();
-    }
-
-    async function handleAddMultiSchedule(e) {
-      e.preventDefault();
-      if (isLoading) return;
-      
-      const teacherId = document.getElementById('selectGuruMulti')?.value;
-      const hariStr = document.getElementById('multiHari')?.value || '';
-      const kelasStr = document.getElementById('multiKelas')?.value || '';
-      const jamStr = document.getElementById('multiJam')?.value || '';
-      const mapel = document.getElementById('multiMapel')?.value || '';
-      
-      if (!teacherId) { showCustomAlert("Silakan pilih guru terlebih dahulu."); return; }
-      if (!hariStr.trim()) { showCustomAlert("Silakan masukkan hari."); return; }
-      if (!kelasStr.trim()) { showCustomAlert("Silakan masukkan kelas."); return; }
-      if (!jamStr.trim()) { showCustomAlert("Silakan masukkan jam."); return; }
-      
-      const teacher = masterTeachers.find(t => t && t.id === teacherId);
-      if (!teacher) { showCustomAlert("Guru tidak ditemukan."); return; }
-      
-      isLoading = true;
-      const btn = document.getElementById('btnSimpanMultiJadwal');
-      if (btn) { btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Menyimpan...'; }
-      
-      const days = hariStr.split(',').map(d => d.trim().toLowerCase()).filter(d => d);
-      const kelasList = kelasStr.split(',').map(k => k.trim()).filter(k => k);
-      const jamList = jamStr.split(',').map(j => j.trim()).filter(j => j);
-      
-      if (days.length === 0) { showCustomAlert("Masukkan hari yang valid."); if (btn) { btn.disabled = false; btn.innerHTML = '<i class="fas fa-save mr-2"></i>Simpan Semua'; } isLoading = false; return; }
-      if (kelasList.length === 0) { showCustomAlert("Masukkan kelas yang valid."); if (btn) { btn.disabled = false; btn.innerHTML = '<i class="fas fa-save mr-2"></i>Simpan Semua'; } isLoading = false; return; }
-      if (jamList.length === 0) { showCustomAlert("Masukkan jam yang valid."); if (btn) { btn.disabled = false; btn.innerHTML = '<i class="fas fa-save mr-2"></i>Simpan Semua'; } isLoading = false; return; }
-      
-      // Cek apakah guru sudah punya jadwal
-      const existingSchedule = scheduleRecords.find(s => s && s.teacher_id === teacherId);
-      let scheduleId;
-      
-      if (existingSchedule) {
-        scheduleId = existingSchedule.id;
-        // Update hari
-        const validDays = ['senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu', 'minggu'];
-        validDays.forEach(day => {
-          existingSchedule[day] = days.includes(day);
-        });
-        await callAPI('saveSchedule', scheduleRecords);
-      } else {
-        const scheduleData = {
-          id: generateId(),
-          teacher_id: teacherId,
-          teacher_induk: teacher.induk,
-          teacher_nama: teacher.nama,
-          teacher_mapel: teacher.mapel,
-          senin: days.includes('senin'),
-          selasa: days.includes('selasa'),
-          rabu: days.includes('rabu'),
-          kamis: days.includes('kamis'),
-          jumat: days.includes('jumat'),
-          sabtu: days.includes('sabtu'),
-          minggu: days.includes('minggu')
-        };
-        scheduleRecords.push(scheduleData);
-        await callAPI('saveSchedule', scheduleRecords);
-        scheduleId = scheduleData.id;
-      }
-      
-      // Tambah detail untuk setiap kombinasi
-      let detailCount = 0;
-      for (const day of days) {
-        for (const kelas of kelasList) {
-          for (const jam of jamList) {
-            const detailData = {
-              id: generateId(),
-              schedule_id: scheduleId,
-              teacher_id: teacherId,
-              hari: day,
-              kelas: kelas,
-              jam: jam,
-              mapel: mapel || teacher.mapel || '',
-              timestamp: Date.now()
-            };
-            scheduleDetailRecords.push(detailData);
-            detailCount++;
-          }
-        }
-      }
-      
-      await callAPI('saveScheduleDetail', scheduleDetailRecords);
-      
-      hideAddMultiScheduleModal();
-      renderScheduleTable();
-      renderTeacherTable();
-      updateGuruStatistics();
-      updateGuruSelect();
-      updateGuruSelectMulti();
-      showSaveIndicator();
-      showCustomAlert(`Berhasil menambahkan ${detailCount} detail jadwal untuk ${teacher.nama}!`);
-      
-      if (btn) { btn.disabled = false; btn.innerHTML = '<i class="fas fa-save mr-2"></i>Simpan Semua'; }
-      isLoading = false;
-    }
-
-    // ============================================
-    // IMPORT JADWAL EXCEL
-    // ============================================
-    async function handleImportJadwalExcel(e) {
+    async function handleImportScheduleExcel(e) {
       const file = e.target.files[0];
       if (!file) return;
       
       if (isLoading) return;
       isLoading = true;
       
-      const btn = document.getElementById('btnImportJadwal');
-      if (btn) {
-        btn.disabled = true;
-        btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Mengimpor...';
+      const importBtn = document.getElementById('btnImportSchedule');
+      if (importBtn) {
+        importBtn.disabled = true;
+        importBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Mengimpor...';
       }
       
       try {
@@ -2072,174 +2241,160 @@
         }
         
         if (data && data.length > 0) {
-          await importJadwalData(data);
+          await importScheduleData(data);
           showImportSuccess(data.length, 'jadwal');
         } else {
           showCustomAlert("File kosong atau format tidak sesuai.");
         }
       } catch (error) {
-        console.error("Error importing jadwal:", error);
+        console.error("Error importing schedule:", error);
         showCustomAlert("Gagal mengimpor file jadwal.");
       }
       
-      if (btn) {
-        btn.disabled = false;
-        btn.innerHTML = '<i class="fas fa-file-import mr-2"></i> Import Excel';
+      if (importBtn) {
+        importBtn.disabled = false;
+        importBtn.innerHTML = '<i class="fas fa-file-import mr-2"></i>Import Jadwal Excel';
       }
       e.target.value = '';
       isLoading = false;
     }
 
-    async function importJadwalData(data) {
-      // Format: Nama_Guru, Hari, Kelas, Jam, Mapel
+    async function importScheduleData(data) {
       let successCount = 0;
+      let errorCount = 0;
+      const errors = [];
+      
+      // Map untuk menyimpan schedule_id per guru
+      const teacherScheduleMap = {};
       
       for (const row of data) {
-        const namaGuru = row[0]?.trim();
-        const hari = row[1]?.trim().toLowerCase();
-        const kelas = row[2]?.trim();
-        const jam = row[3]?.trim();
-        const mapel = row[4]?.trim();
-        
-        if (!namaGuru || !hari || !kelas || !jam) continue;
-        
-        // Cari guru berdasarkan nama
-        const teacher = masterTeachers.find(t => 
-          t.nama && t.nama.toLowerCase().includes(namaGuru.toLowerCase())
-        );
-        
-        if (!teacher) {
-          console.warn('Guru tidak ditemukan:', namaGuru);
-          continue;
-        }
-        
-        // Cek atau buat jadwal
-        let schedule = scheduleRecords.find(s => s && s.teacher_id === teacher.id);
-        let scheduleId;
-        
-        if (schedule) {
-          scheduleId = schedule.id;
-          // Update hari
-          const validDays = ['senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu', 'minggu'];
-          if (validDays.includes(hari)) {
-            schedule[hari] = true;
+        try {
+          const induk = String(row.induk || '').trim();
+          const nama = String(row.nama || '').trim();
+          const mapel = String(row.mapel || '').trim();
+          const hari = String(row.hari || '').trim().toLowerCase();
+          const kelas = String(row.kelas || '').trim();
+          const jam = String(row.jam || '').trim();
+          
+          if (!induk || !nama || !hari || !kelas || !jam) {
+            errorCount++;
+            errors.push(`Data tidak lengkap: ${JSON.stringify(row)}`);
+            continue;
           }
-          await callAPI('saveSchedule', scheduleRecords);
-        } else {
-          const scheduleData = {
+          
+          // Cari teacher berdasarkan induk
+          const teacher = masterTeachers.find(t => t && t.induk === induk);
+          if (!teacher) {
+            errorCount++;
+            errors.push(`Guru dengan No. Induk "${induk}" tidak ditemukan`);
+            continue;
+          }
+          
+          // Cek apakah guru sudah punya schedule
+          let scheduleId = teacherScheduleMap[teacher.id];
+          if (!scheduleId) {
+            // Buat schedule baru
+            const newSchedule = {
+              id: generateId(),
+              teacher_id: teacher.id,
+              teacher_induk: teacher.induk,
+              teacher_nama: teacher.nama,
+              teacher_mapel: teacher.mapel,
+              senin: false,
+              selasa: false,
+              rabu: false,
+              kamis: false,
+              jumat: false,
+              sabtu: false,
+              minggu: false
+            };
+            
+            // Set hari
+            const hariMap = {
+              'senin': 'senin', 'selasa': 'selasa', 'rabu': 'rabu',
+              'kamis': 'kamis', 'jumat': 'jumat', 'sabtu': 'sabtu', 'minggu': 'minggu'
+            };
+            const dayKey = hariMap[hari];
+            if (dayKey) {
+              newSchedule[dayKey] = true;
+            } else {
+              errorCount++;
+              errors.push(`Hari tidak valid: "${hari}"`);
+              continue;
+            }
+            
+            scheduleRecords.push(newSchedule);
+            await callAPI('saveSchedule', scheduleRecords);
+            
+            scheduleId = newSchedule.id;
+            teacherScheduleMap[teacher.id] = scheduleId;
+          } else {
+            // Update schedule hari
+            const schedule = scheduleRecords.find(s => s && s.id === scheduleId);
+            if (schedule) {
+              const hariMap = {
+                'senin': 'senin', 'selasa': 'selasa', 'rabu': 'rabu',
+                'kamis': 'kamis', 'jumat': 'jumat', 'sabtu': 'sabtu', 'minggu': 'minggu'
+              };
+              const dayKey = hariMap[hari];
+              if (dayKey) {
+                schedule[dayKey] = true;
+                await callAPI('saveSchedule', scheduleRecords);
+              }
+            }
+          }
+          
+          // Tambahkan detail jadwal
+          const detailData = {
             id: generateId(),
+            schedule_id: scheduleId,
             teacher_id: teacher.id,
-            teacher_induk: teacher.induk,
-            teacher_nama: teacher.nama,
-            teacher_mapel: teacher.mapel,
-            senin: hari === 'senin',
-            selasa: hari === 'selasa',
-            rabu: hari === 'rabu',
-            kamis: hari === 'kamis',
-            jumat: hari === 'jumat',
-            sabtu: hari === 'sabtu',
-            minggu: hari === 'minggu'
+            hari: hari,
+            kelas: kelas,
+            jam: jam,
+            mapel: mapel || teacher.mapel || ''
           };
-          scheduleRecords.push(scheduleData);
-          await callAPI('saveSchedule', scheduleRecords);
-          scheduleId = scheduleData.id;
+          
+          scheduleDetailRecords.push(detailData);
+          successCount++;
+          
+        } catch (error) {
+          errorCount++;
+          errors.push(`Error: ${error.message}`);
         }
-        
-        // Tambah detail
-        const detailData = {
-          id: generateId(),
-          schedule_id: scheduleId,
-          teacher_id: teacher.id,
-          hari: hari,
-          kelas: kelas,
-          jam: jam,
-          mapel: mapel || teacher.mapel || '',
-          timestamp: Date.now()
-        };
-        scheduleDetailRecords.push(detailData);
-        successCount++;
       }
       
-      await callAPI('saveScheduleDetail', scheduleDetailRecords);
+      // Simpan semua detail
+      if (scheduleDetailRecords.length > 0) {
+        await callAPI('saveScheduleDetail', scheduleDetailRecords);
+      }
+      
       renderScheduleTable();
       renderTeacherTable();
-      updateGuruStatistics();
-      showCustomAlert(`Berhasil mengimpor ${successCount} jadwal.`);
-    }
-
-    function parseCSV(file) {
-      return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          try {
-            const csv = e.target.result;
-            const lines = csv.split('\n');
-            const data = [];
-            for (let i = 1; i < lines.length; i++) {
-              const line = lines[i].trim();
-              if (!line) continue;
-              const values = line.split(',').map(v => v.trim().replace(/"/g, ''));
-              if (values.length >= 4) {
-                data.push(values);
-              }
-            }
-            resolve(data);
-          } catch (error) { reject(error); }
-        };
-        reader.onerror = reject;
-        reader.readAsText(file);
-      });
-    }
-
-    function parseExcel(file) {
-      return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          try {
-            if (typeof XLSX === 'undefined') throw new Error('Library Excel tidak tersedia');
-            const data = new Uint8Array(e.target.result);
-            const workbook = XLSX.read(data, { type: 'array' });
-            if (!workbook.SheetNames || workbook.SheetNames.length === 0) {
-              throw new Error('File Excel kosong');
-            }
-            const firstSheetName = workbook.SheetNames[0];
-            const worksheet = workbook.Sheets[firstSheetName];
-            const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, defval: '' });
-            const parsedData = [];
-            for (let i = 1; i < jsonData.length; i++) {
-              const row = jsonData[i];
-              if (row && row.length >= 4) {
-                parsedData.push(row);
-              }
-            }
-            resolve(parsedData);
-          } catch (error) { reject(error); }
-        };
-        reader.onerror = () => reject(new Error('Gagal membaca file'));
-        reader.readAsArrayBuffer(file);
-      });
-    }
-
-    function showImportSuccess(count, type) {
-      const indicator = document.getElementById('saveIndicator');
-      if (indicator) {
-        indicator.innerHTML = `<i class="fas fa-check-circle text-green-500 mr-3 text-xl"></i><span class="font-medium">✅ Berhasil mengimpor ${count} data ${type}</span>`;
-        indicator.classList.remove('hidden');
-        setTimeout(() => indicator.classList.add('hidden'), 5000);
+      
+      let message = `Berhasil mengimpor ${successCount} detail jadwal.`;
+      if (errorCount > 0) {
+        message += `\nGagal: ${errorCount} data. ${errors.slice(0, 5).join(', ')}`;
       }
+      showCustomAlert(message);
     }
 
     // ============================================
     // TEACHER MANAGEMENT
     // ============================================
     function showAddTeacherModal() {
-      document.getElementById('addTeacherModal').classList.remove('hidden');
-      document.getElementById('newInduk').focus();
+      const modal = document.getElementById('addTeacherModal');
+      if (modal) {
+        modal.classList.remove('hidden');
+        document.getElementById('newInduk').focus();
+      }
     }
 
     function hideAddTeacherModal() {
-      document.getElementById('addTeacherModal').classList.add('hidden');
-      document.getElementById('addTeacherForm').reset();
+      const modal = document.getElementById('addTeacherModal');
+      const form = document.getElementById('addTeacherForm');
+      if (modal) modal.classList.add('hidden');
+      if (form) form.reset();
     }
 
     async function handleAddTeacher(e) {
@@ -2248,7 +2403,10 @@
       
       isLoading = true;
       const btn = document.getElementById('btnSimpanGuru');
-      if (btn) { btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Menyimpan...'; }
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Menyimpan...';
+      }
       
       const induk = document.getElementById('newInduk')?.value || '';
       const nama = document.getElementById('newNama')?.value || '';
@@ -2257,7 +2415,10 @@
       
       if (!induk || !nama || !mapel) {
         showCustomAlert("Harap isi semua field yang wajib diisi.");
-        if (btn) { btn.disabled = false; btn.innerHTML = '<i class="fas fa-save mr-2"></i>Simpan'; }
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = '<i class="fas fa-save mr-2"></i>Simpan';
+        }
         isLoading = false;
         return;
       }
@@ -2278,18 +2439,20 @@
       renderTeacherTable();
       renderGuruManagementTable();
       updateGuruStatistics();
-      updateGuruSelect();
-      updateGuruSelectMulti();
       showSaveIndicator();
       showCustomAlert('Guru berhasil ditambahkan!');
       
-      if (btn) { btn.disabled = false; btn.innerHTML = '<i class="fas fa-save mr-2"></i>Simpan'; }
+      if (btn) {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-save mr-2"></i>Simpan';
+      }
       isLoading = false;
     }
 
     function deleteTeacher(id) {
       teacherToDelete = id;
-      document.getElementById('deleteModal').classList.remove('hidden');
+      const modal = document.getElementById('deleteModal');
+      if (modal) modal.classList.remove('hidden');
     }
 
     async function confirmDelete() {
@@ -2297,7 +2460,10 @@
       
       isLoading = true;
       const btn = document.getElementById('btnKonfirmasiHapus');
-      if (btn) { btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Menghapus...'; }
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Menghapus...';
+      }
       
       if (teacherToDelete) {
         const teacherIndex = masterTeachers.findIndex(t => t && t.id === teacherToDelete);
@@ -2314,17 +2480,11 @@
           scheduleDetailRecords = scheduleDetailRecords.filter(detail => detail.teacher_id !== teacherToDelete);
           await callAPI('saveScheduleDetail', scheduleDetailRecords);
           
-          rekapDetailRecords = rekapDetailRecords.filter(r => r.teacher_id !== teacherToDelete);
-          await callAPI('saveRekapDetail', rekapDetailRecords);
-          
-          document.getElementById('deleteModal').classList.add('hidden');
+          hideDeleteModal();
           renderTeacherTable();
           renderScheduleTable();
           renderGuruManagementTable();
-          renderRekapTable();
           updateGuruStatistics();
-          updateGuruSelect();
-          updateGuruSelectMulti();
           showSaveIndicator();
           showCustomAlert('Data guru berhasil dihapus!');
         }
@@ -2338,26 +2498,195 @@
           scheduleDetailRecords = scheduleDetailRecords.filter(d => d.schedule_id !== scheduleId);
           await callAPI('saveScheduleDetail', scheduleDetailRecords);
           
-          document.getElementById('deleteModal').classList.add('hidden');
+          hideDeleteModal();
           renderScheduleTable();
           renderTeacherTable();
-          updateGuruSelect();
-          updateGuruSelectMulti();
           showSaveIndicator();
           showCustomAlert('Jadwal berhasil dihapus!');
         }
       }
       
-      if (btn) { btn.disabled = false; btn.innerHTML = '<i class="fas fa-trash-alt mr-2"></i>Hapus'; }
-      teacherToDelete = null;
-      scheduleToDelete = null;
+      if (btn) {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-trash-alt mr-2"></i>Hapus';
+      }
       isLoading = false;
     }
 
     function hideDeleteModal() {
-      document.getElementById('deleteModal').classList.add('hidden');
+      const modal = document.getElementById('deleteModal');
+      if (modal) modal.classList.add('hidden');
       teacherToDelete = null;
       scheduleToDelete = null;
+    }
+
+    // ============================================
+    // IMPORT EXCEL - TEACHERS
+    // ============================================
+    async function handleImportExcel(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      
+      if (isLoading) return;
+      isLoading = true;
+      
+      const importBtn = document.getElementById('btnImport');
+      if (importBtn) {
+        importBtn.disabled = true;
+        importBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Mengimpor...';
+      }
+      
+      try {
+        let data;
+        if (file.type === 'text/csv' || file.name.endsWith('.csv')) {
+          data = await parseCSV(file);
+        } else {
+          data = await parseExcel(file);
+        }
+        
+        if (data && data.length > 0) {
+          await importTeachersData(data);
+          showImportSuccess(data.length, 'guru');
+        } else {
+          showCustomAlert("File kosong atau format tidak sesuai.");
+        }
+      } catch (error) {
+        console.error("Error importing file:", error);
+        showCustomAlert("Gagal mengimpor file.");
+      }
+      
+      if (importBtn) {
+        importBtn.disabled = false;
+        importBtn.innerHTML = '<i class="fas fa-file-import mr-2"></i>Import Excel/CSV';
+      }
+      e.target.value = '';
+      isLoading = false;
+    }
+
+    function parseCSV(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          try {
+            const csv = e.target.result;
+            const lines = csv.split('\n');
+            const data = [];
+            
+            for (let i = 1; i < lines.length; i++) {
+              const line = lines[i].trim();
+              if (!line) continue;
+              
+              const values = line.split(',').map(v => v.trim().replace(/"/g, ''));
+              if (values.length >= 3) {
+                data.push({
+                  induk: values[0] || '',
+                  nama: values[1] || '',
+                  mapel: values[2] || '',
+                  mapel_tambahan: values[3] || ''
+                });
+              }
+            }
+            
+            resolve(data);
+          } catch (error) {
+            reject(error);
+          }
+        };
+        reader.onerror = reject;
+        reader.readAsText(file);
+      });
+    }
+
+    function parseExcel(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          try {
+            if (typeof XLSX === 'undefined') {
+              throw new Error('Library Excel tidak tersedia');
+            }
+            
+            const data = new Uint8Array(e.target.result);
+            const workbook = XLSX.read(data, { type: 'array' });
+            
+            if (!workbook.SheetNames || workbook.SheetNames.length === 0) {
+              throw new Error('File Excel kosong');
+            }
+            
+            const firstSheetName = workbook.SheetNames[0];
+            const worksheet = workbook.Sheets[firstSheetName];
+            const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, defval: '' });
+            
+            if (!jsonData || jsonData.length === 0) {
+              throw new Error('Sheet Excel kosong');
+            }
+            
+            const parsedData = [];
+            for (let i = 1; i < jsonData.length; i++) {
+              const row = jsonData[i];
+              if (row && row.length >= 3) {
+                const induk = String(row[0] || '').trim();
+                const nama = String(row[1] || '').trim();
+                const mapel = String(row[2] || '').trim();
+                const mapelTambahan = row[3] ? String(row[3]).trim() : '';
+                
+                if (induk && nama && mapel) {
+                  parsedData.push({
+                    induk: induk,
+                    nama: nama,
+                    mapel: mapel,
+                    mapel_tambahan: mapelTambahan
+                  });
+                }
+              }
+            }
+            
+            resolve(parsedData);
+          } catch (error) {
+            reject(error);
+          }
+        };
+        reader.onerror = () => reject(new Error('Gagal membaca file'));
+        reader.readAsArrayBuffer(file);
+      });
+    }
+
+    async function importTeachersData(data) {
+      if (masterTeachers.length + data.length > 999) {
+        showCustomAlert(`Tidak dapat mengimpor ${data.length} guru. Maksimum 999.`);
+        return;
+      }
+      
+      let successCount = 0;
+      for (const teacherData of data) {
+        if (!teacherData.induk || !teacherData.nama || !teacherData.mapel) continue;
+        
+        masterTeachers.push({
+          id: generateId(),
+          induk: teacherData.induk,
+          nama: teacherData.nama,
+          mapel: teacherData.mapel,
+          mapel_tambahan: teacherData.mapel_tambahan || '',
+          timestamp: Date.now()
+        });
+        successCount++;
+      }
+      
+      await callAPI('saveTeachers', masterTeachers);
+      renderTeacherTable();
+      renderGuruManagementTable();
+      updateGuruStatistics();
+      showCustomAlert(`Berhasil mengimpor ${successCount} guru.`);
+    }
+
+    function showImportSuccess(count, type) {
+      const indicator = document.getElementById('saveIndicator');
+      if (indicator) {
+        const label = type === 'guru' ? 'guru' : 'jadwal';
+        indicator.innerHTML = `<i class="fas fa-check-circle text-green-500 mr-3 text-xl"></i><span class="font-medium">✅ Berhasil mengimpor ${count} data ${label}</span>`;
+        indicator.classList.remove('hidden');
+        setTimeout(() => indicator.classList.add('hidden'), 5000);
+      }
     }
 
     // ============================================
@@ -2382,6 +2711,7 @@
       
       tbody.innerHTML = masterTeachers.map((teacher, index) => {
         if (!teacher) return '';
+        
         const hasSchedule = (scheduleRecords || []).some(schedule => schedule && schedule.teacher_id === teacher.id);
         const schedule = (scheduleRecords || []).find(s => s && s.teacher_id === teacher.id);
         let scheduleDays = [];
@@ -2417,11 +2747,13 @@
             <td class="px-4 py-4 text-center">
               ${hasSchedule ? 
                 `<span class="px-3 py-1 bg-gradient-to-r from-green-500 to-emerald-500 text-white text-xs font-semibold rounded-xl shadow-md">
-                  <i class="fas fa-check-circle mr-1"></i> Terjadwal<br>
-                  <span class="text-[10px]">${scheduleDays.join(', ')}</span>
+                  <i class="fas fa-check-circle mr-1"></i>
+                  Terjadwal<br>
+                  <span class="text-[10px]">${scheduleDays.map(d => getDayNameIndonesian(d)).join(', ')}</span>
                 </span>` :
                 `<span class="px-3 py-1 bg-gradient-to-r from-gray-500 to-gray-600 text-white text-xs font-semibold rounded-xl shadow-md">
-                  <i class="fas fa-clock mr-1"></i> Belum Dijadwal
+                  <i class="fas fa-clock mr-1"></i>
+                  Belum Dijadwal
                 </span>`
               }
             </td>
@@ -2431,7 +2763,8 @@
             <td class="px-4 py-4 text-center">
               <button onclick="deleteTeacher('${teacher.id}')" 
                       class="px-4 py-2 bg-gradient-to-r from-red-600 to-pink-600 text-white text-sm rounded-xl hover:from-red-700 hover:to-pink-700 transition-all duration-300 shadow-md btn-modern">
-                <i class="fas fa-trash-alt mr-1"></i> Hapus
+                <i class="fas fa-trash-alt mr-1"></i>
+                Hapus
               </button>
             </td>
           </tr>
@@ -2484,31 +2817,38 @@
     }
 
     // ============================================
-    // DELETE ALL FUNCTIONS
+    // DELETE ALL
     // ============================================
     async function deleteAllTeachers() {
       if (!masterTeachers || masterTeachers.length === 0) {
         showCustomAlert("Tidak ada data guru untuk dihapus.");
         return;
       }
-      const userConfirmed = await showCustomConfirm(`Apakah Anda yakin ingin menghapus semua ${masterTeachers.length} data guru?`);
+      
+      const userConfirmed = await showCustomConfirm(
+        `Apakah Anda yakin ingin menghapus semua ${masterTeachers.length} data guru?`
+      );
+      
       if (!userConfirmed) return;
       
+      if (isLoading) return;
       isLoading = true;
+      
       const btn = document.getElementById('btnHapusSemuaGuru');
-      if (btn) { btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Menghapus...'; }
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Menghapus...';
+      }
       
       masterTeachers = [];
       scheduleRecords = [];
       scheduleDetailRecords = [];
       attendanceRecords = [];
-      rekapDetailRecords = [];
       
       await callAPI('saveTeachers', masterTeachers);
       await callAPI('saveSchedule', scheduleRecords);
       await callAPI('saveScheduleDetail', scheduleDetailRecords);
       await callAPI('saveAttendance', attendanceRecords);
-      await callAPI('saveRekapDetail', rekapDetailRecords);
       
       renderTeacherTable();
       renderScheduleTable();
@@ -2516,12 +2856,14 @@
       renderGuruManagementTable();
       updateGuruStatistics();
       updateStatistics();
-      updateGuruSelect();
-      updateGuruSelectMulti();
+      
       showSaveIndicator();
       showCustomAlert('Berhasil menghapus semua data.');
       
-      if (btn) { btn.disabled = false; btn.innerHTML = '<i class="fas fa-trash-alt mr-2"></i>Hapus Semua Data'; }
+      if (btn) {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-trash-alt mr-2"></i>Hapus Semua Data';
+      }
       isLoading = false;
     }
 
@@ -2530,51 +2872,136 @@
         showCustomAlert("Tidak ada data kehadiran untuk dihapus.");
         return;
       }
-      const userConfirmed = await showCustomConfirm(`Apakah Anda yakin ingin menghapus semua ${attendanceRecords.length} data kehadiran?`);
+      
+      const userConfirmed = await showCustomConfirm(
+        `Apakah Anda yakin ingin menghapus semua ${attendanceRecords.length} data kehadiran?`
+      );
+      
       if (!userConfirmed) return;
       
+      if (isLoading) return;
       isLoading = true;
+      
       const btn = document.getElementById('btnHapusSemuaKehadiran');
-      if (btn) { btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Menghapus...'; }
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Menghapus...';
+      }
       
       attendanceRecords = [];
-      rekapDetailRecords = [];
       await callAPI('saveAttendance', attendanceRecords);
-      await callAPI('saveRekapDetail', rekapDetailRecords);
       
       renderRekapTable();
       updateStatistics();
       showSaveIndicator();
       showCustomAlert('Berhasil menghapus semua data kehadiran.');
       
-      if (btn) { btn.disabled = false; btn.innerHTML = '<i class="fas fa-trash-alt mr-2"></i>Hapus Semua'; }
+      if (btn) {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-trash-alt mr-2"></i>Hapus Semua';
+      }
       isLoading = false;
+    }
+
+    // ============================================
+    // RENDER REKAP TABLE (DENGAN DETAIL LENGKAP)
+    // ============================================
+    function renderRekapTable() {
+      const tbody = document.getElementById('rekapTableBody');
+      if (!tbody) return;
+      
+      const filterBulan = document.getElementById('filterBulan')?.value || '';
+      
+      let filteredData = (attendanceRecords || []).filter(record => record && record.status);
+      
+      if (dateRangeFilter.start && dateRangeFilter.end) {
+        filteredData = filteredData.filter(record => {
+          return record && record.tanggal >= dateRangeFilter.start && record.tanggal <= dateRangeFilter.end;
+        });
+      } else if (filterBulan) {
+        filteredData = filteredData.filter(record => {
+          return record && record.tanggal && record.tanggal.split('-')[1] === filterBulan;
+        });
+      }
+      
+      filteredData.sort((a, b) => {
+        if (!a || !b) return 0;
+        return new Date(b.tanggal) - new Date(a.tanggal);
+      });
+      
+      if (filteredData.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="8" class="px-4 py-12 text-center">
+              <div class="text-5xl mb-4 text-gray-400">📊</div>
+              <div class="text-lg text-gray-600">Tidak ada data kehadiran untuk periode ini</div>
+            </td>
+          </tr>
+        `;
+      } else {
+        tbody.innerHTML = filteredData.map(record => {
+          if (!record) return '';
+          
+          // Cari detail jadwal untuk guru ini pada tanggal tersebut
+          const dayName = getDayName(record.tanggal);
+          const schedule = scheduleRecords.find(s => s && s.teacher_id === record.teacher_id);
+          let kelas = '-';
+          let jam = '-';
+          let mapel = record.teacher_mapel || '';
+          
+          if (schedule) {
+            const detail = scheduleDetailRecords.find(d => 
+              d && d.schedule_id === schedule.id && d.hari === dayName
+            );
+            if (detail) {
+              kelas = detail.kelas || '-';
+              jam = detail.jam ? `Jam ${detail.jam}` : '-';
+              mapel = detail.mapel || record.teacher_mapel || '';
+            }
+          }
+          
+          return `
+            <tr class="hover:bg-gray-50">
+              <td class="px-4 py-4 text-sm text-gray-900">${record.tanggal ? new Date(record.tanggal).toLocaleDateString('id-ID') : '-'}</td>
+              <td class="px-4 py-4 text-sm text-gray-900">${getDayNameIndonesian(dayName)}</td>
+              <td class="px-4 py-4 text-sm font-medium text-gray-900">${record.teacher_nama || ''}</td>
+              <td class="px-4 py-4 text-sm text-gray-900">${mapel}</td>
+              <td class="px-4 py-4 text-sm text-gray-900">${kelas}</td>
+              <td class="px-4 py-4 text-sm text-gray-900">${jam}</td>
+              <td class="px-4 py-4 text-center">
+                <span class="status-badge ${record.status || ''}">
+                  ${record.status === 'hadir' ? '✅' : record.status === 'izin' ? '📝' : record.status === 'sakit' ? '🏥' : '❌'} ${(record.status || '').toUpperCase()}
+                </span>
+              </td>
+              <td class="px-4 py-4 text-sm text-gray-900">${record.keterangan || '-'}</td>
+            </tr>
+          `;
+        }).join('');
+      }
     }
 
     // ============================================
     // STATISTICS
     // ============================================
     function updateStatistics() {
-      let filteredData = rekapDetailRecords;
+      const filterBulan = document.getElementById('filterBulan')?.value || '';
+      let filteredData = (attendanceRecords || []).filter(record => record && record.status);
       
       if (dateRangeFilter.start && dateRangeFilter.end) {
-        filteredData = filteredData.filter(r => {
-          return r.tanggal >= dateRangeFilter.start && r.tanggal <= dateRangeFilter.end;
+        filteredData = filteredData.filter(record => {
+          return record && record.tanggal >= dateRangeFilter.start && record.tanggal <= dateRangeFilter.end;
         });
-      }
-      
-      const filterBulan = document.getElementById('filterBulan')?.value || '';
-      if (filterBulan) {
-        filteredData = filteredData.filter(r => {
-          return r.tanggal && r.tanggal.split('-')[1] === filterBulan;
+      } else if (filterBulan) {
+        filteredData = filteredData.filter(record => {
+          return record && record.tanggal && record.tanggal.split('-')[1] === filterBulan;
         });
       }
       
       const stats = {
-        total: new Set(filteredData.map(r => r && r.teacher_id).filter(id => id)).size,
-        hadir: filteredData.filter(r => r && r.status === 'hadir').length,
-        izin: filteredData.filter(r => r && r.status === 'izin').length,
-        sakit: filteredData.filter(r => r && r.status === 'sakit').length
+        total: new Set(filteredData.map(record => record && record.teacher_id).filter(id => id)).size,
+        hadir: filteredData.filter(record => record && record.status === 'hadir').length,
+        izin: filteredData.filter(record => record && record.status === 'izin').length,
+        sakit: filteredData.filter(record => record && record.status === 'sakit').length
       };
       
       document.getElementById('totalGuru').textContent = stats.total;
@@ -2584,268 +3011,224 @@
     }
 
     // ============================================
-    // DATE FUNCTIONS
+    // PRINT DETAILED REKAP (RINCIAN)
     // ============================================
-    function updateDateDisplay() {
-      try {
-        const dateObj = new Date(currentDate);
-        document.getElementById('tanggalHari').textContent = dateObj.toLocaleDateString('id-ID', {
-          weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
-        });
-        document.getElementById('tanggalAktif').textContent = dateObj.toLocaleDateString('id-ID', {
-          year: 'numeric', month: 'long', day: 'numeric'
-        });
-      } catch (e) { console.warn('Date error:', e); }
-    }
-
-    function setCustomDate() {
-      const selectedDate = document.getElementById('inputTanggal').value;
-      if (selectedDate) {
-        currentDate = selectedDate;
-        updateDateDisplay();
-        renderTeacherTable();
-        showSaveIndicator();
-      } else {
-        showCustomAlert("Silakan pilih tanggal terlebih dahulu.");
-      }
-    }
-
-    function setTodayDate() {
-      currentDate = new Date().toISOString().split('T')[0];
-      document.getElementById('inputTanggal').value = currentDate;
-      updateDateDisplay();
-      renderTeacherTable();
-      showSaveIndicator();
-    }
-
-    function goToPreviousDate() {
-      const currentDateObj = new Date(currentDate);
-      currentDateObj.setDate(currentDateObj.getDate() - 1);
-      currentDate = currentDateObj.toISOString().split('T')[0];
-      document.getElementById('inputTanggal').value = currentDate;
-      updateDateDisplay();
-      renderTeacherTable();
-      showSaveIndicator();
-    }
-
-    function goToNextDate() {
-      const currentDateObj = new Date(currentDate);
-      currentDateObj.setDate(currentDateObj.getDate() + 1);
-      currentDate = currentDateObj.toISOString().split('T')[0];
-      document.getElementById('inputTanggal').value = currentDate;
-      updateDateDisplay();
-      renderTeacherTable();
-      showSaveIndicator();
-    }
-
-    function goToDay(targetDay) {
-      try {
-        const currentDateObj = new Date(currentDate);
-        const currentDayIndex = currentDateObj.getDay();
-        const dayIndices = { minggu:0, senin:1, selasa:2, rabu:3, kamis:4, jumat:5, sabtu:6 };
-        const targetDayIndex = dayIndices[targetDay];
-        const dayDifference = targetDayIndex - currentDayIndex;
-        const targetDateObj = new Date(currentDateObj);
-        targetDateObj.setDate(currentDateObj.getDate() + dayDifference);
-        currentDate = targetDateObj.toISOString().split('T')[0];
-        document.getElementById('inputTanggal').value = currentDate;
-        updateDateDisplay();
-        renderTeacherTable();
-        showSaveIndicator();
-      } catch (e) { console.warn('Go to day error:', e); }
-    }
-
-    // ============================================
-    // DATE RANGE FILTER
-    // ============================================
-    function initializeDateRangeFilter() {
-      try {
-        const today = new Date();
-        const firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
-        const lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0);
-        document.getElementById('tanggalMulai').value = firstDay.toISOString().split('T')[0];
-        document.getElementById('tanggalSelesai').value = lastDay.toISOString().split('T')[0];
-        dateRangeFilter.start = firstDay.toISOString().split('T')[0];
-        dateRangeFilter.end = lastDay.toISOString().split('T')[0];
-        updatePeriodeAktif();
-      } catch (e) { console.warn('Date range init error:', e); }
-    }
-
-    function applyDateRangeFilter() {
-      const startDate = document.getElementById('tanggalMulai').value;
-      const endDate = document.getElementById('tanggalSelesai').value;
-      if (!startDate || !endDate) { showCustomAlert("Silakan pilih tanggal."); return; }
-      if (startDate > endDate) { showCustomAlert("Tanggal mulai tidak boleh lebih besar dari tanggal selesai."); return; }
-      dateRangeFilter.start = startDate;
-      dateRangeFilter.end = endDate;
-      document.getElementById('filterBulan').value = '';
-      updatePeriodeAktif();
-      renderRekapTable();
-      updateStatistics();
-    }
-
-    function resetDateRangeFilter() {
-      dateRangeFilter.start = null;
-      dateRangeFilter.end = null;
-      document.getElementById('tanggalMulai').value = '';
-      document.getElementById('tanggalSelesai').value = '';
-      document.getElementById('filterBulan').value = '';
-      updatePeriodeAktif();
-      renderRekapTable();
-      updateStatistics();
-    }
-
-    function updatePeriodeAktif() {
-      const periodeElement = document.getElementById('periodeAktif');
-      if (dateRangeFilter.start && dateRangeFilter.end) {
-        try {
-          const startDate = new Date(dateRangeFilter.start);
-          const endDate = new Date(dateRangeFilter.end);
-          periodeElement.textContent = `${startDate.toLocaleDateString('id-ID')} - ${endDate.toLocaleDateString('id-ID')}`;
-        } catch (e) { periodeElement.textContent = 'Semua Data'; }
-      } else {
-        periodeElement.textContent = 'Semua Data';
-      }
-    }
-
-    // ============================================
-    // CONFIG UI
-    // ============================================
-    function updateConfigUI() {
+    function printDetailedReport() {
+      const config = window.config || {};
+      const schoolName = config.nama_sekolah || 'MAS IBNU HUSAIN';
+      const address = config.alamat || 'JL. Irawati 1 No. 15-17';
+      const city = config.kota || 'KOTA SURABAYA';
       const logo = config.logo || '🏫';
-      updateLogo(logo);
-      document.getElementById('namaSekolah').textContent = config.nama_sekolah || 'MAS IBNU HUSAIN';
-      document.getElementById('namaSekolahNav').textContent = config.nama_sekolah || 'MAS IBNU HUSAIN';
-      document.getElementById('npsn').textContent = config.npsn || '60728117';
-      document.getElementById('alamat').textContent = config.alamat || 'JL. Irawati 1 No. 15-17';
-      document.getElementById('kelurahan').textContent = config.kelurahan || 'SIDOTOPO';
-      document.getElementById('kecamatan').textContent = config.kecamatan || 'KEC. SEMAMPIR';
-      document.getElementById('kota').textContent = config.kota || 'KOTA SURABAYA';
-    }
-
-    function updateLogo(logoValue) {
-      const logoNav = document.getElementById('logoNav');
-      const logoMain = document.getElementById('logoMain');
-      if (logoValue && logoValue.startsWith('data:image/')) {
-        logoNav.innerHTML = `<img src="${logoValue}" alt="Logo" class="w-full h-full object-cover rounded-xl">`;
-        logoMain.innerHTML = `<img src="${logoValue}" alt="Logo" class="w-full h-full object-cover rounded-2xl">`;
-      } else {
-        const displayLogo = logoValue || '🏫';
-        logoNav.innerHTML = `<span class="text-white font-bold text-xl">${displayLogo}</span>`;
-        logoMain.innerHTML = `<span class="text-white text-4xl">${displayLogo}</span>`;
-      }
-    }
-
-    function handleLogoUpload(event) {
-      const file = event.target.files[0];
-      if (!file) return;
-      if (!file.type.startsWith('image/')) { showCustomAlert('Silakan pilih file gambar yang valid'); return; }
-      if (file.size > 2 * 1024 * 1024) { showCustomAlert('Ukuran file terlalu besar. Maksimal 2MB.'); return; }
       
-      fileToBase64(file).then(async base64 => {
-        config.logo = base64;
-        await callAPI('saveConfig', config);
-        updateLogo(base64);
-        showSaveIndicator();
-      }).catch(error => {
-        console.error('Error converting file:', error);
-        showCustomAlert('Gagal memproses gambar.');
-      });
-    }
-
-    function fileToBase64(file) {
-      return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = () => resolve(reader.result);
-        reader.onerror = reject;
-        reader.readAsDataURL(file);
-      });
-    }
-
-    // ============================================
-    // IMPORT EXCEL - GURU
-    // ============================================
-    async function handleImportExcel(e) {
-      const file = e.target.files[0];
-      if (!file) return;
+      const filterBulan = document.getElementById('filterBulan')?.value || '';
+      let filteredData = (attendanceRecords || []).filter(record => record && record.status);
       
-      if (isLoading) return;
-      isLoading = true;
-      const importBtn = document.getElementById('btnImport');
-      if (importBtn) { importBtn.disabled = true; importBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Mengimpor...'; }
-      
-      try {
-        let data;
-        if (file.type === 'text/csv' || file.name.endsWith('.csv')) {
-          data = await parseCSV(file);
-        } else {
-          data = await parseExcel(file);
-        }
-        if (data && data.length > 0) {
-          await importTeachersData(data);
-          showImportSuccess(data.length, 'guru');
-        } else {
-          showCustomAlert("File kosong atau format tidak sesuai.");
-        }
-      } catch (error) {
-        console.error("Error importing file:", error);
-        showCustomAlert("Gagal mengimpor file.");
+      let periodInfo = 'Semua Data';
+      if (dateRangeFilter.start && dateRangeFilter.end) {
+        filteredData = filteredData.filter(record => {
+          return record && record.tanggal >= dateRangeFilter.start && record.tanggal <= dateRangeFilter.end;
+        });
+        periodInfo = `${new Date(dateRangeFilter.start).toLocaleDateString('id-ID')} - ${new Date(dateRangeFilter.end).toLocaleDateString('id-ID')}`;
+      } else if (filterBulan) {
+        filteredData = filteredData.filter(record => {
+          return record && record.tanggal && record.tanggal.split('-')[1] === filterBulan;
+        });
+        const monthNames = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+        periodInfo = `${monthNames[parseInt(filterBulan) - 1]} ${new Date().getFullYear()}`;
       }
       
-      if (importBtn) { importBtn.disabled = false; importBtn.innerHTML = '<i class="fas fa-file-import mr-2"></i>Import Excel'; }
-      e.target.value = '';
-      isLoading = false;
-    }
-
-    async function importTeachersData(data) {
-      if (masterTeachers.length + data.length > 999) {
-        showCustomAlert(`Tidak dapat mengimpor ${data.length} guru. Maksimum 999.`);
+      filteredData.sort((a, b) => {
+        if (!a || !b) return 0;
+        return new Date(b.tanggal) - new Date(a.tanggal);
+      });
+      
+      // Group by date
+      const groupedByDate = {};
+      filteredData.forEach(record => {
+        if (!record || !record.tanggal) return;
+        if (!groupedByDate[record.tanggal]) {
+          groupedByDate[record.tanggal] = [];
+        }
+        groupedByDate[record.tanggal].push(record);
+      });
+      
+      const printWindow = window.open('', '_blank', 'width=1200,height=800');
+      if (!printWindow) {
+        showCustomAlert("Popup diblokir. Izinkan popup untuk mencetak.");
         return;
       }
       
-      let successCount = 0;
-      for (const row of data) {
-        const induk = row[0]?.trim();
-        const nama = row[1]?.trim();
-        const mapel = row[2]?.trim();
-        const mapelTambahan = row[3]?.trim() || '';
-        if (!induk || !nama || !mapel) continue;
-        
-        masterTeachers.push({
-          id: generateId(),
-          induk: induk,
-          nama: nama,
-          mapel: mapel,
-          mapel_tambahan: mapelTambahan,
-          timestamp: Date.now()
-        });
-        successCount++;
-      }
+      let printContent = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <meta charset="UTF-8">
+          <title>Rincian Data Rekap - ${schoolName}</title>
+          <style>
+            body { font-family: Arial, sans-serif; margin: 20px; font-size: 12px; }
+            .print-header { text-align: center; margin-bottom: 20px; border-bottom: 2px solid #667eea; padding-bottom: 15px; }
+            .logo { font-size: 40px; }
+            .school-name { font-size: 20px; font-weight: bold; color: #667eea; }
+            .address { font-size: 11px; color: #666; }
+            .title { font-size: 16px; font-weight: bold; text-align: center; margin: 15px 0 5px 0; }
+            .period { text-align: center; font-size: 12px; color: #666; margin-bottom: 15px; }
+            .date-group { margin-top: 15px; }
+            .date-header { background: #e0e7ff; padding: 6px 10px; font-weight: bold; border-radius: 4px; margin-bottom: 5px; }
+            table { width: 100%; border-collapse: collapse; margin: 5px 0 15px 0; font-size: 11px; }
+            th { background: #667eea; color: white; padding: 6px; border: 1px solid #ddd; text-align: left; }
+            td { padding: 5px; border: 1px solid #ddd; }
+            .text-center { text-align: center; }
+            .signature { margin-top: 40px; text-align: right; }
+            .signature-line { margin-top: 50px; padding-right: 40px; }
+            .signature-name { font-weight: bold; margin-top: 5px; }
+            .footer { margin-top: 20px; font-size: 9px; color: #666; text-align: center; border-top: 1px solid #ddd; padding-top: 8px; }
+            .status-hadir { background: #10b981; color: white; padding: 2px 8px; border-radius: 12px; font-weight: bold; }
+            .status-izin { background: #f59e0b; color: white; padding: 2px 8px; border-radius: 12px; font-weight: bold; }
+            .status-sakit { background: #ef4444; color: white; padding: 2px 8px; border-radius: 12px; font-weight: bold; }
+            .status-absen { background: #6b7280; color: white; padding: 2px 8px; border-radius: 12px; font-weight: bold; }
+          </style>
+        </head>
+        <body>
+          <div class="print-header">
+            <div class="logo">${logo}</div>
+            <div class="school-name">${schoolName}</div>
+            <div class="address">${address}, ${city}</div>
+          </div>
+          <div class="title">RINCIAN DATA REKAP ABSENSI GURU</div>
+          <div class="period">Periode: ${periodInfo}</div>
+      `;
       
-      await callAPI('saveTeachers', masterTeachers);
-      renderTeacherTable();
-      renderGuruManagementTable();
-      updateGuruStatistics();
-      updateGuruSelect();
-      updateGuruSelectMulti();
-      showCustomAlert(`Berhasil mengimpor ${successCount} guru.`);
+      // Summary statistics
+      const totalHadir = filteredData.filter(r => r.status === 'hadir').length;
+      const totalIzin = filteredData.filter(r => r.status === 'izin').length;
+      const totalSakit = filteredData.filter(r => r.status === 'sakit').length;
+      const totalAbsen = filteredData.filter(r => r.status === 'absen').length;
+      
+      printContent += `
+        <div style="margin: 10px 0; padding: 10px; background: #f8fafc; border-radius: 4px;">
+          <table style="width: 50%; margin: 0 auto;">
+            <tr>
+              <th colspan="2" class="text-center">RINGKASAN STATISTIK</th>
+            </tr>
+            <tr><td>Total Hadir</td><td class="text-center"><strong>${totalHadir}</strong></td></tr>
+            <tr><td>Total Izin</td><td class="text-center"><strong>${totalIzin}</strong></td></tr>
+            <tr><td>Total Sakit</td><td class="text-center"><strong>${totalSakit}</strong></td></tr>
+            <tr><td>Total Alpha</td><td class="text-center"><strong>${totalAbsen}</strong></td></tr>
+            <tr><td>Total Kehadiran</td><td class="text-center"><strong>${filteredData.length}</strong></td></tr>
+          </table>
+        </div>
+      `;
+      
+      // Detail per date
+      const sortedDates = Object.keys(groupedByDate).sort((a, b) => new Date(b) - new Date(a));
+      
+      sortedDates.forEach(date => {
+        const records = groupedByDate[date];
+        const dateObj = new Date(date);
+        const dayName = dateObj.toLocaleDateString('id-ID', { weekday: 'long' });
+        const formattedDate = dateObj.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+        
+        printContent += `
+          <div class="date-group">
+            <div class="date-header">📅 ${dayName}, ${formattedDate}</div>
+            <table>
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Nama Guru</th>
+                  <th>Mata Pelajaran</th>
+                  <th>Kelas</th>
+                  <th>Jam</th>
+                  <th class="text-center">Status</th>
+                  <th>Keterangan</th>
+                </tr>
+              </thead>
+              <tbody>
+        `;
+        
+        records.forEach((record, idx) => {
+          // Cari detail jadwal
+          const dayNameLower = getDayName(record.tanggal);
+          const schedule = scheduleRecords.find(s => s && s.teacher_id === record.teacher_id);
+          let kelas = '-';
+          let jam = '-';
+          let mapel = record.teacher_mapel || '';
+          
+          if (schedule) {
+            const detail = scheduleDetailRecords.find(d => 
+              d && d.schedule_id === schedule.id && d.hari === dayNameLower
+            );
+            if (detail) {
+              kelas = detail.kelas || '-';
+              jam = detail.jam ? `Jam ${detail.jam}` : '-';
+              mapel = detail.mapel || record.teacher_mapel || '';
+            }
+          }
+          
+          const statusClass = record.status === 'hadir' ? 'status-hadir' : 
+                            record.status === 'izin' ? 'status-izin' : 
+                            record.status === 'sakit' ? 'status-sakit' : 'status-absen';
+          
+          printContent += `
+            <tr>
+              <td>${idx + 1}</td>
+              <td>${record.teacher_nama || ''}</td>
+              <td>${mapel}</td>
+              <td>${kelas}</td>
+              <td>${jam}</td>
+              <td class="text-center"><span class="${statusClass}">${(record.status || '').toUpperCase()}</span></td>
+              <td>${record.keterangan || '-'}</td>
+            </tr>
+          `;
+        });
+        
+        printContent += `
+              </tbody>
+            </table>
+          </div>
+        `;
+      });
+      
+      printContent += `
+          <div class="signature">
+            <p>${city}, ${new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
+            <p>Kepala Sekolah,</p>
+            <div class="signature-line">
+              <p class="signature-name">Muhammad Saidi, S.E., M.M.</p>
+              <p>NIP. -</p>
+            </div>
+          </div>
+          <div class="footer">
+            Dicetak dari Sistem Absensi Digital ${schoolName}<br>
+            Dicetak pada: ${new Date().toLocaleString('id-ID')}
+          </div>
+        </body>
+        </html>
+      `;
+      
+      printWindow.document.write(printContent);
+      printWindow.document.close();
+      printWindow.focus();
     }
 
     // ============================================
-    // PRINT FUNCTIONS
+    // PRINT REPORT (REKAP)
     // ============================================
     function printReport() {
       const printWindow = window.open('', '_blank', 'width=1200,height=800');
-      if (!printWindow) { showCustomAlert("Popup diblokir. Izinkan popup untuk mencetak."); return; }
+      if (!printWindow) {
+        showCustomAlert("Popup diblokir. Izinkan popup untuk mencetak.");
+        return;
+      }
       
       const periodInfo = dateRangeFilter.start && dateRangeFilter.end 
         ? `${new Date(dateRangeFilter.start).toLocaleDateString('id-ID')} - ${new Date(dateRangeFilter.end).toLocaleDateString('id-ID')}`
         : 'Semua Data';
       
-      let filteredData = rekapDetailRecords;
+      let filteredData = (attendanceRecords || []).filter(record => record && record.status);
       if (dateRangeFilter.start && dateRangeFilter.end) {
-        filteredData = filteredData.filter(r => {
-          return r.tanggal >= dateRangeFilter.start && r.tanggal <= dateRangeFilter.end;
+        filteredData = filteredData.filter(record => {
+          return record && record.tanggal >= dateRangeFilter.start && record.tanggal <= dateRangeFilter.end;
         });
       }
       
@@ -2855,10 +3238,14 @@
         const teacherId = record.teacher_id;
         if (!teacherStats[teacherId]) {
           teacherStats[teacherId] = {
-            induk: record.teacher_induk || '',
-            nama: record.teacher_nama || '',
-            mapel: record.mapel || '',
-            hadir: 0, izin: 0, sakit: 0, absen: 0, total: 0
+            induk: record.teacher_induk,
+            nama: record.teacher_nama,
+            mapel: record.teacher_mapel,
+            hadir: 0,
+            izin: 0,
+            sakit: 0,
+            absen: 0,
+            total: 0
           };
         }
         teacherStats[teacherId].total++;
@@ -2876,24 +3263,26 @@
       let printContent = `
         <!DOCTYPE html>
         <html>
-        <head><meta charset="UTF-8"><title>Laporan Rekap Absensi - ${schoolName}</title>
-        <style>
-          body { font-family: Arial, sans-serif; margin: 30px; }
-          .header { text-align: center; margin-bottom: 30px; border-bottom: 2px solid #667eea; padding-bottom: 20px; }
-          .logo { font-size: 48px; }
-          .school-name { font-size: 24px; font-weight: bold; color: #667eea; }
-          .address { font-size: 12px; color: #666; }
-          .title { font-size: 18px; font-weight: bold; margin: 20px 0 10px 0; text-align: center; }
-          .period { font-size: 14px; color: #666; margin-bottom: 20px; text-align: center; }
-          table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 12px; }
-          th { background: #667eea; color: white; padding: 10px; border: 1px solid #ddd; }
-          td { padding: 8px; border: 1px solid #ddd; }
-          .text-center { text-align: center; }
-          .signature { margin-top: 50px; text-align: right; }
-          .signature-line { margin-top: 60px; padding-right: 50px; }
-          .signature-name { font-weight: bold; margin-top: 5px; }
-          .footer { margin-top: 30px; font-size: 10px; color: #666; text-align: center; border-top: 1px solid #ddd; padding-top: 10px; }
-        </style>
+        <head>
+          <meta charset="UTF-8">
+          <title>Laporan Rekap Absensi - ${schoolName}</title>
+          <style>
+            body { font-family: Arial, sans-serif; margin: 30px; }
+            .header { text-align: center; margin-bottom: 30px; border-bottom: 2px solid #667eea; padding-bottom: 20px; }
+            .logo { font-size: 48px; }
+            .school-name { font-size: 24px; font-weight: bold; color: #667eea; }
+            .address { font-size: 12px; color: #666; }
+            .title { font-size: 18px; font-weight: bold; margin: 20px 0 10px 0; text-align: center; }
+            .period { font-size: 14px; color: #666; margin-bottom: 20px; text-align: center; }
+            table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 12px; }
+            th { background: #667eea; color: white; padding: 10px; border: 1px solid #ddd; }
+            td { padding: 8px; border: 1px solid #ddd; }
+            .text-center { text-align: center; }
+            .signature { margin-top: 50px; text-align: right; }
+            .signature-line { margin-top: 60px; padding-right: 50px; }
+            .signature-name { font-weight: bold; margin-top: 5px; }
+            .footer { margin-top: 30px; font-size: 10px; color: #666; text-align: center; border-top: 1px solid #ddd; padding-top: 10px; }
+          </style>
         </head>
         <body>
           <div class="header">
@@ -2903,22 +3292,58 @@
           </div>
           <div class="title">LAPORAN REKAPITULASI KEHADIRAN GURU</div>
           <div class="period">Periode: ${periodInfo}</div>
+          
           <table>
-            <thead><tr><th>No</th><th>No. Induk</th><th>Nama Guru</th><th>Mata Pelajaran</th><th class="text-center">Hadir</th><th class="text-center">Izin</th><th class="text-center">Sakit</th><th class="text-center">Alpha</th><th class="text-center">Total</th><th class="text-center">Persentase</th></tr></thead>
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>No. Induk</th>
+                <th>Nama Guru</th>
+                <th>Mata Pelajaran</th>
+                <th class="text-center">Hadir</th>
+                <th class="text-center">Izin</th>
+                <th class="text-center">Sakit</th>
+                <th class="text-center">Alpha</th>
+                <th class="text-center">Total</th>
+                <th class="text-center">Persentase</th>
+              </tr>
+            </thead>
             <tbody>
               ${Object.values(teacherStats).map((teacher, index) => {
                 const persentase = teacher.total > 0 ? ((teacher.hadir / teacher.total) * 100).toFixed(1) : '0.0';
-                return `<tr><td>${index + 1}</td><td>${teacher.induk}</td><td>${teacher.nama}</td><td>${teacher.mapel}</td><td class="text-center">${teacher.hadir}</td><td class="text-center">${teacher.izin}</td><td class="text-center">${teacher.sakit}</td><td class="text-center">${teacher.absen}</td><td class="text-center"><strong>${teacher.total}</strong></td><td class="text-center"><strong>${persentase}%</strong></td></tr>`;
+                return `
+                  <tr>
+                    <td>${index + 1}</td>
+                    <td>${teacher.induk || ''}</td>
+                    <td>${teacher.nama || ''}</td>
+                    <td>${teacher.mapel || ''}</td>
+                    <td class="text-center">${teacher.hadir}</td>
+                    <td class="text-center">${teacher.izin}</td>
+                    <td class="text-center">${teacher.sakit}</td>
+                    <td class="text-center">${teacher.absen}</td>
+                    <td class="text-center"><strong>${teacher.total}</strong></td>
+                    <td class="text-center"><strong>${persentase}%</strong></td>
+                  </tr>
+                `;
               }).join('')}
             </tbody>
           </table>
+          
           <div class="signature">
             <p>${city}, ${new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
             <p>Kepala Sekolah,</p>
-            <div class="signature-line"><p class="signature-name">Muhammad Saidi, S.E., M.M.</p><p class="signature-title">NIP. - </p></div>
+            <div class="signature-line">
+              <p class="signature-name">Muhammad Saidi, S.E., M.M.</p>
+              <p>NIP. -</p>
+            </div>
           </div>
-          <div class="footer">Dicetak dari Sistem Absensi Digital ${schoolName}<br>Dicetak pada: ${new Date().toLocaleString('id-ID')}</div>
-        </body></html>
+          
+          <div class="footer">
+            Dicetak dari Sistem Absensi Digital ${schoolName}<br>
+            Dicetak pada: ${new Date().toLocaleString('id-ID')}
+          </div>
+        </body>
+        </html>
       `;
       
       printWindow.document.write(printContent);
@@ -2939,7 +3364,7 @@
                   <div class="w-16 h-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
                     <i class="fas fa-info-circle text-white text-2xl"></i>
                   </div>
-                  <p class="text-gray-600">${message}</p>
+                  <p class="text-gray-600 whitespace-pre-line">${message}</p>
                 </div>
                 <div class="flex justify-center">
                   <button id="customAlertOk" class="px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 font-semibold shadow-lg btn-modern">
@@ -2950,6 +3375,7 @@
             </div>
           </div>
         `;
+        
         document.body.insertAdjacentHTML('beforeend', modalHTML);
         document.getElementById('customAlertOk').addEventListener('click', () => {
           document.getElementById('customAlertModal').remove();
@@ -2983,6 +3409,7 @@
             </div>
           </div>
         `;
+        
         document.body.insertAdjacentHTML('beforeend', modalHTML);
         document.getElementById('customConfirmYes').addEventListener('click', () => {
           document.getElementById('customConfirmModal').remove();
@@ -3005,15 +3432,30 @@
       document.getElementById('pageGuru').classList.toggle('hidden', page !== 'guru');
       document.getElementById('pageRekap').classList.toggle('hidden', page !== 'rekap');
       
-      const navButtons = { absensi:'btnAbsensi', jadwal:'btnJadwal', guru:'btnGuru', rekap:'btnRekap' };
+      const navButtons = {
+        'absensi': 'btnAbsensi',
+        'jadwal': 'btnJadwal',
+        'guru': 'btnGuru',
+        'rekap': 'btnRekap'
+      };
+
       Object.keys(navButtons).forEach(key => {
         const btn = document.getElementById(navButtons[key]);
-        if (btn) btn.classList.toggle('active', page === key);
+        if (btn) {
+          btn.classList.toggle('active', page === key);
+        }
       });
 
-      if (page === 'rekap') { updateStatistics(); }
-      else if (page === 'jadwal') { updateGuruSelect(); updateGuruSelectMulti(); }
-      else if (page === 'guru') { renderGuruManagementTable(); updateGuruStatistics(); }
+      if (page === 'rekap') {
+        updateStatistics();
+        renderRekapTable();
+      } else if (page === 'jadwal') {
+        updateGuruSelect();
+        renderScheduleTable();
+      } else if (page === 'guru') {
+        renderGuruManagementTable();
+        updateGuruStatistics();
+      }
     }
 
     function sendAttendance() {
@@ -3050,17 +3492,17 @@
       document.getElementById('btnHapusSemuaGuru').addEventListener('click', deleteAllTeachers);
 
       document.getElementById('btnTambahJadwal').addEventListener('click', showAddScheduleModal);
-      document.getElementById('btnTambahJadwalMulti').addEventListener('click', showAddMultiScheduleModal);
-      document.getElementById('btnImportJadwal').addEventListener('click', () => document.getElementById('importJadwalExcel').click());
       document.getElementById('btnHapusSemuaJadwal').addEventListener('click', deleteAllSchedules);
       document.getElementById('btnBatalJadwal').addEventListener('click', hideAddScheduleModal);
       document.getElementById('addScheduleForm').addEventListener('submit', handleAddSchedule);
 
+      // Schedule Detail
       document.getElementById('btnBatalDetailJadwal').addEventListener('click', hideAddScheduleDetailModal);
       document.getElementById('addScheduleDetailForm').addEventListener('submit', handleAddScheduleDetail);
 
-      document.getElementById('btnBatalMultiJadwal').addEventListener('click', hideAddMultiScheduleModal);
-      document.getElementById('addMultiScheduleForm').addEventListener('submit', handleAddMultiSchedule);
+      // Import Schedule Excel
+      document.getElementById('btnImportSchedule').addEventListener('click', () => document.getElementById('importScheduleExcel').click());
+      document.getElementById('importScheduleExcel').addEventListener('change', handleImportScheduleExcel);
 
       document.getElementById('btnBatalTambah').addEventListener('click', hideAddTeacherModal);
       document.getElementById('addTeacherForm').addEventListener('submit', handleAddTeacher);
@@ -3069,7 +3511,6 @@
       document.getElementById('btnKonfirmasiHapus').addEventListener('click', confirmDelete);
 
       document.getElementById('importExcel').addEventListener('change', handleImportExcel);
-      document.getElementById('importJadwalExcel').addEventListener('change', handleImportJadwalExcel);
 
       document.getElementById('filterBulan').addEventListener('change', () => {
         renderRekapTable();
@@ -3077,14 +3518,12 @@
       });
 
       document.getElementById('btnCetak').addEventListener('click', printReport);
-      document.getElementById('btnRincianRekap').addEventListener('click', showRekapDetail);
+      document.getElementById('btnRincianRekap').addEventListener('click', printDetailedReport);
 
       document.getElementById('btnHapusSemuaKehadiran').addEventListener('click', deleteAllAttendanceRecords);
-      document.getElementById('btnTutupRekapDetail').addEventListener('click', () => {
-        document.getElementById('rekapDetailModal').classList.add('hidden');
-      });
 
       document.getElementById('logoUpload').addEventListener('change', handleLogoUpload);
+
       document.getElementById('btnTambahKelas').addEventListener('click', tambahKelas);
       document.getElementById('inputKelasBaru').addEventListener('keypress', (e) => {
         if (e.key === 'Enter') tambahKelas();
@@ -3097,18 +3536,23 @@
     async function initApp() {
       try {
         document.getElementById('loadingStatus').textContent = 'Menghubungkan ke Google Spreadsheet...';
+        
         try {
           const testResult = await callAPI('testConnection');
           console.log('✅ Test connection:', testResult);
         } catch (e) {
-          console.warn('Test connection failed:', e);
+          console.warn('Test connection failed, but continuing:', e);
         }
+        
         await loadAllData();
+        
         updateDateDisplay();
         document.getElementById('inputTanggal').value = currentDate;
+        
         initializeDateRangeFilter();
         setupEventListeners();
         showPage('absensi');
+        
       } catch (error) {
         console.error("Error initializing app:", error);
         document.getElementById('loadingStatus').textContent = 'Error: ' + error.message;
@@ -3116,24 +3560,26 @@
       }
     }
 
-    // Global functions
+    // Make functions available globally
     window.goToDay = goToDay;
     window.updateTeacherMapel = updateTeacherMapel;
     window.updateAttendanceStatus = updateAttendanceStatus;
     window.updateAttendanceKeterangan = updateAttendanceKeterangan;
     window.deleteTeacher = deleteTeacher;
     window.deleteSchedule = deleteSchedule;
-    window.deleteScheduleDetail = deleteScheduleDetail;
     window.updateTeacherInduk = updateTeacherInduk;
     window.updateTeacherNama = updateTeacherNama;
     window.updateTeacherMapelTambahan = updateTeacherMapelTambahan;
     window.deleteAllTeachers = deleteAllTeachers;
     window.deleteAllSchedules = deleteAllSchedules;
     window.showAddScheduleDetail = showAddScheduleDetail;
+    window.deleteScheduleDetail = deleteScheduleDetail;
     window.hapusKelas = hapusKelas;
     window.tambahKelas = tambahKelas;
-    window.showRekapDetail = showRekapDetail;
+    window.printDetailedReport = printDetailedReport;
+    window.printReport = printReport;
 
+    // Start app
     document.addEventListener('DOMContentLoaded', initApp);
   </script>
 </body>
